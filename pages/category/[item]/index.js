@@ -11,7 +11,7 @@ function EventPage({name,about}){
         about.map((terms)=>{
           return(
             <>
-            <Link href={`/category/${name}/${terms.id}`}> {terms.id} --- {terms.title}</Link>
+            <Link href={`/category/${name}/${terms.id}`} className={styles.internallink}> {terms.id} --- {terms.title}</Link>
             <hr />
             </>
           )

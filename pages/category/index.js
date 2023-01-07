@@ -9,7 +9,7 @@ function categoryPage({value}){
         {value.map((ind) => {
           return (
             <>
-            <Link href={`/category/${ind.cattitle}`}>{ind.catid}, {ind.cattitle}</Link>
+            <Link href={`/category/${ind.cattitle}`} className={styles.internallink}>{ind.catid}, {ind.cattitle}</Link>
             <hr />
             </>
           )
