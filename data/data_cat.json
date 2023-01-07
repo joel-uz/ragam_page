@@ -1,0 +1,8 @@
+{
+    "categories":[
+    {"catid":1,"cattitle":"workshops"},
+    {"catid":2,"cattitle":"events"},
+    {"catid":3,"cattitle":"proshows"},
+    {"catid":4,"cattitle":"competitions"}
+    ]
+}
