@@ -1,17 +1,24 @@
 import { useRouter } from 'next/router'
-import styles from '../../../styles/Home.module.css'
+import styles from '../../../styles/category.module.css'
+import styles_chg from '../../../styles/eachevent.module.css'
 import data from '../../../data/data.json'
+import { Card } from 'antd'
 
 function IndEventPage({req_data, name}){
     const route = useRouter()
     const back_to = () =>{
         route.replace(`/category/${name}`)
     }
+    const { Meta } = Card;
     return <div className={styles.main_layout}>
-      <div className={styles.Body_page}>
-        <h1>{req_data.title}</h1>
-        <h3>{req_data.desc}</h3>
-        <button onClick={back_to}>GO BACK</button>
+      <div className={styles_chg.indvidual}>
+        <Card hoverable style={{
+        width: 240,
+        }}
+        >
+        <Meta title= {req_data.title} description={req_data.desc} />
+        </Card>
+        <button onClick={back_to} className={styles_chg.button}>GO BACK</button>
       </div>
     </div>
   }
@@ -31,7 +38,6 @@ export async function getStaticPaths(){
             )
         })}
     }
-    console.log(path)
     return {
         paths:path,
         fallback:false
@@ -42,7 +48,6 @@ export async function getStaticProps(context){
     const {params} = context
     const event_num = params.eventid
     const name = params.item
-    console.log(event_num,name) 
 
     const ref_data = data[`${name}`]
     const val = ref_data.find((specific) => specific.id.toString() === event_num.toString())

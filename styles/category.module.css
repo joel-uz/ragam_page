@@ -1,0 +1,51 @@
+.main_layout{
+    padding: 5% 5%;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    max-width: 100%;
+    flex-direction: column;
+    background-color: rgba(97, 80, 80, 0.507);
+  }
+
+  .Body_page{
+    padding: 3% 10%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+.title{
+    font-size: 180%;
+    text-align: center;
+}
+
+.internallink{
+    color: rgb(15, 135, 247);
+    text-decoration: none;
+    transition: font-size,color 1s ease-in-out;
+}
+.internallink:hover{
+    color: rgb(16, 93, 182);
+    font-size: 3.3vh;
+}
+
+.site_card_catergorypage{
+    width: fit-content;
+    padding: 2%;
+}
+
+.site_card_eventpage{
+    width: fit-content;
+    padding: 1% 3%;
+}
+
+.event_page{
+    padding: 3% 0%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
