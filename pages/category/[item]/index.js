@@ -4,7 +4,7 @@ import data from '../../../data/data.json'
 import { Card } from 'antd'
 
 function EventPage({name,about}){
-
+  
   return <div className={styles.main_layout}>
     <h1 className={styles.title}>{name}</h1>
     <div className={styles.event_page}>
