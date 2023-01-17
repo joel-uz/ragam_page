@@ -2,34 +2,47 @@ import styles from '../../../styles/category.module.css'
 import Link from 'next/link'
 import data from '../../../data/data.json'
 import { Card } from 'antd'
+import { fetchData } from '../../../components/fetchdata'
+import useSWR from 'swr'
 
-function EventPage({name,about}){
-  
-  return <div className={styles.main_layout}>
-    <h1 className={styles.title}>{name}</h1>
-    <div className={styles.event_page}>
-      {
-        about.map((terms)=>{
-          return(
-            <>
-            <div className={styles.site_card_eventpage}>
-              <Card hoverable
-              title={terms.id}
+
+function EventPage({name}){
+
+  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/${name}`, fetchData)
+  var name_cat =''
+
+  if(name === 'competitions') {name_cat = 'title'}else{name_cat = 'name'}
+
+  if (data === undefined){
+    return (<>
+    {isLoading && <p>loading</p>}
+    {error && JSON.stringify(error)}</>)
+  }
+  else{
+    const ref = data.data
+    return <div className={styles.main_layout}>
+    {data && <div>
+      <h1 className={styles.title}>{name}</h1>
+      {ref.map((each) =>{
+        return(
+          <div className={styles.site_card_eventpage} key={each.id}>
+            <Card hoverable
+              title={each.id}
               bordered={true}
               style={{
-                width: 300,
-              }}
-              >
-                 <Link href={`/category/${name}/${terms.id}`} className={styles.internallink}> {terms.title}</Link>
-              </Card>
-            </div>
-            </>
-          )
-        })
-      }
+                  width: 300,
+                }}
+            >
+            <Link href={`/category/${name}/${each.id}`} className={styles.internallink}> {each.attributes[`${name_cat}`]}</Link>
+          </Card>
+          </div>
+        )
+      })}
+    </div>}
     </div>
-  </div>
   }
+  
+}
   
 export default EventPage
 
@@ -54,7 +67,6 @@ export async function getStaticPaths(){
     return {
       props:{
         name:item,
-        about:refined,
       }
     }
   }
