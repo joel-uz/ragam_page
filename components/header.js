@@ -69,13 +69,13 @@ function Header() {
               toggleButton()
               }}>Events</span>
             </Link>
-            <Link href="/categroy/workshops" className={styles['nav-link-mobile-links']}>
+            <Link href="/category/workshops" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Workshops</span>
             </Link>
-            <Link href="/categroy/competitions" className={styles['nav-link-mobile-links']} >
+            <Link href="/category/competitions" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
