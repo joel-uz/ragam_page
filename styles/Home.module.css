@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
+
 .main_layout{
   display: flex;
   justify-content: center;
@@ -5,13 +7,12 @@
   max-width: 100%;
   flex-direction: column;
 }
-.hello{
-  padding: 200px;
-  text-align: center;
+.top{
+  margin-top: 10%;
 }
-.layout_footer{
+.hello{
   text-align: center;
-  background-color: hwb(199 4% 6%);
-  padding: 2.5vh 1.5vh;
+  font-family: Sofia Sans;
+  font-size: 32px;
 }
 

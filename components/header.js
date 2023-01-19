@@ -21,19 +21,20 @@ function Header() {
           <span className={styles["nav-logo"]}><Image src={image} className={styles.logo}/></span>
         </Link>
         <div className={styles["nav-menu"]}>
-        <Link href="/">
-            <span className={styles["nav-link"]}>Home</span>
-        </Link>
-        <Link href="/category">
-            <span className={styles["nav-link"]}>Categories</span>
+          <Link href="/">
+              <span className={styles["nav-link"]}>Home</span>
+          </Link>
+          <Link href="/category/competitions">
+              <span className={styles["nav-link"]}>Competitions</span>
           </Link>
           <Link href="/category/workshops">
-            <span className={styles["nav-link"]}>Workshops</span>
+              <span className={styles["nav-link"]}>Workshops</span>
           </Link>
           <Link href="/category/events">
-            <span className={styles["nav-link"]}>Events</span>
+              <span className={styles["nav-link"]}>Events</span>
           </Link>
         </div>
+        <button className={styles.button}>Sign In</button>
         <div className={styles["flex-row"]}>
           <div className={styles["hamburger"]}>
             {toggle ? (
@@ -69,7 +70,7 @@ function Header() {
               toggleButton()
               }}>Events</span>
             </Link>
-            <Link href="/categroy/workshops" className={styles['nav-link-mobile-links']}>
+            <Link href="/category/workshops" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
@@ -81,7 +82,6 @@ function Header() {
               toggleButton()
               }}>Competitions</span>
             </Link>
-           
           </div>
         </div>
       )}

@@ -1,21 +1,7 @@
 {
-    "workshops":[
-        {"id":1, "title":"Workshop1", "desc":"data for workshop1"},
-        {"id":2, "title":"Workshop2", "desc":"data for workshop2"},
-        {"id":3, "title":"Workshop3", "desc":"data for workshop3"}
-    ],
-    "events":[
-        {"id":1, "title":"Event1", "desc":"data for Event1"},
-        {"id":2, "title":"Event2", "desc":"data for Event2"},
-        {"id":3, "title":"Event3", "desc":"data for Event3"}
-    ],
-    "proshows":[
-        {"id":1, "title":"Prowshow1", "desc":"data for Proshow1"},
-        {"id":2, "title":"Proshow2", "desc":"data for Proshow2"}
-    ],
-    "competitions":[
-        {"id":1, "title":"Competiton1", "desc":"data for Competiton1"},
-        {"id":2, "title":"Competition2", "desc":"data for Competition2"}
-    ]
-    
+    "workshops":[{"id":1,"title":"dancing"},
+                {"id":2,"title":"fetching"}],
+    "events":[],
+    "competitions":[],
+    "proshows":[]
 }

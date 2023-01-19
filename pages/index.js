@@ -2,8 +2,10 @@ import styles from "../styles/Home.module.css"
 
 function Home() {
   return(
-    <div>
-    <h1 className={styles.hello}>HELLO WORLD</h1>
+    <div className={styles.top}>
+      <h1 className={styles.hello}>Here &apos;s our Most Awaiting Fest</h1>
+      <br/>
+      <h1 className={styles.hello}>RAGAM &apos;23</h1>
     </div>
   )
 }

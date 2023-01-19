@@ -1,9 +1,10 @@
 import styles from '../../../styles/category.module.css'
 import Link from 'next/link'
-import data from '../../../data/data.json'
 import { Card } from 'antd'
 import { fetchData } from '../../../components/fetchdata'
 import useSWR from 'swr'
+import Image from 'next/image'
+import coverImage from '../../../public/coverimg.jpg'
 
 
 function EventPage({name}){
@@ -26,15 +27,19 @@ function EventPage({name}){
       {ref.map((each) =>{
         return(
           <div className={styles.site_card_eventpage} key={each.id}>
+          <Link href={`/category/${name}/${each.id}`} className={styles.internallink}>
             <Card hoverable
-              title={each.id}
-              bordered={true}
+              title={each.attributes[`${name_cat}`]}
+              bordered={false}
               style={{
                   width: 300,
                 }}
+              cover={<Image alt="example" src={coverImage} layout='responsive' width='300' height='230' />}
+              className={styles.card}
             >
-            <Link href={`/category/${name}/${each.id}`} className={styles.internallink}> {each.attributes[`${name_cat}`]}</Link>
-          </Card>
+              <p className={styles.desc}>{each.attributes['description']}</p>
+            </Card>
+          </Link>
           </div>
         )
       })}
@@ -61,8 +66,6 @@ export async function getStaticPaths(){
   export async function getStaticProps(context){
     const {params} = context
     const {item} = params
-    const logged_data = data
-    const refined = logged_data[`${item}`]
 
     return {
       props:{
