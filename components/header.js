@@ -18,7 +18,7 @@ function Header() {
     <header className={styles["header"]}>
       <nav className={styles["navbar"]}>
         <Link href="/">
-          <span className={styles["nav-logo"]}><Image src={image} className={styles.logo}/></span>
+          <span className={styles["nav-logo"]}><Image src={image} className={styles.logo} alt="example"/></span>
         </Link>
         <div className={styles["nav-menu"]}>
           <Link href="/">
