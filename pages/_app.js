@@ -9,7 +9,11 @@ export default function App({ Component, pageProps }) {
     <Head>
       <title>RAGAM &apos; 23</title>
       <meta name='description' content='About Ragam' />
+<<<<<<< HEAD
       <link rel="shortcut icon" href="/ragam.ico" />
+=======
+      <link rel="shortcut icon" href="../ragam.ico" />
+>>>>>>> 72e8464ace772db6be20847301712572f5c9614e
     </Head>
     <Header/>
     <br/>
