@@ -24,13 +24,13 @@ function Header() {
           <Link href="/">
               <span className={styles["nav-link"]}>Home</span>
           </Link>
-          <Link href="/category/competitions">
+          <Link href="/competitions">
               <span className={styles["nav-link"]}>Competitions</span>
           </Link>
-          <Link href="/category/workshops">
+          <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          <Link href="/category/events">
+          <Link href="/events">
               <span className={styles["nav-link"]}>Events</span>
           </Link>
         </div>
@@ -64,19 +64,19 @@ function Header() {
               toggleButton()
               }}>Home</span>
             </Link>
-            <Link href="/category/events" className={styles['nav-link-mobile-links']}>
+            <Link href="/events" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Events</span>
             </Link>
-            <Link href="/category/workshops" className={styles['nav-link-mobile-links']}>
+            <Link href="/workshops" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Workshops</span>
             </Link>
-            <Link href="/category/competitions" className={styles['nav-link-mobile-links']} >
+            <Link href="/competitions" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
