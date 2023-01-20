@@ -20,7 +20,7 @@ function IndEventPage({data}){
         fontSize:15,
         }}
         >
-        <Meta title= {data.attributes.name} description={data.attributes.description} />
+        <Meta title= {data.attributes.title} description={data.attributes.description} />
         </Card>
         <div className={Individual_style.right_side}>
             <Image alt="example" src={coverImage} layout='responsive' width='300' height='230' className={Individual_style.coverimg} />
