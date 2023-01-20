@@ -33,6 +33,12 @@ function Header() {
           <Link href="/events">
               <span className={styles["nav-link"]}>Events</span>
           </Link>
+          <Link href="/faqs">
+              <span className={styles["nav-link"]}>FAQs</span>
+          </Link>
+          <Link href="/contacts">
+              <span className={styles["nav-link"]}>Contacts</span>
+          </Link>
         </div>
         <button className={styles.button}>Sign In</button>
         <div className={styles["flex-row"]}>
@@ -81,6 +87,18 @@ function Header() {
               onClick={()=>{
               toggleButton()
               }}>Competitions</span>
+            </Link>
+            <Link href="/faqs" className={styles['nav-link-mobile-links']} >
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              toggleButton()
+              }}>FAQs</span>
+            </Link>
+            <Link href="/contacts" className={styles['nav-link-mobile-links']} >
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              toggleButton()
+              }}>Contact Us</span>
             </Link>
           </div>
         </div>

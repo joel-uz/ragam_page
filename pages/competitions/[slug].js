@@ -10,7 +10,7 @@ import Link from 'next/link'
 function IndEventPage({data}){
     const route = useRouter()
     const back_to = () =>{
-        route.replace(`/events`)
+        route.replace(`/competitions`)
     }
     const { Meta } = Card;
     return <div className={styles.page_layout}>
@@ -23,9 +23,9 @@ function IndEventPage({data}){
         <Meta title= {data.attributes.name} description={data.attributes.description} />
         </Card>
         <div className={Individual_style.right_side}>
-            <Image alt="example" src={coverImage} layout='responsive' width='300' height='230' />
+            <Image alt="example" src={coverImage} layout='responsive' width='300' height='230' className={Individual_style.coverimg} />
             <div className={Individual_style.buttons}>
-                <span className={Individual_style.guidelines}><Link href={'/'}>Guidelines for the event--</Link></span>
+                <span className={Individual_style.guidelines}><Link href={'/'}>Guidelines for the competition--</Link></span>
                 <button className={Individual_style.register}>REGISTER</button>
             </div>
         </div>
@@ -39,7 +39,7 @@ function IndEventPage({data}){
 export default IndEventPage
 
 export async function getStaticPaths(){
-    const { meta } = await fetchData('https://api.staging.ragam.co.in/api/events')
+    const { meta } = await fetchData('https://api.staging.ragam.co.in/api/competitions')
 
     var path = []
 
@@ -58,7 +58,7 @@ export async function getStaticPaths(){
 export async function getStaticProps(context){
     const {params} = context
     const {slug} = params
-    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/events/${slug}`)
+    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/competitions/${slug}`)
 
     return {
         props:{

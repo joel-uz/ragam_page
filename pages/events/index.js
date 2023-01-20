@@ -23,9 +23,12 @@ function EventPage(){
       <h1 className={styles.title}>EVENTS</h1>
       <div className={styles.card_layout}>
         {ref.map((each) =>{
+          var tempDate = new Date(each.attributes['eventDate']);
+          var formattedDate = [tempDate.getDate(),tempDate.getMonth() + 1, tempDate.getFullYear()].join('/');
+
             return(
             <div className={styles.site_card_eventpage} key={each.id}>
-            <Link href={`/events/${each.attributes['slug']}`} className={styles.internallink}>
+            <Link href={`/events/${each.id}`} className={styles.internallink}>
                 <Card hoverable
                 bordered={false}
                 title={each.attributes['name']}
@@ -36,6 +39,7 @@ function EventPage(){
                 className={styles.card}
                 >
                 <p className={styles.desc}>{each.attributes['description']}</p>
+                <h3 className={styles.date}>{formattedDate}</h3>
                 </Card>
             </Link>
             </div>

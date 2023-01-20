@@ -20,15 +20,17 @@ function EventPage(){
     const ref = data.data
     return <div className={styles.page_layout}>
     {data && <div>
-      <h1 className={styles.title}>WORKSHOPS</h1>
+      <h1 className={styles.title}>COMPETITIONS</h1>
       <div className={styles.card_layout}>
       {ref.map((each) =>{
+        var tempDate = new Date(each.attributes['eventDate']);
+        var formattedDate = [tempDate.getDate(),tempDate.getMonth() + 1, tempDate.getFullYear()].join('/');
         return(
           <div className={styles.site_card_eventpage} key={each.id}>
-          <Link href={`/competitions/${each.attributes['slug']}`} className={styles.internallink}>
+          <Link href={`/competitions/${each.id}`} className={styles.internallink}>
             <Card hoverable
               bordered={false}
-              title={each.attributes['name']}
+              title={each.attributes['title']}
               style={{
                   width: 300,
                 }}
@@ -36,6 +38,7 @@ function EventPage(){
               className={styles.card}
             >
             <p className={styles.desc}>{each.attributes['description']}</p>
+            <h3 className={styles.date}>{formattedDate}</h3>
             </Card>
           </Link>
           </div>

@@ -25,7 +25,7 @@ function EventPage(){
       {ref.map((each) =>{
         return(
           <div className={styles.site_card_eventpage} key={each.id}>
-          <Link href={`/workshops/${each.attributes['slug']}`} className={styles.internallink}>
+          <Link href={`/workshops/${each.id}`} className={styles.internallink}>
             <Card hoverable
               bordered={false}
               title={each.attributes['name']}
@@ -36,6 +36,7 @@ function EventPage(){
               className={styles.card}
             >
             <p className={styles.desc}>{each.attributes['description']}</p>
+            <h3 className={styles.date}>{each.attributes['eventDate1']} - {each.attributes['eventDate2']}</h3>
             </Card>
           </Link>
           </div>
