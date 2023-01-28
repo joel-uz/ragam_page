@@ -7,7 +7,7 @@ import { fetchData } from '../../components/fetchdata'
 import coverImage from '../../public/coverimg.jpg'
 import Link from 'next/link'
 import { useContext, useState } from "react";
-import { LoginContext } from "../../contexts/logincontext";
+import { LoginContext } from "../../contexts/loginContext";
 
 function IndEventPage({data}){
     const route = useRouter()

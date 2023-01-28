@@ -7,7 +7,7 @@ import Image from "next/image"
 import image from "../public/ragamflame.svg"
 import { Button, Space, Modal} from 'antd';
 import { useContext } from "react";
-import { LoginContext } from "../contexts/logincontext";
+import { LoginContext } from "../contexts/loginContext";
 import { useRouter } from "next/router";
 
 function Header() {
