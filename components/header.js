@@ -1,17 +1,34 @@
 import styles from "../styles/front.module.css"
 import { useState } from "react";
 import Link from "next/link";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu} from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image"
 import image from "../public/ragamflame.svg"
+import { Button, Space, Modal} from 'antd';
+import { useContext } from "react";
+import { LoginContext } from "../contexts/logincontext";
+import { useRouter } from "next/router";
 
 function Header() {
   const [toggle, setToggle] = useState(false);
+  const {signInclicked, usercode, signin, setSignin, setToken,setMail,setUsername,} = useContext(LoginContext);
+
+  const router = useRouter()
 
   const toggleButton = () => {
     setToggle(!toggle);
   };
+
+
+  const check = async () => {
+    router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+  }
+
+  const take = () => {
+    router.push('/loginpage')
+  }
+
 
   return (
     <>
@@ -40,7 +57,19 @@ function Header() {
               <span className={styles["nav-link"]}>Contacts</span>
           </Link>
         </div>
-        <button className={styles.button}>Sign In</button>
+        <Space className={styles.button}>
+          {!signInclicked? (<Button type="primary" block 
+          style={{background: "white", borderColor: "orange", color:"black"}} 
+          ghost onClick={()=>{
+            check();
+            }}>Sign In
+          </Button>) : (<Button type="primary" block 
+          style={{background: "white", borderColor: "orange", color:"black"}} 
+          ghost onClick={()=>{
+            take();
+            }}>Profile
+          </Button>)}
+        </Space>
         <div className={styles["flex-row"]}>
           <div className={styles["hamburger"]}>
             {toggle ? (
