@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }) {
   const [token, setToken] = useState("");
   const [signInclicked, setSignInclicked] = useState(false);
 
-  
   return <div className={styles.main_layout}>
     <LoginContext.Provider value={{username, setUsername, setProfile, profile,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
