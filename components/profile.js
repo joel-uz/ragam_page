@@ -1,6 +1,6 @@
 import { Button, Form, Input, Select } from 'antd';
 import { useContext } from "react";
-import { LoginContext } from "../contexts/logiContext";
+import { LoginContext } from "../contexts/loginContext";
 
 const { Option } = Select;
 

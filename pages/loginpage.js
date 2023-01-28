@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css"
 import ShowProfile from "../components/profile"
-import {LoginContext} from "../contexts/logincontext"
+import {LoginContext} from "../contexts/loginContext"
 import { useRouter } from "next/router";
 import { useContext, useEffect} from "react";
 

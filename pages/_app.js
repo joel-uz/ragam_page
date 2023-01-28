@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import styles from "../styles/Home.module.css"
 import Head from "next/head";
 import { useState } from "react";
-import {LoginContext} from "../contexts/logincContext"
+import {LoginContext} from "../contexts/loginContext"
 
 export default function App({ Component, pageProps }) {
   
