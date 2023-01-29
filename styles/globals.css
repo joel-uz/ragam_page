@@ -5,7 +5,7 @@
       'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
       'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 }
-  
+  /* Dark : 04080F, 2049E3, EEEEEE, E1A975, FF4141 */
   * {
     box-sizing: border-box;
     padding: 0;
@@ -19,8 +19,8 @@
   }
   
   body {
-    background: rgb(212,233,233);
-    background: linear-gradient(0deg, rgba(212,233,233,0.938813025210084) 15%, rgba(253,45,94,1) 75%);
+    background: #04080F;
+    color: #eeeeee;
   }
   
   a {
@@ -28,4 +28,6 @@
     text-decoration: none;
   }
   
-  
+  label{
+    color: #eeeeee;
+  }

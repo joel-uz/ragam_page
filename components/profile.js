@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from 'antd';
 import { useContext, useEffect } from "react";
 import { LoginContext } from "../contexts/loginContext";
-
+import styles from "../styles/profile.module.css"
 const { Option } = Select;
 
 const layout = {
@@ -90,180 +90,166 @@ const ShowProfile = () => {
     
   };
 
-  if (ready){
-    return (
-      <Form
-        {...layout}
-        form={form}
-        name="control-hooks"
-        onFinish={onFinish}
-        style={{
-          maxWidth: 600,
-        }}
+
+  return (
+    <Form
+      {...layout}
+      form={form}
+      name="control-hooks"
+      onFinish={onFinish}
+      style={{
+        maxWidth: 600,
+      }}
+    >
+      <Form.Item
+        label={<label className={`${styles.label}`}>Name: </label>}
+        name="Name"
+        initialValue={username}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
-        <Form.Item
-          name="Name"
-          label="Name"
-          initialValue={username}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+        <Input type={'text'}
+    placeholder="Name"
+    defaultValue={username}
+    onChange={(event) =>{
+        setUsername(event.target.value)
+    }}/>
+      </Form.Item>
+      <Form.Item
+        name="Mail"
+        label={<label className={`${styles.label}`}>Email: </label>}
+        initialValue={mail}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input type={'text'}
+    placeholder="Mail"
+    defaultValue={mail}
+    onChange={(event) =>{
+        setMail(event.target.value)
+    }}/>
+      </Form.Item>
+
+      <Form.Item
+        name="Phone"
+        label={<label className={`${styles.label}`}>Phone: </label>}
+        initialValue={phone}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input type={'text'}
+    placeholder="Phone"
+    onChange={(event) =>{
+        setPhone(event.target.value)
+    }}/>
+      </Form.Item>
+
+      <Form.Item
+        name="gender"
+        label={<label className={`${styles.label}`}>Gender: </label>}
+        initialValue={gender}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          allowClear
+          onChange={(event) =>{
+            setGender(event)
+        }}
         >
-          <Input type={'text'}
-      placeholder="Name"
-      defaultValue={username}
-      onChange={(event) =>{
-          setUsername(event.target.value)
-      }}/>
-        </Form.Item>
-        <Form.Item
-          name="Mail"
-          label="Mail"
-          initialValue={mail}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="Mail"
-      defaultValue={mail}
-      onChange={(event) =>{
-          setMail(event.target.value)
-      }}/>
-        </Form.Item>
-  
-        <Form.Item
-          name="Phone"
-          label="Phone Nmuber"
-          initialValue={phone}
-          rules={[
-            {
-              required: true,
-              len:10,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="Phone"
-      onChange={(event) =>{
-          setPhone(event.target.value)
-      }}/>
-        </Form.Item>
-  
-        <Form.Item
-          name="gender"
-          label="Gender"
-          initialValue={gender}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-            onChange={(event) =>{
-              setGender(event)
-          }}
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">Other</Option>
-          </Select>
-        </Form.Item>
-  
-        <Form.Item
-          name="College"
-          label="College"
-          initialValue={college}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="College"
-      onChange={(event) =>{
-          setCollege(event.target.value)
-      }}/>
-        </Form.Item>
+          <Option value="male">Male</Option>
+          <Option value="female">Female</Option>
+          <Option value="other">Other</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="College"
+        label={<label className={`${styles.label}`}>College: </label>}
+        initialValue={college}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input type={'text'}
+    placeholder="College"
+    onChange={(event) =>{
+        setCollege(event.target.value)
+    }}/>
+      </Form.Item>
+
+    <Form.Item
+        name="Studying year"
+        label={<label className={`${styles.label}`}>Year of study: </label>}
+        initialValue={year}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+    > 
+    <Input type={'text'}
+    placeholder="Year"
+    onChange={(event) =>{
+        setYear(event.target.value)
+    }}/>
+    </Form.Item>
+
+    
+      <Form.Item
+        name="State"
+        label={<label className={`${styles.label}`}>State: </label>}
+        initialValue={state}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input type={'text'}
+    placeholder="state"
+    onChange={(event) =>{
+        setState(event.target.value)
+    }}/>
+      </Form.Item>
+
+      <Form.Item
+        name="District"
+        label={<label className={`${styles.label}`}>District: </label>}
+        initialValue={district}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+
   
       <Form.Item
-          name="Studying year"
-          label="Year of study :"
-          initialValue={year}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-      > 
-      <Input type={'text'}
-      placeholder="Year"
-      onChange={(event) =>{
-          setYear(event.target.value)
-      }}/>
-      </Form.Item>
-  
-      
-        <Form.Item
-          name="State"
-          label="State"
-          initialValue={state}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="state"
-      onChange={(event) =>{
-          setState(event.target.value)
-      }}/>
-        </Form.Item>
-  
-        <Form.Item
-          name="District"
-          label="District"
-          initialValue={district}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="District"
-      onChange={(event) =>{
-          setDistrict(event.target.value)
-      }}/>
-        </Form.Item>
-  
-        <Form.Item
-          name="Ref"
-          label="Referral Code"
-          initialValue={ref}
-          rules={[
-            {
-              required: false,
-            },
-          ]}
-        >
-          <Input type={'text'}
-      placeholder="Ref"
-      onChange={(event) =>{
-          setRef(event.target.value)
-      }}/>
-        </Form.Item>
+        name="Ref"
+        label={<label className={`${styles.label}`}>Referral code: </label>}
+        initialValue={ref}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      >
         
-  
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" style={{marginRight:'4px'}} onClick={onSubmit}>
             Submit

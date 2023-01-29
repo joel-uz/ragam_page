@@ -3,7 +3,7 @@
 @keyframes slide-in {
     from {
       height: 0px;
-      transform: translateY(-100%);
+      transform: translateY(-50%);
       opacity: 0;
     }
     to {
@@ -13,35 +13,29 @@
     }
   }
 
-.button{
-  background-color: white;
-  color: black;
-  transition-duration: 0.4s;
-  font-size: 18px;
-  font-family: Roboto Mono;
-}
-.button:hover {
-  box-shadow: 0 7px 7px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  background-color: pink;
-}
+
   .header {
-    background: #FFFFFF;
+    /* background: #1d1d1e; */
     position: fixed;
     top: 0px;
     z-index: 1;
     width: 100%;
-    margin-top: 16px;
-    margin-bottom: 20px;
+    padding-inline: 110px;
+    margin-top: 20px;
   }
   
   .navbar {
     display: flex;
-    justify-content: space-evenly;
+    border-radius: 20px;
+    justify-content: space-between;
     align-items: center;
     padding: 0.6rem 5rem;
-    color: white;
+    background-color: #1d1d1e;
+    padding-inline: 20px;
     z-index: 69;
-    box-shadow: 0px 0px 20px rgba(50, 50, 50, 0.75);
+  }
+  .color{
+    color: #eeeeee;
   }
   
   .bar {
@@ -67,7 +61,7 @@
   .nav-link {
     font-size: 1.15rem;
     font-weight: 200;
-    color: black;
+    color: eeeeee;
     transition: all 0.25s ease-in-out;
     padding: 0rem 1rem;
     font-family: Roboto Mono;
@@ -79,7 +73,7 @@
   
   .logo{
     width: fit-content;
-    height: 5.2vw;
+    height: 50px;
   }
   
   .nav-link-logo {
@@ -87,7 +81,7 @@
   }
   
   .flex-row {
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
   }
@@ -104,26 +98,41 @@
   .navbar-mobile {
     display: none;
   }
-  
-  @media (max-width: 1000px){
+  .below800{
+    display: none;
+    font-size: 25px;
+  }
+  @media (max-width: 800px){
+
+    .header{
+      padding-inline: 20px;
+    }
+    .logo{
+      height: 40px;
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    .above800{
+      display: none;
+    }
+    .below800{
+      display: block;
+    }
     .logo{
       font-size: 1.1rem;
     }
     .nav-link{
       font-size: 0.9rem;
     }
-  }
-  
-  @media only screen and (max-width: 800px) {
-    .navbar {
-      padding: 0.75rem 1.5rem;
+    .flex-row{
+      display: flex;
     }
     .nav-menu {
       position: fixed;
       left: -100%;
       top: 5rem;
       flex-direction: column;
-      background-color: #fff;
+      background-color: #101010;
       width: 100%;
       border-radius: 10px;
       text-align: center;
@@ -153,10 +162,12 @@
       padding: 1.5rem;
       justify-content: space-between;
       align-items: center;
-      background-color: white;
-      animation-name: slide-in;
-      animation-duration: 500ms;
+      background-color: #101010;
+      animation-name: slide-in ;
+      animation-duration: 300ms;
+      transition: all 300ms;
     }
+    .navbar-mobile
   
     .nav-menu-mobile {
       display: flex;
@@ -165,7 +176,7 @@
   
     .nav-link-mobile {
       font-size: 1.2rem;
-      color: black;
+      color: #eeeeee;
       margin-bottom: 15px;
       font-family: Roboto Mono;
       transition: color,font-size 300ms ease-in-out;
@@ -173,10 +184,11 @@
   
     .nav-link-mobile:hover {
       color: goldenrod;
-      font-size: 1.5rem;
+      /* font-size: 1.5rem; */
     }
     .nav-link-mobile-links{
         margin: 8px 0;
+        cursor: pointer;
     }
   }
 

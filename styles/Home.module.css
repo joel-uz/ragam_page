@@ -2,9 +2,10 @@
 
 .main_layout{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-content: space-between;
   max-width: 100%;
+  min-height: 100vh;
   flex-direction: column;
 }
 .top{

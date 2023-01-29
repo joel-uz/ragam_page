@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { GiHamburgerMenu} from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import  {AiOutlineUser} from 'react-icons/ai'
 import Image from "next/image"
 import image from "../public/ragamflame.svg"
 import { Button, Space, Modal} from 'antd';
@@ -12,7 +13,7 @@ import { useRouter } from "next/router";
 
 function Header() {
   const [toggle, setToggle] = useState(false);
-  const {signInclicked, usercode, signin, setSignin, setToken,setMail,setUsername,} = useContext(LoginContext);
+  const {signInclicked,logOut, usercode, signin, setSignin, setToken,setMail,setUsername,} = useContext(LoginContext);
 
   const router = useRouter()
 
@@ -20,6 +21,11 @@ function Header() {
     setToggle(!toggle);
   };
 
+  const logOutClick  = async ()  =>{
+    toggleButton()
+    await logOut()
+    router.push('/')
+  }
 
   const check = async () => {
     router.push(`https://api.staging.ragam.co.in/api/connect/google`)
@@ -41,46 +47,42 @@ function Header() {
           <Link href="/">
               <span className={styles["nav-link"]}>Home</span>
           </Link>
-          <Link href="/competitions">
+          {/* <Link href="/competitions">
               <span className={styles["nav-link"]}>Competitions</span>
-          </Link>
+          </Link> */}
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          <Link href="/events">
+          {/* <Link href="/events">
               <span className={styles["nav-link"]}>Events</span>
           </Link>
           <Link href="/faqs">
               <span className={styles["nav-link"]}>FAQs</span>
-          </Link>
-          <Link href="/contacts">
-              <span className={styles["nav-link"]}>Contacts</span>
-          </Link>
+          </Link> */}
+          {signInclicked&&<Link href="/loginpage">
+              <span className={styles["nav-link"]}>Profile <AiOutlineUser style={{top:'3px',position:'relative'}}/></span>
+          </Link>}
+          
         </div>
-        <Space className={styles.button}>
-          {!signInclicked? (<Button type="primary" block 
-          style={{background: "white", borderColor: "orange", color:"black"}} 
-          ghost onClick={()=>{
-            check();
-            }}>Sign In
-          </Button>) : (<Button type="primary" block 
-          style={{background: "white", borderColor: "orange", color:"black"}} 
-          ghost onClick={()=>{
-            take();
-            }}>Profile
-          </Button>)}
-        </Space>
+          {!signInclicked? (<Link href="https://api.staging.ragam.co.in/api/connect/google"
+          style={{marginRight:'10px',cursor:'pointer'}}>Log In
+          </Link>) : (<div>
+            <div className={`${styles.above800}`} style={{marginRight:'10px',cursor:'pointer'}} onClick={()=>logOutClick()}>
+            Log Out
+          </div>
+          <Link href={'/loginpage'} className={`${styles.below800}`}><AiOutlineUser/></Link>
+          </div>)}
         <div className={styles["flex-row"]}>
           <div className={styles["hamburger"]}>
             {toggle ? (
-              <IoMdClose
+              <IoMdClose  className={`${styles.color}`}
                 onClick={() => {
                   toggleButton();
                 }}
                 size="30"
               />
             ) : (
-              <GiHamburgerMenu
+              <GiHamburgerMenu className={`${styles.color}`}
                 onClick={() => {
                   toggleButton();
                 }}
@@ -99,19 +101,25 @@ function Header() {
               toggleButton()
               }}>Home</span>
             </Link>
-            <Link href="/events" className={styles['nav-link-mobile-links']}>
+            {/* <Link href="/events" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Events</span>
-            </Link>
+            </Link> */}
             <Link href="/workshops" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Workshops</span>
             </Link>
-            <Link href="/competitions" className={styles['nav-link-mobile-links']} >
+            {signInclicked&&<div className={styles['nav-link-mobile-links']}>
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              logOutClick()
+              }}>Log Out</span>
+            </div>}
+            {/* <Link href="/competitions" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
@@ -128,7 +136,7 @@ function Header() {
               onClick={()=>{
               toggleButton()
               }}>Contact Us</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       )}

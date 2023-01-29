@@ -14,6 +14,7 @@ function Login(){
               const res = await fetch(`https://api.staging.ragam.co.in/api/auth/google/callback?access_token=${usercode}`)
               const value = await res.json()
               const user_details = await value
+              console.log(user_details);
               if (user_details != null){
                   if (user_details.jwt != null){
                     setToken(user_details.jwt)
@@ -29,18 +30,17 @@ function Login(){
 
     useEffect(() => {
       if (router.query.access_token != null && !signInclicked){
+        console.log('called');
         setUsercode(router.query.access_token)
-        const resp = authdetails(usercode)
+        authdetails(router.query.access_token)
       }
-    }, [router.query.access_token,signInclicked,usercode]);
+    }, [router.query]);
     
-    if (signin){
-        console.log(token);
 
         return <div className={styles.top}>
-            <ShowProfile/>
+            {signin&&<ShowProfile/>}
         </div>
-    }    
+        
 }
 
 export default Login
