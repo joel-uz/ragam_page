@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from 'antd';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LoginContext } from "../contexts/loginContext";
 import styles from "../styles/profile.module.css"
 const { Option } = Select;
@@ -22,47 +22,61 @@ const tailLayout = {
 const ShowProfile = () => {
   const {username, setUsername, setProfile, profile,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
-    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id} = useContext(LoginContext);
+    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id,ready, setReady} = useContext(LoginContext);
+
+    const getPrevData = async() => {
+      const response = await fetch(`https://api.staging.ragam.co.in/api/users/me`,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      console.log(data);
+        setUsername(data.name)
+        setMail(data.email)
+        setCollege(data.college)
+        setPhone(data.phone)
+        setYear(data.year)
+        setGender(data.gender)
+        setDistrict(data.district)
+        setRef(data.refCode)
+        setState(data.state)
+        setReady(true)
+        
+    }
+    
+    useEffect(() => {
+      const prev_data = getPrevData();
+    }, []);
+    
 
   const [form] = Form.useForm();
 
-  const submitValues = async(username, mail,phone,district,state, gender, college,year,ref,id) =>{
-    const response = await fetch(`https://api.staging.ragam.co.in/api/users/${id}`, 
+  const submitValues = async(username, mail,phone,district,state, gender, college,year,ref) =>{
+
+    const response = await fetch(`https://api.staging.ragam.co.in/api/user/me`, 
     {
      method:'PUT',
      headers:{
+      "Content-Type":"application/json",
        Authorization:
            `Bearer ${token}`,
      },
      body: JSON.stringify({
-      "username": {username},
-      "email": {mail},
-      "phone":{phone},
-      "college": {college},
-      "year":{year},
-      "refCode":{ref},
-      "state":{state},
-      "district":{district},
-      "gender":{gender},
+      "name": `${username}`,
+      "email": `${mail}`,
+      "phone":`${phone}`,
+      "college": `${college}`,
+      "year":`${year}`,
+      "refCode":`${ref}`,
+      "state":`${state}`,
+      "district":`${district}`,
+      "gender":`${gender}`,
     })
     })
-
-    const data = await response.json()
-    console.log(data);
+    console.log(response.status);
   }
 
-  const getPrevData = async() => {
-    const response = await fetch(`https://api.staging.ragam.co.in/api/users/${id}`,{
-      headers:{
-        Authorization: `Bearer ${token}`
-      }
-    })
-    const data = await response.json()
-    console.log(data, '===');
-  }
-
-  const prev_data = getPrevData();
-  
   const onFinish = (values) => {
     console.log(values);
   };
@@ -71,10 +85,11 @@ const ShowProfile = () => {
   };
 
   const onSubmit = () => {
-    submitValues(username, mail,phone,district,state, gender, college,year,ref,id)
+    submitValues(username, mail,phone,district,state, gender, college,year,ref)
     setProfile(true)
     
   };
+
 
   return (
     <Form
@@ -222,14 +237,8 @@ const ShowProfile = () => {
             required: true,
           },
         ]}
-      >
-        <Input type={'text'}
-    placeholder="District"
-    onChange={(event) =>{
-        setDistrict(event.target.value)
-    }}/>
-      </Form.Item>
 
+  
       <Form.Item
         name="Ref"
         label={<label className={`${styles.label}`}>Referral code: </label>}
@@ -240,23 +249,17 @@ const ShowProfile = () => {
           },
         ]}
       >
-        <Input type={'text'}
-    placeholder="Ref"
-    onChange={(event) =>{
-        setRef(event.target.value)
-    }}/>
-      </Form.Item>
-      
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" style={{marginRight:'4px'}} onClick={onSubmit}>
-          Submit
-        </Button>
-        <Button htmlType="button" onClick={onReset}>
-          Reset
-        </Button>
-      </Form.Item>
-    </Form>
-  );
+        
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit" style={{marginRight:'4px'}} onClick={onSubmit}>
+            Submit
+          </Button>
+          <Button htmlType="button" onClick={onReset}>
+            Reset
+          </Button>
+        </Form.Item>
+      </Form>
+    );
+  }
 };
 export default ShowProfile;
