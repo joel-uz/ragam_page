@@ -7,8 +7,8 @@ function Footer() {
     return <>
     <div className={styles["layout_footer"]}>
         <div>
-            <h3 className={`${styles.title} ${styles.font600} ${styles.pady10}`}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque voluptatem eaque ipsum. Sint.</h3>
-            <p  className={`${styles.desc} ${styles.font300} ${styles.pady10}`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis doloribus dolor aspernatur facere.</p>
+            <h3 className={`${styles.title} ${styles.font600} ${styles.pady10}`}>Ragam, South India’s largest Institute cultural fest.</h3>
+            <p  className={`${styles.desc} ${styles.font300} ${styles.pady10}`}>Igniting the flames of passion, since 2006. A soul gratifying experience.</p>
         </div>
         <div className={`${styles.links}`}>
 

@@ -26,12 +26,28 @@ export default function App({ Component, pageProps }) {
   const [usercode, setUsercode] = useState("");
   const [token, setToken] = useState("");
   const [signInclicked, setSignInclicked] = useState(false);
-
+  const logOut  = async()  =>{
+    setProfile(false)
+    setSignin(false)
+    setSignInclicked(false)
+    setId(0)
+    setUsername("")
+    setMail("")
+    setPhone("")
+    setState("")
+    setGender("")
+    setCollege("")
+    setYear("")
+    setRef("")
+    setUsercode("")
+    setToken("")
+    setDistrict("")
+  }
   return <div className={styles.main_layout}>
     <LoginContext.Provider value={{username, setUsername, setProfile, profile,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
       setGender, college, setCollege, year, setYear, usercode,setUsercode, signin, setSignin, token,setToken, ref, setRef,signInclicked,
-      setSignInclicked, id, setId}}>
+      setSignInclicked, id, setId,logOut}}>
       <Head>
         <title>RAGAM &apos; 23</title>
         <meta name='description' content='About Ragam' />
