@@ -19,6 +19,7 @@ function IndEventPage({data}){
     const [userreg, setUserReg] = useState(false)
     const [disable, setDisable] = useState(true)
     const [checkbox, setCheckbox] = useState(true)
+    const [workid, setWorkid] = useState(data.id)
     var text =''
 
     const {profile, username, signin, token, id} = useContext(LoginContext);
@@ -81,7 +82,7 @@ function IndEventPage({data}){
     }
 
     const SubmitData = async() =>{
-        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details",{
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details?populate=*",{
             method:'POST',
             headers: {
                 'Content-Type':"application/json",
@@ -90,7 +91,7 @@ function IndEventPage({data}){
             body: JSON.stringify({
                 "data":{
                     "user": {"id":id},
-                    "workshop":data.attributes.id
+                    "workshop":workid
                 } 
             })
         })
@@ -101,9 +102,7 @@ function IndEventPage({data}){
     
     const check = async() => {
         if (!signin){
-            const resp = await fetch('https://api.staging.ragam.co.in/strapi-google-auth/init')
-            const url = await resp.json()
-            router.push(`${url['url']}`)
+    router.push(`https://api.staging.ragam.co.in/api/connect/google`)
         }
 
         if (!profile){
@@ -111,6 +110,7 @@ function IndEventPage({data}){
         }
         if (signin && profile){
             if (checkbox){
+                console.log(workid)
                 SubmitData()
             }
             else{
