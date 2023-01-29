@@ -236,8 +236,13 @@ const ShowProfile = () => {
           {
             required: true,
           },
-        ]}
-
+        ]}>
+        <Input type={'text'}
+        placeholder="district"
+        onChange={(event) =>{
+            setState(event.target.value)
+        }}/>
+        </Form.Item>
   
       <Form.Item
         name="Ref"
@@ -249,6 +254,12 @@ const ShowProfile = () => {
           },
         ]}
       >
+        <Input type={'text'}
+        placeholder="Referral code"
+        onChange={(event) =>{
+            setState(event.target.value)
+        }}/>
+        </Form.Item>
         
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" style={{marginRight:'4px'}} onClick={onSubmit}>
@@ -261,5 +272,5 @@ const ShowProfile = () => {
       </Form>
     );
   }
-};
+;
 export default ShowProfile;
