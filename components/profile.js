@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from 'antd';
 import { useContext } from "react";
 import { LoginContext } from "../contexts/loginContext";
-
+import styles from "../styles/profile.module.css"
 const { Option } = Select;
 
 const layout = {
@@ -87,8 +87,8 @@ const ShowProfile = () => {
       }}
     >
       <Form.Item
+        label={<label className={`${styles.label}`}>Name: </label>}
         name="Name"
-        label="Name"
         initialValue={username}
         rules={[
           {
@@ -105,7 +105,7 @@ const ShowProfile = () => {
       </Form.Item>
       <Form.Item
         name="Mail"
-        label="Mail"
+        label={<label className={`${styles.label}`}>Email: </label>}
         initialValue={mail}
         rules={[
           {
@@ -123,7 +123,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="Phone"
-        label="Phone Nmuber"
+        label={<label className={`${styles.label}`}>Phone: </label>}
         initialValue={phone}
         rules={[
           {
@@ -140,7 +140,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="gender"
-        label="Gender"
+        label={<label className={`${styles.label}`}>Gender: </label>}
         initialValue={gender}
         rules={[
           {
@@ -163,7 +163,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="College"
-        label="College"
+        label={<label className={`${styles.label}`}>College: </label>}
         initialValue={college}
         rules={[
           {
@@ -180,7 +180,7 @@ const ShowProfile = () => {
 
     <Form.Item
         name="Studying year"
-        label="Year of study :"
+        label={<label className={`${styles.label}`}>Year of study: </label>}
         initialValue={year}
         rules={[
           {
@@ -198,7 +198,7 @@ const ShowProfile = () => {
     
       <Form.Item
         name="State"
-        label="State"
+        label={<label className={`${styles.label}`}>State: </label>}
         initialValue={state}
         rules={[
           {
@@ -215,7 +215,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="District"
-        label="District"
+        label={<label className={`${styles.label}`}>District: </label>}
         initialValue={district}
         rules={[
           {
@@ -232,7 +232,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="Ref"
-        label="Referral Code"
+        label={<label className={`${styles.label}`}>Referral code: </label>}
         initialValue={ref}
         rules={[
           {
