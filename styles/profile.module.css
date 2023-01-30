@@ -2,3 +2,21 @@
     color: #eeeeee !important;
     font-size:1.2rem !important;
   }
+  .mobileInput{
+    max-width: 80vw !important;
+    background-color: #1d1d1e;
+    border: none;
+    color: #eee;
+  }
+
+  .minWidth{
+    min-width: 350px  !important;
+  }  
+  @media (max-width:800px) {
+    .minWidth{
+      min-width: 250px !important;
+    }
+    .label{
+      font-size: 1rem !important;
+    }
+  }

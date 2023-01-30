@@ -10,6 +10,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: Roboto Mono;
   }
   
   html,
@@ -28,6 +29,26 @@
     text-decoration: none;
   }
   
-  label{
-    color: #eeeeee;
+  label,.ant-select-item-option-content{
+    color: #eeeeee  !important;
   }
+.ant-select-selector {
+    background-color: #1d1d1e !important;
+    border: none  !important;
+    color: #eeeeee !important;
+  }
+  .ant-select-selection-item{
+  color: #eeeeee !important;
+}
+.ant-select-item, .ant-select-item-option, .ant-select-item-option-active, .ant-select-item-option-selected{
+  background-color: #1d1d1e !important;
+}
+.ant-select-selection-placeholder{
+  color: #bbbbbb !important;
+}
+input::placeholder{
+  color: #bbbbbb  !important;
+}
+.ant-input-disabled{
+  color: #bbbbbb !important;
+}

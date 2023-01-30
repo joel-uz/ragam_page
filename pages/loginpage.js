@@ -3,6 +3,9 @@ import ShowProfile from "../components/profile"
 import {LoginContext} from "../contexts/loginContext"
 import { useRouter } from "next/router";
 import { useContext, useEffect} from "react";
+import Image from "next/image"
+import image from "../public/DrawKit Vector Illustration Fun & Playful Finn Character (13).svg"
+import image2 from "../public/DrawKit Vector Illustration Fun & Playful Finn Character (14).svg"
 
 function Login(){
     const router = useRouter();
@@ -35,10 +38,17 @@ function Login(){
         authdetails(router.query.access_token)
       }
     }, [router.query]);
-    
 
         return <div className={styles.top}>
-            {signin&&<ShowProfile/>}
+
+            {signin&&<div className={`${styles.regContainer} ${styles.mobileInput}`}>
+              <ShowProfile/>
+              <Image src={image} className={styles.illustration} alt="reg-illustration"/>
+            </div>}
+            {!signin&&<div className={`${styles.errorContainer}`}>
+              <h1 className={`${styles.centerAlign}`}>Login to continue</h1>
+              <Image src={image2} className={styles.illustration2}  alt="not found"/>
+            </div>}
         </div>
         
 }

@@ -5,12 +5,6 @@ import styles from "../styles/profile.module.css"
 const { Option } = Select;
 
 const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
 };
 const tailLayout = {
   wrapperCol: {
@@ -92,7 +86,7 @@ const ShowProfile = () => {
 
 
   return (
-    <Form
+    <Form  className={`${styles.minWidth}`}
       {...layout}
       form={form}
       name="control-hooks"
@@ -102,7 +96,7 @@ const ShowProfile = () => {
       }}
     >
       <Form.Item
-        label={<label className={`${styles.label}`}>Name: </label>}
+        label={<label className={`${styles.label}`}>Name </label>}
         name="Name"
         initialValue={username}
         rules={[
@@ -112,15 +106,15 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
     placeholder="Name"
-    defaultValue={username}
     onChange={(event) =>{
         setUsername(event.target.value)
     }}/>
       </Form.Item>
       <Form.Item
         name="Mail"
-        label={<label className={`${styles.label}`}>Email: </label>}
+        label={<label className={`${styles.label}`}>Email </label>}
         initialValue={mail}
         rules={[
           {
@@ -129,8 +123,9 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
     placeholder="Mail"
-    defaultValue={mail}
+    disabled
     onChange={(event) =>{
         setMail(event.target.value)
     }}/>
@@ -138,7 +133,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="Phone"
-        label={<label className={`${styles.label}`}>Phone: </label>}
+        label={<label className={`${styles.label}`}>Phone </label>}
         initialValue={phone}
         rules={[
           {
@@ -147,6 +142,7 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
     placeholder="Phone"
     onChange={(event) =>{
         setPhone(event.target.value)
@@ -155,7 +151,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="gender"
-        label={<label className={`${styles.label}`}>Gender: </label>}
+        label={<label className={`${styles.label}`}>Gender </label>}
         initialValue={gender}
         rules={[
           {
@@ -164,6 +160,8 @@ const ShowProfile = () => {
         ]}
       >
         <Select
+        className={`${styles.selectColor}`}
+        dropdownStyle={{ backgroundColor: '#1d1d1e',color:'#eeeeee' }}
           placeholder="Select a option and change input text above"
           allowClear
           onChange={(event) =>{
@@ -178,7 +176,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="College"
-        label={<label className={`${styles.label}`}>College: </label>}
+        label={<label className={`${styles.label}`}>College </label>}
         initialValue={college}
         rules={[
           {
@@ -187,6 +185,7 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
     placeholder="College"
     onChange={(event) =>{
         setCollege(event.target.value)
@@ -195,7 +194,7 @@ const ShowProfile = () => {
 
     <Form.Item
         name="Studying year"
-        label={<label className={`${styles.label}`}>Year of study: </label>}
+        label={<label className={`${styles.label}`}>Year of study </label>}
         initialValue={year}
         rules={[
           {
@@ -204,6 +203,7 @@ const ShowProfile = () => {
         ]}
     > 
     <Input type={'text'}
+    className={`${styles.mobileInput}`}
     placeholder="Year"
     onChange={(event) =>{
         setYear(event.target.value)
@@ -213,7 +213,7 @@ const ShowProfile = () => {
     
       <Form.Item
         name="State"
-        label={<label className={`${styles.label}`}>State: </label>}
+        label={<label className={`${styles.label}`}>State </label>}
         initialValue={state}
         rules={[
           {
@@ -222,6 +222,7 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
     placeholder="state"
     onChange={(event) =>{
         setState(event.target.value)
@@ -230,7 +231,7 @@ const ShowProfile = () => {
 
       <Form.Item
         name="District"
-        label={<label className={`${styles.label}`}>District: </label>}
+        label={<label className={`${styles.label}`}>District </label>}
         initialValue={district}
         rules={[
           {
@@ -238,6 +239,7 @@ const ShowProfile = () => {
           },
         ]}>
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
         placeholder="district"
         onChange={(event) =>{
             setState(event.target.value)
@@ -246,7 +248,7 @@ const ShowProfile = () => {
   
       <Form.Item
         name="Ref"
-        label={<label className={`${styles.label}`}>Referral code: </label>}
+        label={<label className={`${styles.label}`}>Referral code </label>}
         initialValue={ref}
         rules={[
           {
@@ -255,6 +257,7 @@ const ShowProfile = () => {
         ]}
       >
         <Input type={'text'}
+        className={`${styles.mobileInput}`}
         placeholder="Referral code"
         onChange={(event) =>{
             setState(event.target.value)
