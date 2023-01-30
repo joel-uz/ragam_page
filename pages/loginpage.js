@@ -10,7 +10,7 @@ import image2 from "../public/DrawKit Vector Illustration Fun & Playful Finn Cha
 function Login(){
     const router = useRouter();
     const {setUsercode, usercode, token, signin,
-    signInclicked,setToken, setSignin,setUsername,setMail,setSignInclicked,setId} = useContext(LoginContext)
+    signInclicked,setToken,setState,setGender,setDistrict,setPhone,setCollege,setYear,setRef, setSignin,setUsername,setMail,setSignInclicked,setId} = useContext(LoginContext)
 
     const authdetails = async (usercode) => {
             if (usercode != ''){
@@ -24,8 +24,16 @@ function Login(){
                     setId(user_details.user.id);
                     setUsername(user_details.user.username)
                     setMail(user_details.user.email)
+                    setCollege(user_details.user.college)
+                    setDistrict(user_details.user.district)
+                    setGender(user_details.user.gender)
+                    setPhone(user_details.user.phone)
+                    setRef(user_details.user.refcode)
+                    setYear(user_details.user.year)
+                    setState(user_details.user.state)
                     setSignin(true)
                     setSignInclicked(true)
+
                   }
                 }
             }
@@ -45,10 +53,10 @@ function Login(){
               <ShowProfile/>
               <Image src={image} className={styles.illustration} alt="reg-illustration"/>
             </div>}
-            {!signin&&<div className={`${styles.errorContainer}`}>
+            {/* {!signin&&<div className={`${styles.errorContainer}`}>
               <h1 className={`${styles.centerAlign}`}>Login to continue</h1>
               <Image src={image2} className={styles.illustration2}  alt="not found"/>
-            </div>}
+            </div>} */}
         </div>
         
 }

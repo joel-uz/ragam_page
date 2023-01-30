@@ -7,43 +7,14 @@ const { Option } = Select;
 const layout = {
 };
 const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
+
 };
 
 const ShowProfile = () => {
   const {username, setUsername, setProfile, profile,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
     setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id,ready, setReady} = useContext(LoginContext);
-
-    const getPrevData = async() => {
-      const response = await fetch(`https://api.staging.ragam.co.in/api/users/me`,{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
-      console.log(data);
-        setUsername(data.name)
-        setMail(data.email)
-        setCollege(data.college)
-        setPhone(data.phone)
-        setYear(data.year)
-        setGender(data.gender)
-        setDistrict(data.district)
-        setRef(data.refCode)
-        setState(data.state)
-        setReady(true)
-        
-    }
     
-    useEffect(() => {
-      const prev_data = getPrevData();
-    }, []);
-    
-
   const [form] = Form.useForm();
 
   const submitValues = async(username, mail,phone,district,state, gender, college,year,ref) =>{
@@ -68,14 +39,10 @@ const ShowProfile = () => {
       "gender":`${gender}`,
     })
     })
-    console.log(response.status);
   }
 
   const onFinish = (values) => {
     console.log(values);
-  };
-  const onReset = () => {
-    form.resetFields();
   };
 
   const onSubmit = () => {
@@ -242,7 +209,7 @@ const ShowProfile = () => {
         className={`${styles.mobileInput}`}
         placeholder="district"
         onChange={(event) =>{
-            setState(event.target.value)
+            setDistrict(event.target.value)
         }}/>
         </Form.Item>
   
@@ -265,11 +232,8 @@ const ShowProfile = () => {
         </Form.Item>
         
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit" style={{marginRight:'4px'}} onClick={onSubmit}>
+          <Button type="primary" htmlType="submit" onClick={onSubmit}>
             Submit
-          </Button>
-          <Button htmlType="button" onClick={onReset}>
-            Reset
           </Button>
         </Form.Item>
       </Form>
