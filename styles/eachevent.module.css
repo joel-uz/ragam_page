@@ -3,72 +3,102 @@
 
 .indvidual{
     display: flex;
-    padding-top: 4%;
-    margin: 0 5%;
+    margin: 50px;
+    margin-top: 200px;
     justify-content: space-evenly;
+    background-color: #1d1d1e;
+    border-radius: 20px;
+    flex-direction: column;
 }
 .right_side{
     margin-left: 10%;
     display: flex;
     flex-direction: column;
 }
-.register{
-    margin-top: 5%;
-    width: fit-content;
-    padding: 0 3%;
-    font-size: 18px;
-    font-family: PT Sans, sans-serif;
-    border-radius: 4px;
-    border: 2px solid orange;
-    transition: all 0.35s ease-in-out;
+
+.eventTitle{
+    font-size: 3rem;
+    margin: 20px;
+    letter-spacing: 4px;
 }
-.register:hover{
-    background-color: rgba(253,45,94,1);
+.eventDescription{
+    width: 50ch;
+    margin: 20px;
+}
+.eventPoster{
+    margin: 20px;
+    border-radius: 10px;
+    width: 500px;
+    height: 500px;
+}
+.eventBody{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap-reverse;
 }
 .guidelines{
-    margin-top: 5%;
-    width: fit-content;
-    padding: 2%;
-    font-family: Roboto Mono;
-    transition: all 0.3s ease-in;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: goldenrod;
+}
+.gicon{
+    position: relative;
+    top: 3px;
+}
+.checkbox{
+    font-size: 1.2rem;
+    margin:20px;
+}
+.submit{
+    font-size: 2rem;
+    letter-spacing: 4px;
+    padding: 5px;
+    margin: 20px;
+    text-align: end;
+    color: #fdc498;
+    cursor: pointer;
 }
 .guidelines:hover{
-    text-decoration: overline;
-    font-size: 1.12rem;
+    color: rgb(237, 198, 101);
 }
+
 
 .buttons{
     display: flex;
     justify-content: space-around;
 }
 
-.back_button{
-    margin: 2% 0%;
-    text-align: center;
-}
+
 .go_back_button{
-    margin-top: 5%;
-    width: fit-content;
-    padding: 0 3%;
-    font-size: 18px;
-    font-family: PT Sans, sans-serif;
-    border-radius: 4px;
-    transition: all 0.35s ease-in-out;
-}
-.go_back_button:hover{
-    background-color: pink;
-    border: 2px solid orange;
+    margin-top: 0px;
+    color: #1d1d1e;
+    background-color: #eeeeee;
+    border-radius: 25px;
+    position: absolute;
+    top: 150px;
+    margin-right: 0px;
+    font-size: 50px;
+    cursor: pointer;
 }
 
-@media (max-width:800px) {
-    .indvidual{
-        display: flex;
-        padding-top: 4%;
-        margin: 0 5%;
-        flex-direction: column-reverse;
-        align-items: center;
+
+@media (max-width:600px) {
+    .eventPoster{
+        width: 250px;
+        height: 250px;
     }
-    .right_side{
-        margin-bottom: 20px;
+    .eventDescription{
+        width: 30ch;
+        font-size: 0.9rem;
+    }
+    .eventTitle{
+        font-size: 2rem;
+    }
+    .go_back_button{
+        top: 100px;
+    }
+    .indvidual{
+        margin-top: 150px;
     }
 }

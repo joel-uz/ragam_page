@@ -9,6 +9,7 @@ import coverImage from '../../public/coverimg.jpg'
 import Link from 'next/link'
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../contexts/loginContext";
+import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons/ai"
 
 function IndEventPage({data}){
     const route = useRouter()
@@ -124,35 +125,27 @@ function IndEventPage({data}){
 
     return <div className={styles.page_layout}>
       <div className={Individual_style.indvidual}>
-        <Card hoverable style={{
-        width: 400,
-        fontSize:15,
-        }}
-        >
-        <Meta title= {data.attributes.name} description={data.attributes.description} />
-        </Card>
-        <div className={Individual_style.right_side}>
-            <Image alt="example" src={coverImage} layout='responsive' width='300' height='230' />
-            <div className={Individual_style.buttons}>
-                <span className={Individual_style.guidelines}><Link href={'/'}>Guidelines for the workshop--</Link></span>
-                <Space className={Individual_style.register}>
-                    <Button type="primary" block 
-                    style={{background: "white", borderColor: "orange", color:"black"}} 
-                    ghost onClick={()=>{
-                        check();
-                        }} disabled={disable}>Register
-                    </Button>
-                    <Modal title={text} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <p>Username : {username}</p>
-                    </Modal>
-                </Space>
-                <Checkbox onChange={onChange}>I accecpt the guidelines</Checkbox>
-            </div>
-            <p>{text}</p>
+        <AiFillLeftCircle className={Individual_style.go_back_button}  onClick={back_to}/>
+        <div className={Individual_style.eventTitle}>
+            {data.attributes.name}
         </div>
-      </div>
-      <div className={Individual_style.back_button}>
-        <button onClick={back_to} className={Individual_style.go_back_button}>GO BACK</button>
+        <div    className={Individual_style.eventBody}>
+            <div    className={Individual_style.eventDescription}>
+                {data.attributes.description}
+                <div className={Individual_style.guidelines}><Link href={'/'}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></Link></div>
+            </div>
+            <Image alt="example" src={coverImage} className={Individual_style.eventPoster}/>
+        </div>
+        <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accecpt the guidelines </Checkbox>
+        <span
+         onClick={()=>check()}
+         className={Individual_style.submit}   
+            >Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
+        </span>
+        
+        <Modal title={text} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <p>Username : {username}</p>
+        </Modal>
       </div>
     </div>
   }
