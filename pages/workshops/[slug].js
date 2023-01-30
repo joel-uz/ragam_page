@@ -129,6 +129,9 @@ function IndEventPage({data}){
         <div className={Individual_style.eventTitle}>
             {data.attributes.name}
         </div>
+        <div className={Individual_style.eventDate}>
+            {data.attributes.currRegCount<=120?data.attributes['eventDate1']:data.attributes['eventDate2']}
+        </div>
         <div    className={Individual_style.eventBody}>
             <div    className={Individual_style.eventDescription}>
                 {data.attributes.description}

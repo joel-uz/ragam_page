@@ -19,7 +19,15 @@
 .eventTitle{
     font-size: 3rem;
     margin: 20px;
+    margin-bottom: 0px;
     letter-spacing: 4px;
+}
+.eventDate{
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: goldenrod;
+    margin: 20px;
+    margin-top: 0px;
 }
 .eventDescription{
     width: 50ch;

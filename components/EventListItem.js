@@ -9,9 +9,9 @@ const EventListItem = ({each}) => {
         <Link href={`/workshops/${each.id}`}  key={each.id} className={styles.internallink}>
             <div className={styles.card}>
                 <h3 className={`${styles.title}`}>{`${each.attributes['name']}`}</h3>
-                <Image alt="example" src={coverImage} className={styles.cardImage}/> 
+                <Image alt="example" src={each.attributes.coverImage.data?each.attributes.coverImage.data:coverImage} className={styles.cardImage}/> 
                 {/* <div className={`${styles.bottom}`}> */}
-                    <h3 className={styles.date}>{each.attributes['eventDate1']}</h3>
+                    <h3 className={styles.date}>{each.attributes.currRegCount<=120?each.attributes['eventDate1']:each.attributes['eventDate2']}</h3>
                     <div    className={styles.read}>
                         <AiOutlineDoubleRight className={styles.readIcon}/>
                     {/* </div> */}

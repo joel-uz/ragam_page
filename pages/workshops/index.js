@@ -6,7 +6,7 @@ import EventListItem from '../../components/EventListItem'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/workshops`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/workshops?populate=*`, fetchData)
   
   if (data === undefined){
     return (<>
