@@ -2,16 +2,17 @@ import styles from "../styles/Home.module.css"
 import ShowProfile from "../components/profile"
 import {LoginContext} from "../contexts/loginContext"
 import { useRouter } from "next/router";
-import { useContext, useEffect} from "react";
+import { useContext, useEffect, useState} from "react";
 import Image from "next/image"
 import image from "../public/DrawKit Vector Illustration Fun & Playful Finn Character (13).svg"
 import image2 from "../public/DrawKit Vector Illustration Fun & Playful Finn Character (14).svg"
+import RegisteredTable from "../components/RegisteredTable";
 
 function Login(){
     const router = useRouter();
     const {setUsercode, usercode, token, signin,
     signInclicked,setToken,setState,setGender,setDistrict,setPhone,setCollege,setYear,setRef, setSignin,setUsername,setMail,setSignInclicked,setId} = useContext(LoginContext)
-
+    const [regData,setRegData]  = useState([])
     const authdetails = async (usercode) => {
             if (usercode != ''){
               const res = await fetch(`https://api.staging.ragam.co.in/api/auth/google/callback?access_token=${usercode}`)
@@ -33,7 +34,7 @@ function Login(){
                     setState(user_details.user.state)
                     setSignin(true)
                     setSignInclicked(true)
-
+                    
                   }
                 }
             }
@@ -53,10 +54,7 @@ function Login(){
               <ShowProfile/>
               <Image src={image} className={styles.illustration} alt="reg-illustration"/>
             </div>}
-            {/* {!signin&&<div className={`${styles.errorContainer}`}>
-              <h1 className={`${styles.centerAlign}`}>Login to continue</h1>
-              <Image src={image2} className={styles.illustration2}  alt="not found"/>
-            </div>} */}
+            
         </div>
         
 }

@@ -47,12 +47,12 @@ function Header() {
           <Link href="/">
               <span className={styles["nav-link"]}>Home</span>
           </Link>
-          {/* <Link href="/competitions">
-              <span className={styles["nav-link"]}>Competitions</span>
-          </Link> */}
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
+          {signInclicked&&<Link href="/dashboard">
+              <span className={styles["nav-link"]}>Dashboard</span>
+          </Link>}
           {/* <Link href="/events">
               <span className={styles["nav-link"]}>Events</span>
           </Link>
@@ -95,18 +95,18 @@ function Header() {
       {toggle && (
         <div className={styles["navbar-mobile"]}>
           <div className={styles["nav-menu-mobile"]}>
-            <Link href="/" className={styles['nav-link-mobile-links']} >
+            {!signInclicked&&<Link href="/" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]} 
               onClick={()=>{
               toggleButton()
               }}>Home</span>
-            </Link>
-            {/* <Link href="/events" className={styles['nav-link-mobile-links']}>
+            </Link>}
+            {signInclicked&&<Link href="/dashboard" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
-              }}>Events</span>
-            </Link> */}
+              }}>Dashboard</span>
+            </Link>}
             <Link href="/workshops" className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
