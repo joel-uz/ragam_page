@@ -52,3 +52,11 @@ input::placeholder{
 .ant-input-disabled{
   color: #bbbbbb !important;
 }
+
+.ant-modal-content,.ant-modal-title{
+  background-color: #1d1d1e !important;
+  color: #eeeeee !important;
+}
+.ant-modal-title{
+  font-size: 2rem !important;
+}

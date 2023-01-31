@@ -64,9 +64,16 @@
     padding: 5px;
     margin: 20px;
     text-align: end;
-    color: #fdc498;
     cursor: pointer;
 }
+.submitok{
+    color: #fdc498;
+}
+.submitnotok{
+    color: #777;
+    cursor: not-allowed;
+}
+
 .guidelines:hover{
     color: rgb(237, 198, 101);
 }
@@ -90,6 +97,22 @@
     cursor: pointer;
 }
 
+.modalContainer{
+    background-color: #1d1d1e !important;
+  }
+  .modalPadding{
+    margin-left: 24px !important;
+  }
+
+.highlight{
+    color: goldenrod;
+}
+.qrimg{
+    width: 250px;
+    height: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 @media (max-width:600px) {
     .eventPoster{

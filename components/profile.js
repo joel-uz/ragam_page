@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from 'antd';
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 import styles from "../styles/profile.module.css"
 const { Option } = Select;
@@ -11,7 +11,7 @@ const tailLayout = {
 };
 
 const ShowProfile = () => {
-  const {username, setUsername, setProfile, profile,
+  const {username, setUsername, profileComplete,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
     setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id,ready, setReady} = useContext(LoginContext);
     
@@ -39,7 +39,12 @@ const ShowProfile = () => {
       "gender":`${gender}`,
     })
     })
+    if (response.status===200) {
+      setOk(1)
+    }
   }
+
+  const [ok,setOk]  = useState(profileComplete())
 
   const onFinish = (values) => {
     console.log(values);
@@ -47,12 +52,11 @@ const ShowProfile = () => {
 
   const onSubmit = () => {
     submitValues(username, mail,phone,district,state, gender, college,year,ref)
-    setProfile(true)
-    
   };
 
 
   return (
+    <div>
     <Form  className={`${styles.minWidth}`}
       {...layout}
       form={form}
@@ -237,6 +241,10 @@ const ShowProfile = () => {
           </Button>
         </Form.Item>
       </Form>
+        {signin&&!ok&&
+              <div className={styles.warning}>Please complete your profile</div>
+            }
+</div>
     );
   }
 ;

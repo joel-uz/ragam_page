@@ -8,7 +8,7 @@ import {LoginContext} from "../contexts/loginContext"
 
 export default function App({ Component, pageProps }) {
   
-  const [profile, setProfile] = useState(false);
+  // const [profile, setProfile] = useState(false);
   const [signin, setSignin] = useState(false);
 
   
@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }) {
   const [signInclicked, setSignInclicked] = useState(false);
 
   const logOut  = async()  =>{
-    setProfile(false)
     setSignin(false)
     setSignInclicked(false)
     setId(0)
@@ -45,14 +44,16 @@ export default function App({ Component, pageProps }) {
     setDistrict("")
   }
 
+  const profileComplete = ()=>  (username&&mail&&phone&&state&&gender&&college&&year&&district)
+
   const [ready, setReady] = useState(false);
 
 
   return <div className={styles.main_layout}>
-    <LoginContext.Provider value={{username, setUsername, setProfile, profile,
+    <LoginContext.Provider value={{username, setUsername,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
       setGender, college, setCollege, year, setYear, usercode,setUsercode, signin, setSignin, token,setToken, ref, setRef,signInclicked,
-      setSignInclicked, id, setId,ready,setReady,logOut}}>
+      setSignInclicked, id, setId,ready,setReady,logOut,profileComplete}}>
       <Head>
         <title>RAGAM &apos; 23</title>
         <meta name='description' content='About Ragam' />

@@ -10,7 +10,7 @@ import RegisteredTable from "../components/RegisteredTable";
 
 function Login(){
     const router = useRouter();
-    const {setUsercode, usercode, token, signin,
+    const {setUsercode, usercode, token, signin,profileComplete,
     signInclicked,setToken,setState,setGender,setDistrict,setPhone,setCollege,setYear,setRef, setSignin,setUsername,setMail,setSignInclicked,setId} = useContext(LoginContext)
     const [regData,setRegData]  = useState([])
     const authdetails = async (usercode) => {

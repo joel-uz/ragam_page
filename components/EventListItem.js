@@ -1,6 +1,6 @@
 import styles from '../styles/category.module.css'
 import Link from 'next/link'
-import coverImage from '../public/coverimg.jpg'
+import coverImage from '../public/coverimg.png'
 import { Card } from 'antd'
 import  {AiOutlineDoubleRight} from 'react-icons/ai'
 import Image from 'next/image'

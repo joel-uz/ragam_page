@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import styles from '../../styles/category.module.css'
 import Individual_style from '../../styles/eachevent.module.css'
-import { Card, Space, Button, Modal,Checkbox } from 'antd'
+import {Modal,Checkbox } from 'antd'
 import Image from 'next/image'
 import { fetchData } from '../../components/fetchdata'
 import { fetchUserReg } from '../../components/fetchuserRegData'
@@ -9,81 +9,51 @@ import coverImage from '../../public/coverimg.jpg'
 import Link from 'next/link'
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../contexts/loginContext";
+import RegModal from '../../components/RegModal'
 import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons/ai"
 
 function IndEventPage({data}){
-    const route = useRouter()
+    const router = useRouter();
+    // var regId   =   0
     const back_to = () =>{
-        route.replace(`/workshops`)
+        router.replace(`/workshops`)
     }
+
     const [alreadyReg, setAlreadyReg] = useState(false)
-    const [userreg, setUserReg] = useState(false)
     const [disable, setDisable] = useState(true)
-    const [checkbox, setCheckbox] = useState(true)
-    const [workid, setWorkid] = useState(data.id)
+    const [regId,setRegId]  =   useState(0)
+
+    const   workid  =   data.id
     var text =''
 
-    const {profile, username, signin, token, id} = useContext(LoginContext);
-    const router = useRouter();
+    const {profileComplete, username, signin, token, id} = useContext(LoginContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-      };
-    const handleCancel = () => {
+    const closeModal = () => {
         setIsModalOpen(false);
     };
 
     const onChange = (e) => {
-        console.log(e.target.checked)
-        if (e.target.checked){
-            setCheckbox(true)
-            if (!alreadyReg){
-                setDisable(false)
-            }
-        }
-        else{
-            setDisable(true)
-        }
+            setDisable(!e.target.checked)
       };
     
     const checkReg = async() => {
         if (token != ''){
-            const reg_data = await fetchUserReg('https://api.staging.ragam.co.in/api/users/me?populate[registeredWorkshops][populate][0]=workshop', token)
-            console.log(await reg_data)
-            if (await reg_data.registeredWorkshops != []){
-                const workshops = await reg_data.registeredWorkshops
-                workshops.map(async (each) => {
-                    console.log()
-                    if (each.workshop != null)
-                    {
-                        const name = await each.workshop.name
-                        if (name === data.attributes.name){
-                            setAlreadyReg(true)  
-                            setDisable(true) 
-                        }
-                        else{
-                            setUserReg(true)
-                        }
-                    }
-                })
+            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
+            if(reg_data.registeredWorkshops.find(x=>x.id    === workid))
+            {
+                setAlreadyReg(true)
             }  
         }
-        
     }
 
-    checkReg();
-
-    if (alreadyReg){
-        text = "User Registered Already"
-    }
-    if (userreg){
-        text = "User Registered Successfully"
-    }
+    useEffect(() => {
+        checkReg();
+    }, [])
 
     const SubmitData = async() =>{
-        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details?populate=*",{
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details",{
             method:'POST',
             headers: {
                 'Content-Type':"application/json",
@@ -96,32 +66,26 @@ function IndEventPage({data}){
                 } 
             })
         })
-        console.log(response)
-        setIsModalOpen(true)
-
+        const   value   =   await response.json()
+        return  value.data.id
+        
     }
     
     const check = async() => {
+        if (disable)
+        {
+            return;
+        }
         if (!signin){
-    router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
         }
 
-        if (!profile){
+        if (!profileComplete()){
             router.replace('/loginpage')
         }
-        if (signin && profile){
-            if (checkbox){
-                console.log(workid)
-                SubmitData()
-            }
-            else{
-                text = 'tick checkbox'
-                setIsModalOpen(true)
-            }
-        }
+        // SubmitData()
+        setIsModalOpen(true)
     }
-    
-    const { Meta } = Card;
 
     return <div className={styles.page_layout}>
       <div className={Individual_style.indvidual}>
@@ -131,24 +95,26 @@ function IndEventPage({data}){
         </div>
         <div className={Individual_style.eventDate}>
             {data.attributes.currRegCount<=120?data.attributes['eventDate1']:data.attributes['eventDate2']}
+            <br/>
+            {data.attributes.regPrice?`₹${data.attributes.regPrice}`:`₹999`}
         </div>
         <div    className={Individual_style.eventBody}>
             <div    className={Individual_style.eventDescription}>
                 {data.attributes.description}
                 <div className={Individual_style.guidelines}><Link href={'/'}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></Link></div>
             </div>
-            <Image alt="example" src={coverImage} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data.attributes.coverImage.data?data.attributes.coverImage.data:coverImage} className={Individual_style.eventPoster}/>
         </div>
-        <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accecpt the guidelines </Checkbox>
-        <span
-         onClick={()=>check()}
-         className={Individual_style.submit}   
-            >Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
+        {!alreadyReg&&
+        <>
+            <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accecpt the guidelines </Checkbox>
+            <span
+            onClick={()=>check()}
+            className={`${Individual_style.submit} ${disable?Individual_style.submitnotok:Individual_style.submitok}`}>
+                Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
         </span>
-        
-        <Modal title={text} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <p>Username : {username}</p>
-        </Modal>
+        </>}
+        <RegModal isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
       </div>
     </div>
   }
@@ -176,7 +142,7 @@ export async function getStaticProps(context){
     const {params} = context
     const {slug} = params
     
-    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/workshops/${slug}`)
+    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/workshops/${slug}?populate=*`)
 
     return {
         props:{

@@ -1,6 +1,5 @@
 export const fetchUserReg = async (url, token) => {
 
-    if (token != ''){
         try {
             const res = await fetch(url, {
               headers: {
@@ -15,7 +14,6 @@ export const fetchUserReg = async (url, token) => {
         catch (err) {
             console.log(err)
           }
-    }
   }
   
   
