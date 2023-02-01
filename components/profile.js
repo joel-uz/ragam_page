@@ -20,7 +20,7 @@ const ShowProfile = () => {
   const router = useRouter();
   const submitValues = async (username, mail, phone, district, state, gender, college, year, ref) => {
 
-    const response = await fetch(`https://api.ragam.co.in/api/user/me`,
+    const response = await fetch(`https://api.staging.ragam.co.in/api/user/me`,
       {
         method: 'PUT',
         headers: {

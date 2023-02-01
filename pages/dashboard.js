@@ -4,12 +4,12 @@ import { LoginContext } from "../contexts/loginContext";
 import RegisteredTable from "../components/RegisteredTable";
 import styles from  "../styles/dashboard.module.css"
 
-const dashboard = () => {
+const Dashboard = () => {
     const router    =   useRouter();
     const [regData,setRegData]  = useState([])
     const {token}   =   useContext(LoginContext)
     const fetchReg  =   async   ()  =>{
-        const res  = await fetch(`https://api.ragam.co.in/api/user/getme`,{headers:{
+        const res  = await fetch(`https://api.staging.ragam.co.in/api/user/getme`,{headers:{
             'Authorization':  `Bearer ${token}`
           }})
           const value = await res.json()
@@ -36,4 +36,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default Dashboard

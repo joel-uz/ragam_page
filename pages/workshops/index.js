@@ -6,7 +6,7 @@ import EventListItem from '../../components/EventListItem'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/workshops?populate=*`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/workshops?populate=*`, fetchData)
   
   if (data === undefined){
     return (<>
@@ -22,7 +22,7 @@ function EventPage(){
       <div className={styles.card_layout}>
       {ref?.map((each) =>{
         return(
-          <EventListItem each={each}/>
+          <EventListItem  key={each.id} each={each}/>
         )
       })}
       </div>
