@@ -9,10 +9,10 @@ function EventPage(){
   const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/workshops?populate=*`, fetchData)
   
   if (data === undefined){
-    return (<>
-    {isLoading && <p>loading</p>}
-    {error && JSON.stringify(error)}
-    </>)
+    // return (<>
+    // {isLoading && <p>loading</p>}
+    // {error && JSON.stringify(error)}
+    // </>)
   }
   else{
     const ref = data.data
