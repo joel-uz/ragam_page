@@ -23,9 +23,9 @@ function Home() {
   }, [])
   return (
     <div className={styles.top}>
-      <h1 className={styles.hello}>Here &apos;s our most awaited fest</h1>
+      <h1 className={`${styles.hello} ${styles.hello2}`}>RAGAM &apos;23</h1>
       <br />
-      <h1 className={styles.hello}>RAGAM &apos;23</h1>
+      <h1 className={styles.hello}>10-13 March</h1>
       {faqs.map((faq) => {
         // console.log(faq.attributes.category)
         if (faq.attributes.category == "GENERAL") {

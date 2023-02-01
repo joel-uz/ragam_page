@@ -60,3 +60,11 @@ input::placeholder{
 .ant-modal-title{
   font-size: 2rem !important;
 }
+
+@font-face {
+  font-family: "Dimitry";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url(/fonts/Dmitry.otf) format("otf");
+}

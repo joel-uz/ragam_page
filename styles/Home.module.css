@@ -12,8 +12,9 @@
   margin-top: 150px;
   margin-inline: 100px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
 }
 .regContainer{
@@ -25,6 +26,11 @@
   text-align: center;
   font-family: Sofia Sans;
   font-size: 32px;
+}
+.hello2{
+  text-align: center;
+  font-family: Dmitry;
+  font-size: 40px;
 }
 .illustration{
   height: 800px;
