@@ -8,12 +8,12 @@ const RegisteredTable = ({data}) => {
     <div>
         <div className={`${styles.regContainer}`}>
         <h2 className={`${styles.regHead}`}>{`Registered ${category}`}</h2>
+        <div   className={styles.cardsLayout}>
             {data[category].length>0    &&   data[category].map(element => 
-                    <div key={element.id}   className={styles.cardsLayout}>
-                        <RegCard data={element} category={category}/>
-                    </div>
-                )
-            }
+                        <RegCard key={element.id} data={element} category={category}/>
+                        )
+                    }
+        </div>
             {data[category].length===0  &&  <div> <span className={styles.nothing}>Nothing here 🫠</span> <br /><br /> Hurry up, go register for some <Link className={styles.link} href={category.toLowerCase()}>{category}</Link>!</div> }
         </div>
     </div>

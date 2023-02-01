@@ -11,6 +11,7 @@ import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../contexts/loginContext";
 import RegModal from '../../components/RegModal'
 import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons/ai"
+import GuidelinesModal from '../../components/GuidelinesModal'
 
 function IndEventPage({data}){
     const router = useRouter();
@@ -21,10 +22,9 @@ function IndEventPage({data}){
 
     const [alreadyReg, setAlreadyReg] = useState(false)
     const [disable, setDisable] = useState(true)
-    const [regId,setRegId]  =   useState(0)
+    const [guidelinesModalOpen,setguidelinesModalOpen]  =   useState(false)
 
     const   workid  =   data.id
-    var text =''
 
     const {profileComplete, username, signin, token, id} = useContext(LoginContext);
 
@@ -33,6 +33,14 @@ function IndEventPage({data}){
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const closeGuidelinesModal  =   ()  =>{
+        setguidelinesModalOpen(false)
+    }
+
+    const openGuidelinesModal  =   ()  =>{
+        setguidelinesModalOpen(true)
+    }
 
     const onChange = (e) => {
             setDisable(!e.target.checked)
@@ -78,10 +86,12 @@ function IndEventPage({data}){
         }
         if (!signin){
             router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+            return
         }
 
         if (!profileComplete()){
             router.replace('/loginpage')
+            return
         }
         // SubmitData()
         setIsModalOpen(true)
@@ -101,7 +111,7 @@ function IndEventPage({data}){
         <div    className={Individual_style.eventBody}>
             <div    className={Individual_style.eventDescription}>
                 {data.attributes.description}
-                <div className={Individual_style.guidelines}><Link href={'/'}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></Link></div>
+                <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
             <Image alt="example" src={data.attributes.coverImage.data?data.attributes.coverImage.data:coverImage} className={Individual_style.eventPoster}/>
         </div>
@@ -115,6 +125,7 @@ function IndEventPage({data}){
         </span>
         </>}
         <RegModal isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
+        <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
       </div>
     </div>
   }

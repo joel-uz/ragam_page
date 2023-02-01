@@ -56,7 +56,7 @@ const ShowProfile = () => {
 
 
   return (
-    <div>
+    <div  className={`${styles.column}`}>
     <Form  className={`${styles.minWidth}`}
       {...layout}
       form={form}

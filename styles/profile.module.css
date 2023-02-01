@@ -78,7 +78,14 @@
     min-width: 350px  !important;
     height: fit-content !important;
   }
+  .column{
+    display: flex;
+    flex-direction: column;
+  }
   @media (max-width:800px) {
+    .column{
+      flex-direction: column-reverse;
+    }
     .minWidth{
       min-width: 250px !important;
     }

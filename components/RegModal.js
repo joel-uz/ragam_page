@@ -49,15 +49,15 @@ const RegModal = ({isModalOpen,closeModal,amount,SubmitData,setAlreadyReg}) => {
             Instructions:
         </h2>
         <ol className={styles.modalPadding}>
-            <li>Pay an amount of ₹{amount?amount:`999`} to the UPI ID: <span className={styles.highlight}>{upiId}</span> or using the QR Code below
+            <li className={styles.listItemPadding}>Pay an amount of ₹{amount?amount:`999`} to the UPI ID: <span className={styles.highlight}>{upiId}</span> or using the QR Code below
             <br />
             <Image src={qrimg}  className={`${styles.qrimg}`}  alt={`${upiId}`}/>
             </li>
-            <li>Upload the screenshot of the payment below
+            <li className={styles.listItemPadding}>Upload the screenshot of the payment below
                 <br />
                 <input type="file" name="file" id="file" onChange={(e)=>fileSelect(e)}/>
             </li>
-            <li>Click OK to complete registration</li>
+            <li className={styles.listItemPadding}>Click OK to complete registration</li>
         </ol>
     </Modal>
   )
