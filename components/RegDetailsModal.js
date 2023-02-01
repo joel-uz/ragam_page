@@ -74,16 +74,18 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
             <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
                 <Collapse.Panel header="Instructions" key="1">
                     <ol className={styles.modalPadding} >
-                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href={`"upi://pay?pn=Rohith%20Robin&pa=${upiId}&cu=INR"`}><span className={styles.highlight}>{`${upiId}`}</span> </a>
-                            or using the QR Code below
+                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <span className={styles.highlight}>{`${upiId}`}</span>
+                        &nbsp;or using the QR Code below
+                            <br />
+                            <b className={styles.highlight}>Rohit Robin Mampilly</b>
                             <br />
                             <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
                         </li>
-                        <li className={styles.listItemPadding}>Your registration will be verified in two to three days
+                        <li className={styles.listItemPadding}>Your registration will be verified in 2-3 days
                             <br />
                             {/* <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} /> */}
                         </li>
-                        <li className={styles.listItemPadding}>Contact the below contacts if you face any issues: </li>
+                        <li className={styles.listItemPadding}>In case you face any issues, contact: </li>
                         <ul>
                             <li className={styles.listItemPadding}>Zidan:  9400841439</li>
                             <li className={styles.listItemPadding}>Rohit:  9207619833</li>

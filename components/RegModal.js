@@ -54,9 +54,10 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
                 Instructions:
             </h2>
             <ol className={styles.modalPadding}>
-                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href={`upi://pay?pn=Rohith%20Robin&pa=${upiId}&cu=INR`}><span className={styles.highlight}>{`${upiId}`}</span> </a>
-                    or using the QR Code below
+                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID: <span className={styles.highlight}>{`${upiId}`}</span>
+                    &nbsp;or using the QR Code below:
                     <br />
+                    <b  className={styles.highlight}>Rohit Robin Mampilly</b> <br />
                     <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
                 </li>
                 <li className={styles.listItemPadding}>Upload the screenshot of the payment below
