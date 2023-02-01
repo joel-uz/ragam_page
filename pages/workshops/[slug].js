@@ -125,7 +125,7 @@ function IndEventPage({data}){
                 {data.attributes.description}
                 <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
-            <Image alt="example" src={data.attributes.coverImage.data?data.attributes.coverImage.data:coverImage} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data.attributes.coverImage.data?`https://api.staging.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
         {!alreadyReg?
         <>

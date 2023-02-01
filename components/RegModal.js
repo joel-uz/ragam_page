@@ -1,6 +1,6 @@
 import { Modal } from "antd"
 import styles from "../styles/eachevent.module.css"
-import qrimg from "../public/coverimg.jpg"
+import qrimg from "../public/qrimg.jpg"
 import Image from "next/image"
 // import { UploadOutlined } from '@ant-design/icons';
 // import { Button, message, Upload } from 'antd';
@@ -10,7 +10,7 @@ import { LoginContext } from "../contexts/loginContext";
 const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
-    const upiId = 'rrmampily@oksbi'
+    const upiId = '9207619833@ybl'
 
     const fileSelect = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -49,7 +49,7 @@ const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }
                 Instructions:
             </h2>
             <ol className={styles.modalPadding}>
-                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href="upi://pay?pn=Rohith%20Robin&pa=rrmampily@oksbi&cu=INR"><span className={styles.highlight}>{"rrmampilly@oksbi"}</span> </a>
+                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href={`upi://pay?pn=Rohith%20Robin&pa=${upiId}&cu=INR`}><span className={styles.highlight}>{`${upiId}`}</span> </a>
                     or using the QR Code below
                     <br />
                     <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />

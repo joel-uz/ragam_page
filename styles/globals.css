@@ -61,6 +61,11 @@ input::placeholder{
   font-size: 2rem !important;
 }
 
+.ant-collapse,.ant-collapse-content,.ant-collapse-header{
+  color: #eeeeee !important;
+}
+
+
 @font-face {
   font-family: "Dimitry";
   font-style: normal;
@@ -68,3 +73,4 @@ input::placeholder{
   font-display: optional;
   src: url(/fonts/Dmitry.otf) format("otf");
 }
+

@@ -15,17 +15,17 @@ function Footer() {
             <div    className={`${styles["pady10"]} ${styles['marginr40']}`}>
                 Follow us
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="https://www.facebook.com/Ragam.nitc/" target={`_blank`} >
                         <AiFillFacebook /> Facebook
                     </Link>
                 </div>
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="https://instagram.com/ragam_nitc?igshid=YmMyMTA2M2Y="  target={`_blank`}>
                         <AiFillInstagram /> Instagram
                     </Link>
                 </div>
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="https://www.linkedin.com/company/ragam-nit-calicut/?viewAsMember=true"  target={`_blank`}>
                         <AiFillLinkedin /> Linkedin
                     </Link>
                 </div>
@@ -34,12 +34,12 @@ function Footer() {
             <div    className={`${styles.pady10}`}>
                 Site
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="/" >
                         Home
                     </Link>
                 </div>
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="/workshops" >
                         Workshops
                     </Link>
                 </div>

@@ -1,7 +1,7 @@
 import { Collapse, Modal, Image as AntImg } from "antd"
 import Image from "next/image";
 import styles from "../styles/eachevent.module.css"
-import qrimg from "../public/coverimg.jpg"
+import qrimg from "../public/qrimg.jpg"
 // import { UploadOutlined } from '@ant-design/icons';
 // import { Button, message, Upload } from 'antd';
 import { useContext, useEffect, useState } from "react";
@@ -11,7 +11,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
     // console.log(refId)
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
-    const upiId = 'rrmampily@oksbi'
+    const upiId = '9207619833@ybl'
     const [user_workshop_detail, set_user_workshop_detail] = useState({})
     const get_user_workshop_detail = async () => {
         const response = await fetch(`https://api.staging.ragam.co.in/api/user-workshop-details/${refId}?populate[0]=receipt`, {
@@ -69,10 +69,10 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isOpen} onOk={fileUpload} onCancel={onClose} style={{ overflow: "scroll" }}>
 
-            <Collapse defaultActiveKey={['1']} onChange={() => { }}>
+            <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
                 <Collapse.Panel header="Instructions" key="1">
                     <ol className={styles.modalPadding} >
-                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href="upi://pay?pn=Rohith%20Robin&pa=rrmampily@oksbi&cu=INR"><span className={styles.highlight}>{"rrmampilly@oksbi"}</span> </a>
+                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <a href={`"upi://pay?pn=Rohith%20Robin&pa=${upiId}&cu=INR"`}><span className={styles.highlight}>{`${upiId}`}</span> </a>
                             or using the QR Code below
                             <br />
                             <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
@@ -81,7 +81,11 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
                             <br />
                             {/* <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} /> */}
                         </li>
-                        <li className={styles.listItemPadding}>Contact:  in case you face any issues. </li>
+                        <li className={styles.listItemPadding}>Contact the below contacts if you face any issues: </li>
+                        <ul>
+                            <li className={styles.listItemPadding}>Zidan:  9400841439</li>
+                            <li className={styles.listItemPadding}>Rohit:  9207619833</li>
+                        </ul>
                     </ol>
                 </Collapse.Panel>
             </Collapse>
@@ -90,8 +94,8 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
                 Reciept : <AntImg src={"https://api.staging.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
             </div>
-            <div>
-                Status: {user_workshop_detail?.verified === false ? "Rejected" : user_workshop_detail?.verified ? "Verified" : "Not yet verified"}
+            <div    className={styles.listItemPadding}>
+                Status: {user_workshop_detail?.verified === false ? "Rejected" : user_workshop_detail?.verified ? <span    className={styles.verified}>Verified</span> : <span    className={styles.notVerified}>Not yet verified</span>}
             </div>
 
         </Modal>
