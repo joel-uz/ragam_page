@@ -28,7 +28,7 @@ function IndEventPage({data=null}){
 
     const   workid  =   data.id
 
-    const {profileComplete, username, signin, token, id} = useContext(LoginContext);
+    const {profileComplete, name, signin, token, id} = useContext(LoginContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRegDetailsOpen, setIsRegDetailsOpen] = useState(false);
@@ -68,7 +68,7 @@ function IndEventPage({data=null}){
     const messageSuccess  =  ()  =>  {
         messageApi.open({
             type:'success',
-             content:`Registration submitted!`
+             content:`Registration submitted`
         })
     }
 

@@ -15,7 +15,7 @@ function IndEventPage({data}){
         route.replace(`/competitions`)
     }
 
-    const {profile, username, password, signin} = useContext(LoginContext);
+    const {profile, name, password, signin} = useContext(LoginContext);
     const router = useRouter();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,7 +60,7 @@ function IndEventPage({data}){
                         }}>Register
                     </Button>
                     <Modal title="User Credetials" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <p>Username : {username}</p>
+                        <p>Username : {name}</p>
                         <p>Password : {password}</p>
                     </Modal>
                 </Space>

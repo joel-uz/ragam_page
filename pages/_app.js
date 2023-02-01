@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
 
 
   const [id, setId] = useState(0);
-  const [username, setUsername] = useState("");
+  const [name, setUsername] = useState("");
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [district, setDistrict] = useState("");
@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }) {
     localStorage.removeItem("user_details")
   }
 
-  const profileComplete = () => (username && mail && phone && state && gender && college && year && district)
+  const profileComplete = () => (name && mail && phone && state && gender && college && year && district)
 
   const [ready, setReady] = useState(false);
   const fetchUser = async (_token) => {
@@ -94,7 +94,7 @@ export default function App({ Component, pageProps }) {
 
   return <div className={styles.main_layout}>
     <LoginContext.Provider value={{
-      username, setUsername,
+      name, setUsername,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
       setGender, college, setCollege, year, setYear, usercode, setUsercode, signin, setSignin, token, setToken, ref, setRef, signInclicked,
       setSignInclicked, id, setId, ready, setReady, logOut, profileComplete
