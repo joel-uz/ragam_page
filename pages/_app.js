@@ -103,6 +103,13 @@ export default function App({ Component, pageProps }) {
         <title>RAGAM &apos; 23</title>
         <meta name='description' content='About Ragam' />
         <link rel="shortcut icon" href="../ragam.ico" />
+        <link
+            rel="preload"
+            href="/fonts/Dmitry.otf"
+            as="font"
+            type="font/otf"
+            crossOrigin="anonymous"
+          />
       </Head>
       <Header />
       <br />
