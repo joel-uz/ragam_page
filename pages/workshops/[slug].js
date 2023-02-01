@@ -12,6 +12,7 @@ import { LoginContext } from "../../contexts/loginContext";
 import RegModal from '../../components/RegModal'
 import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons/ai"
 import GuidelinesModal from '../../components/GuidelinesModal'
+import RegDetailsModal from '../../components/RegDetailsModal'
 
 function IndEventPage({data}){
     const router = useRouter();
@@ -29,7 +30,7 @@ function IndEventPage({data}){
     const {profileComplete, username, signin, token, id} = useContext(LoginContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [isRegDetailsOpen, setIsRegDetailsOpen] = useState(false);
     const closeModal = () => {
         setIsModalOpen(false);
     };
@@ -41,6 +42,12 @@ function IndEventPage({data}){
     const openGuidelinesModal  =   ()  =>{
         setguidelinesModalOpen(true)
     }
+    const openRegDetailsModal = () => {
+        setIsRegDetailsOpen(true)
+    }
+    const closeRegDetailsModal = () => {
+        setIsRegDetailsOpen(false)
+    }
 
     const onChange = (e) => {
             setDisable(!e.target.checked)
@@ -49,16 +56,17 @@ function IndEventPage({data}){
     const checkReg = async() => {
         if (token != ''){
             const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
-            if(reg_data.registeredWorkshops.find(x=>x.id    === workid))
-            {
-                setAlreadyReg(true)
+            let user_workshop_detail = reg_data.registeredWorkshops.find(x=>x.id    === workid);
+            if(user_workshop_detail)
+            {   console.log(user_workshop_detail)
+                setAlreadyReg({id: user_workshop_detail.ref_id})
             }  
         }
     }
 
     useEffect(() => {
         checkReg();
-    }, [])
+    }, [token])
 
     const SubmitData = async() =>{
         const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details",{
@@ -99,6 +107,8 @@ function IndEventPage({data}){
         setIsModalOpen(true)
     }
 
+
+
     return <div className={styles.page_layout}>
       <div className={Individual_style.indvidual}>
         <AiFillLeftCircle className={Individual_style.go_back_button}  onClick={back_to}/>
@@ -117,7 +127,7 @@ function IndEventPage({data}){
             </div>
             <Image alt="example" src={data.attributes.coverImage.data?data.attributes.coverImage.data:coverImage} className={Individual_style.eventPoster}/>
         </div>
-        {!alreadyReg&&
+        {!alreadyReg?
         <>
             <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accecpt the guidelines </Checkbox>
             <span
@@ -125,9 +135,19 @@ function IndEventPage({data}){
             className={`${Individual_style.submit} ${disable?Individual_style.submitnotok:Individual_style.submitok}`}>
                 Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
         </span>
-        </>}
+        </>:
+        <>
+        <span
+        onClick={openRegDetailsModal}
+        className={`${Individual_style.submit} ${Individual_style.submitok}`}>
+            Registration status <AiOutlineDoubleRight  className={Individual_style.gicon}/>
+    </span>
+    </>
+        }
         <RegModal isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
         <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
+        <RegDetailsModal isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.attributes.regPrice} />
+
       </div>
     </div>
   }

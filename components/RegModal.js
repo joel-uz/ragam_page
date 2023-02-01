@@ -35,7 +35,7 @@ const RegModal = ({isModalOpen,closeModal,amount,SubmitData,setAlreadyReg}) => {
             const   value   =   await response.json()
             console.log(value);
             if (workid&&response.status===200) {
-                setAlreadyReg(true)
+                setAlreadyReg({id: workid})
                 closeModal()
                 
             }
