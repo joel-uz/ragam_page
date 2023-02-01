@@ -49,7 +49,7 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
 
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isModalOpen} onOk={fileUpload} onCancel={closeModal}>
-            {/* <p>Username : {username}</p> */}
+            {/* <p>Username : {name}</p> */}
             <h2>
                 Instructions:
             </h2>

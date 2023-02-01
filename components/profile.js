@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select,message } from 'antd';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
@@ -12,14 +12,18 @@ const tailLayout = {
 };
 
 const ShowProfile = () => {
-  const { username, setUsername, profileComplete,
+  const { name, setUsername, profileComplete,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
     setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady } = useContext(LoginContext);
 
+  const [messageApi,  contextHolder]  = message.useMessage()
+
   const [form] = Form.useForm();
   const router = useRouter();
-  const submitValues = async (username, mail, phone, district, state, gender, college, year, ref) => {
-
+  const submitValues = async (name, mail, phone, district, state, gender, college, year, ref) => {
+    if (!profileComplete()) {
+      return
+    }
     const response = await fetch(`https://api.ragam.co.in/api/user/me`,
       {
         method: 'PUT',
@@ -29,7 +33,7 @@ const ShowProfile = () => {
             `Bearer ${token}`,
         },
         body: JSON.stringify({
-          "name": `${username}`,
+          "name": `${name}`,
           "email": `${mail}`,
           "phone": `${phone}`,
           "college": `${college}`,
@@ -42,6 +46,10 @@ const ShowProfile = () => {
       })
     if (response.status === 200) {
       setOk(1);
+      messageApi.open({
+        type:'success',
+        content:'Profile updated'
+      })
       let redirect = localStorage.getItem("profileRedirect");
       if (profileComplete() && redirect) {
         //snackbar -> profile successfull
@@ -57,6 +65,12 @@ const ShowProfile = () => {
       //   }
       // }
     }
+    else{
+      messageApi.open({
+        type:'error',
+        content:'Please try again later'
+      })
+    }
   }
 
   const [ok, setOk] = useState(profileComplete())
@@ -66,12 +80,13 @@ const ShowProfile = () => {
   };
 
   const onSubmit = () => {
-    submitValues(username, mail, phone, district, state, gender, college, year, ref)
+    submitValues(name, mail, phone, district, state, gender, college, year, ref)
   };
 
 
   return (
     <div className={`${styles.column}`}>
+      {contextHolder}
       <Form className={`${styles.minWidth}`}
         {...layout}
         form={form}
@@ -84,7 +99,7 @@ const ShowProfile = () => {
         <Form.Item
           label={<label className={`${styles.label}`}>Name </label>}
           name="Name"
-          initialValue={username}
+          initialValue={name}
           rules={[
             {
               required: true,

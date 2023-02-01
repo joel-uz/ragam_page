@@ -10,8 +10,8 @@ import RegisteredTable from "../components/RegisteredTable";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from "antd";
 
-function checkProfile({ id, username, email, college, district, gender, phone, year, state }) {
-  return username && college && district && gender && phone && year && state
+function checkProfile({ id, name, email, college, district, gender, phone, year, state }) {
+  return name && college && district && gender && phone && year && state
 }
 function Login() {
   const router = useRouter();
@@ -32,7 +32,7 @@ function Login() {
           localStorage.setItem("user_details", user_details)
           setToken(user_details.jwt)
           setId(user_details.user.id);
-          setUsername(user_details.user.username)
+          setUsername(user_details.user.name)
           setMail(user_details.user.email)
           setCollege(user_details.user.college)
           setDistrict(user_details.user.district)

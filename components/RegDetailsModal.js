@@ -91,7 +91,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
                     </ol>
                 </Collapse.Panel>
             </Collapse>
-            {/* <p>Username : {username}</p> */}
+            {/* <p>Username : {name}</p> */}
             <div>
                 Reciept : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
