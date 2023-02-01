@@ -3,12 +3,12 @@ export const fetchData = async (url) => {
 
   try {
     const res = await fetch(url, 
-      {
-      headers: {
-        Authorization:
-          `Bearer ${token}`,
-      },
-    }
+    //   {
+    //   headers: {
+    //     Authorization:
+    //       `Bearer ${token}`,
+    //   },
+    // }
     )
     const value = await res.json()
 

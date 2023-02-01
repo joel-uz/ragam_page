@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useContext, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
+const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const upiId = '9207619833@ybl'
@@ -25,7 +25,7 @@ const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }
             reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
             reqBody.append("refId", `${workid}`)
             reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -35,9 +35,14 @@ const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }
             const value = await response.json()
             console.log(value);
             if (workid && response.status === 200) {
+                messageSuccess()
                 setAlreadyReg({ id: workid })
                 closeModal()
 
+            }
+            else{
+                messageError()
+                closeModal()
             }
         }
     }

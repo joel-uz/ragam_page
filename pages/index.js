@@ -3,12 +3,13 @@ import styles from "../styles/Home.module.css"
 import ragamFlame from  "../public/ragamflame.svg"
 import { Collapse } from "antd";
 import Image from "next/image";
+import jonita from "../public/jonita.jpg"
 
 function Home() {
   const [faqs, setFaqs] = useState([]);
 
   const get_faqs = async () => {
-    const response = await fetch(`https://api.staging.ragam.co.in/api/faqs`, {
+    const response = await fetch(`https://api.ragam.co.in/api/faqs`, {
       method: "GET"
     })
     return response;
@@ -25,6 +26,7 @@ function Home() {
 
   }, [])
   return (<>
+    <Image className={styles.background} src={jonita} fill/>
     <div className={styles.heroContainer}>
       <div  className={styles.hero}>
       <Image src={ragamFlame} width={250} height={250}/>

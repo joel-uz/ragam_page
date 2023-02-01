@@ -16,12 +16,16 @@
   html,
   body {
     max-width: 100vw;
-    overflow-x: hidden;
+    
   }
   
   body {
     background: #04080F;
     color: #eeeeee;
+    /* background-image: url('../public/jonita.JPG'); */
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden; */
   }
   
   a {

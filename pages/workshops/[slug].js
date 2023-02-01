@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import styles from '../../styles/category.module.css'
 import Individual_style from '../../styles/eachevent.module.css'
-import {Modal,Checkbox } from 'antd'
+import {Modal,Checkbox,message } from 'antd'
 import Image from 'next/image'
 import { fetchData } from '../../components/fetchdata'
 import { fetchUserReg } from '../../components/fetchuserRegData'
@@ -14,7 +14,7 @@ import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons
 import GuidelinesModal from '../../components/GuidelinesModal'
 import RegDetailsModal from '../../components/RegDetailsModal'
 
-function IndEventPage({data}){
+function IndEventPage({data=null}){
     const router = useRouter();
     // var regId   =   0
     const back_to = () =>{
@@ -24,6 +24,7 @@ function IndEventPage({data}){
     const [alreadyReg, setAlreadyReg] = useState(false)
     const [disable, setDisable] = useState(true)
     const [guidelinesModalOpen,setguidelinesModalOpen]  =   useState(false)
+    const [messageApi,contextHolder]    =   message.useMessage()
 
     const   workid  =   data.id
 
@@ -55,7 +56,7 @@ function IndEventPage({data}){
     
     const checkReg = async() => {
         if (token != ''){
-            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
             let user_workshop_detail = reg_data.registeredWorkshops.find(x=>x.id    === workid);
             if(user_workshop_detail)
             {   console.log(user_workshop_detail)
@@ -64,12 +65,26 @@ function IndEventPage({data}){
         }
     }
 
+    const messageSuccess  =  ()  =>  {
+        messageApi.open({
+            type:'success',
+             content:`Registration submitted!`
+        })
+    }
+
+    const messageError  =   ()  =>  {
+        messageApi.open({
+            type:'error',
+            content:'Please try again later'
+        })
+    }
+
     useEffect(() => {
         checkReg();
     }, [token])
 
     const SubmitData = async() =>{
-        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details",{
+        const response = await fetch("https://api.ragam.co.in/api/user-workshop-details",{
             method:'POST',
             headers: {
                 'Content-Type':"application/json",
@@ -94,7 +109,7 @@ function IndEventPage({data}){
         }
         if (!signin){
             localStorage.setItem("loginRedirect",true);
-            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+            router.push(`https://api.ragam.co.in/api/connect/google`)
             return
         }
 
@@ -110,6 +125,7 @@ function IndEventPage({data}){
 
 
     return <div className={styles.page_layout}>
+        {contextHolder}
       <div className={Individual_style.indvidual}>
         <AiFillLeftCircle className={Individual_style.go_back_button}  onClick={back_to}/>
         <div className={Individual_style.eventTitle}>
@@ -125,7 +141,7 @@ function IndEventPage({data}){
                 {data.attributes.description}
                 <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
-            <Image alt="example" src={data.attributes.coverImage.data?`https://api.staging.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data.attributes.coverImage.data?`https://api.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
         {!alreadyReg?
         <>
@@ -144,7 +160,7 @@ function IndEventPage({data}){
     </span>
     </>
         }
-        <RegModal isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
+        <RegModal   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
         <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
         <RegDetailsModal isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.attributes.regPrice} />
 
@@ -154,26 +170,26 @@ function IndEventPage({data}){
   
 export default IndEventPage
 
-export async function getStaticPaths(){
-    const { meta,data } = await fetchData('https://api.staging.ragam.co.in/api/workshops')
+// export async function getStaticPaths(){
+//     const { data = [] } = await fetchData('https://api.ragam.co.in/api/workshops')
 
-    var path = []
+//     var path = []
 
-    data.forEach(element => {
-        path.push({params:{slug:`${element.id}`}})
-    });
+//     data.forEach(element => {
+//         path.push({params:{slug:`${element.id}`}})
+//     });
 
-    return {
-        paths:path,
-        fallback:false
-    }
-}
+//     return {
+//         paths:path,
+//         fallback:false
+//     }
+// }
 
-export async function getStaticProps(context){
+export async function getServerSideProps(context){
     const {params} = context
     const {slug} = params
     
-    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/workshops/${slug}?populate=*`)
+    const {data} = await fetchData(`https://api.ragam.co.in/api/workshops/${slug}?populate=*`)
 
     return {
         props:{
