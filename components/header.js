@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { GiHamburgerMenu} from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
-import  {AiOutlineUser} from 'react-icons/ai'
+import  {AiOutlineUser,AiFillDashboard} from 'react-icons/ai'
 import Image from "next/image"
 import image from "../public/ragamflame.svg"
 import { Button, Space, Modal} from 'antd';
@@ -50,18 +50,18 @@ function Header() {
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          {signInclicked&&<Link href="/dashboard">
-              <span className={styles["nav-link"]}>Dashboard</span>
-          </Link>}
           {/* <Link href="/events">
               <span className={styles["nav-link"]}>Events</span>
-          </Link>
-          <Link href="/faqs">
+              </Link>
+              <Link href="/faqs">
               <span className={styles["nav-link"]}>FAQs</span>
-          </Link> */}
+            </Link> */}
           {signInclicked&&<Link href="/loginpage">
-              <span className={styles["nav-link"]}>Profile <AiOutlineUser style={{top:'3px',position:'relative'}}/></span>
+              <span className={styles["nav-link"]}>Profile</span>
           </Link>}
+            {signInclicked&&<Link href="/dashboard">
+                <span className={styles["nav-link"]}>Dashboard <AiFillDashboard style={{top:'3.5px',position:'relative'}}/></span>
+            </Link>}
           
         </div>
           {!signInclicked? (<Link href="https://api.staging.ragam.co.in/api/connect/google"
