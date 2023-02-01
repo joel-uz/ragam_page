@@ -85,11 +85,13 @@ function IndEventPage({data}){
             return;
         }
         if (!signin){
+            localStorage.setItem("loginRedirect",true);
             router.push(`https://api.staging.ragam.co.in/api/connect/google`)
             return
         }
 
         if (!profileComplete()){
+            localStorage.setItem("profileRedirect",true);
             router.replace('/loginpage')
             return
         }
