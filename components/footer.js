@@ -44,7 +44,7 @@ function Footer() {
                     </Link>
                 </div>
                 <div className={`${styles["font300"]} ${styles.padyb5} ${styles.linkHover}`}>
-                    <Link href="#" >
+                    <Link href="/#faq" >
                         FAQs
                     </Link>
                 </div>

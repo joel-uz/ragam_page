@@ -14,7 +14,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
     const upiId = '9207619833@ybl'
     const [user_workshop_detail, set_user_workshop_detail] = useState({})
     const get_user_workshop_detail = async () => {
-        const response = await fetch(`https://api.staging.ragam.co.in/api/user-workshop-details/${refId}?populate[0]=receipt`, {
+        const response = await fetch(`https://api.ragam.co.in/api/user-workshop-details/${refId}?populate[0]=receipt`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -49,7 +49,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
             reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
             reqBody.append("refId", `${workid}`)
             reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -91,7 +91,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
             </Collapse>
             {/* <p>Username : {username}</p> */}
             <div>
-                Reciept : <AntImg src={"https://api.staging.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
+                Reciept : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
             </div>
             <div    className={styles.listItemPadding}>

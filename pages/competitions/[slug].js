@@ -29,7 +29,7 @@ function IndEventPage({data}){
     
     const check = async() => {
         if (!signin){
-            const resp = await fetch('https://api.staging.ragam.co.in/strapi-google-auth/init')
+            const resp = await fetch('https://api.ragam.co.in/strapi-google-auth/init')
             const url = await resp.json()
             router.push(`${url['url']}`)
         }
@@ -76,7 +76,7 @@ function IndEventPage({data}){
 export default IndEventPage
 
 export async function getStaticPaths(){
-    const { meta } = await fetchData('https://api.staging.ragam.co.in/api/competitions')
+    const { meta } = await fetchData('https://api.ragam.co.in/api/competitions')
 
     var path = []
 
@@ -95,7 +95,7 @@ export async function getStaticPaths(){
 export async function getStaticProps(context){
     const {params} = context
     const {slug} = params
-    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/competitions/${slug}`)
+    const {data} = await fetchData(`https://api.ragam.co.in/api/competitions/${slug}`)
 
     return {
         props:{

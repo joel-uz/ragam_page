@@ -55,7 +55,7 @@ function IndEventPage({data}){
     
     const checkReg = async() => {
         if (token != ''){
-            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
             let user_workshop_detail = reg_data.registeredWorkshops.find(x=>x.id    === workid);
             if(user_workshop_detail)
             {   console.log(user_workshop_detail)
@@ -69,7 +69,7 @@ function IndEventPage({data}){
     }, [token])
 
     const SubmitData = async() =>{
-        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details",{
+        const response = await fetch("https://api.ragam.co.in/api/user-workshop-details",{
             method:'POST',
             headers: {
                 'Content-Type':"application/json",
@@ -94,7 +94,7 @@ function IndEventPage({data}){
         }
         if (!signin){
             localStorage.setItem("loginRedirect",true);
-            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+            router.push(`https://api.ragam.co.in/api/connect/google`)
             return
         }
 
@@ -125,7 +125,7 @@ function IndEventPage({data}){
                 {data.attributes.description}
                 <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
-            <Image alt="example" src={data.attributes.coverImage.data?`https://api.staging.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data.attributes.coverImage.data?`https://api.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
         {!alreadyReg?
         <>
@@ -155,15 +155,13 @@ function IndEventPage({data}){
 export default IndEventPage
 
 export async function getStaticPaths(){
-    const { meta } = await fetchData('https://api.staging.ragam.co.in/api/workshops')
+    const { meta,data } = await fetchData('https://api.ragam.co.in/api/workshops')
 
     var path = []
 
-    const size = meta.pagination.total
-
-    for (var i=1;i<size+1;i++){
-        path.push({params:{slug:`${i}`}})
-    }
+    data.forEach(element => {
+        path.push({params:{slug:`${element.id}`}})
+    });
 
     return {
         paths:path,
@@ -175,7 +173,7 @@ export async function getStaticProps(context){
     const {params} = context
     const {slug} = params
     
-    const {data} = await fetchData(`https://api.staging.ragam.co.in/api/workshops/${slug}?populate=*`)
+    const {data} = await fetchData(`https://api.ragam.co.in/api/workshops/${slug}?populate=*`)
 
     return {
         props:{

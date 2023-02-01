@@ -25,7 +25,7 @@ const RegModal = ({ isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }
             reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
             reqBody.append("refId", `${workid}`)
             reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },

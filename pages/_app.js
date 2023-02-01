@@ -50,7 +50,7 @@ export default function App({ Component, pageProps }) {
 
   const [ready, setReady] = useState(false);
   const fetchUser = async (_token) => {
-    const res = await fetch(`https://api.staging.ragam.co.in/api/user/getme`, {
+    const res = await fetch(`https://api.ragam.co.in/api/user/getme`, {
       headers: {
         'Authorization': `Bearer ${_token}`
       }
@@ -100,9 +100,9 @@ export default function App({ Component, pageProps }) {
       setSignInclicked, id, setId, ready, setReady, logOut, profileComplete
     }}>
       <Head>
-        <title>RAGAM &apos; 23</title>
-        <meta name='description' content='About Ragam' />
-        <link rel="shortcut icon" href="../ragam.ico" />
+        <title>RAGAM&apos;23</title>
+        <meta name='description' content='Ragam, South India&apos;s largest Institute cultural fest. Igniting the flames of passion, since 2006. A soul gratifying experience.' />
+        <link rel="shortcut icon" href="../favicon.ico" />
         <link
             rel="preload"
             href="/fonts/Dmitry.otf"

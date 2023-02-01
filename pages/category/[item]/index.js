@@ -9,15 +9,16 @@ import coverImage from '../../../public/coverimg.jpg'
 
 function EventPage({name}){
 
-  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/${name}`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/${name}`, fetchData)
   var name_cat =''
 
   if(name === 'competitions') {name_cat = 'title'}else{name_cat = 'name'}
 
   if (data === undefined){
     return (<>
-    {isLoading && <p>loading</p>}
-    {error && JSON.stringify(error)}</>)
+    {/* {isLoading && <p>loading</p>}
+    {error && JSON.stringify(error)} */}
+    </>)
   }
   else{
     const ref = data.data

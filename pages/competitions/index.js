@@ -9,12 +9,13 @@ import coverImage from '../../public/coverimg.jpg'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/competitions`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/competitions`, fetchData)
   
   if (data === undefined){
     return (<>
-    {isLoading && <p>loading</p>}
-    {error && JSON.stringify(error)}</>)
+    {/* {isLoading && <p>loading</p>}
+    {error && JSON.stringify(error)} */}
+    </>)
   }
   else{
     const ref = data.data

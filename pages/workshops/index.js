@@ -6,12 +6,13 @@ import EventListItem from '../../components/EventListItem'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/workshops?populate=*`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/workshops?populate=*`, fetchData)
   
   if (data === undefined){
     return (<>
     {isLoading && <p>loading</p>}
-    {error && JSON.stringify(error)}</>)
+    {error && JSON.stringify(error)}
+    </>)
   }
   else{
     const ref = data.data
@@ -19,7 +20,7 @@ function EventPage(){
       <h1 className={styles.titlePage}>WORKSHOPS</h1>
     {data && <div className={styles.page_layout}>
       <div className={styles.card_layout}>
-      {ref.map((each) =>{
+      {ref?.map((each) =>{
         return(
           <EventListItem each={each}/>
         )
