@@ -1,0 +1,10 @@
+.margin{
+    margin: 120px;
+    margin-top: 150px;
+}
+@media (max-width:800px) {
+    .margin{
+    margin: 20px;
+    margin-top: 120px;
+    }
+}

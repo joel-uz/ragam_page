@@ -1,0 +1,102 @@
+.label{
+    color: #eeeeee !important;
+    font-size:1.2rem !important;
+  }
+.regCardContainer{
+    /* background-color: #1d1d1e; */
+    height: 200px;
+    width: 300px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    margin: 10px;
+    z-index: 1;
+}
+.nothing{
+  font-size: 1.2rem;
+}
+.regCardImg{
+  position: absolute;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  filter: brightness(0.5);
+  left: 0px;
+  z-index: -1;
+  cursor: pointer;
+}
+.regCardIcon{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  rotate: 45deg;
+  color: #fdc498;
+}
+.regCardTitle{
+  font-weight: 700;
+  color: #fdfce1;
+}
+.link{
+  color: goldenrod;
+}
+.regHead{
+  color: goldenrod;
+  font-size: 2rem;
+  margin: 10px;
+  margin-left: 0px;
+}
+.warning{
+  color: rgb(161, 52, 52);
+  font-size: 2rem;
+  margin: 10px;
+}
+.regContainer{
+  background-color: #1d1d1e;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding: 30px;
+  border-radius: 15px;
+  min-width: 320px;
+}
+  .mobileInput{
+    max-width: 80vw !important;
+    background-color: #1d1d1e;
+    border: none;
+    color: #eee;
+  }
+
+  .cardsLayout{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .minWidth{
+    min-width: 350px  !important;
+    height: fit-content !important;
+  }
+  .column{
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width:800px) {
+    .column{
+      flex-direction: column-reverse;
+    }
+    .minWidth{
+      min-width: 250px !important;
+    }
+    .regContainer{
+      margin-left: 0px;
+      padding: 10px;
+    }
+    .regCardContainer{
+      margin: 0px;
+    }
+    .label{
+      font-size: 1rem !important;
+    }
+  }

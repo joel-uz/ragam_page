@@ -1,11 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
 .indvidual{
     display: flex;
-    padding: 2%;
+    margin: 50px;
+    margin-top: 200px;
+    justify-content: space-evenly;
+    background-color: #1d1d1e;
+    border-radius: 20px;
     flex-direction: column;
-    align-items: center;
+}
+.right_side{
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
 }
 
-.button{
-    margin-top: 3%;
-    padding: 1.5% 3%;
+.eventTitle{
+    font-size: 3rem;
+    margin: 20px;
+    margin-bottom: 0px;
+    letter-spacing: 4px;
+}
+.eventDate{
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: goldenrod;
+    margin: 20px;
+    margin-top: 0px;
+}
+.eventDescription{
+    width: 50ch;
+    margin: 20px;
+}
+.eventPoster{
+    margin: 20px;
+    border-radius: 10px;
+    width: 500px;
+    height: 500px;
+}
+.eventBody{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap-reverse;
+}
+.guidelines{
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: goldenrod;
+    cursor: pointer;
+    width: fit-content;
+}
+.gicon{
+    position: relative;
+    top: 3px;
+}
+.checkbox{
+    font-size: 1.2rem;
+    margin:20px;
+}
+.submit{
+    font-size: 2rem;
+    letter-spacing: 4px;
+    padding: 5px;
+    margin: 20px;
+    text-align: end;
+    cursor: pointer;
+}
+.submitok{
+    color: #fdc498;
+}
+.submitnotok{
+    color: #777;
+    cursor: not-allowed;
+}
+
+.listItemPadding{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.guidelines:hover{
+    color: rgb(237, 198, 101);
+}
+
+.verified{
+    color: rgb(47, 255, 54);
+  }
+
+.notVerified{
+    color: gold;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.go_back_button{
+    margin-top: 0px;
+    color: #1d1d1e;
+    background-color: #eeeeee;
+    border-radius: 25px;
+    position: absolute;
+    top: 150px;
+    margin-right: 0px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.modalContainer{
+    background-color: #1d1d1e !important;
+  }
+  .modalPadding{
+    margin-left: 24px !important;
+  }
+
+.highlight{
+    color: goldenrod;
+}
+.qrimg{
+    width: 250px;
+    height: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width:600px) {
+    .eventPoster{
+        width: 250px;
+        height: 250px;
+    }
+    .eventDescription{
+        width: 30ch;
+        font-size: 0.9rem;
+    }
+    .eventTitle{
+        font-size: 2rem;
+    }
+    .go_back_button{
+        top: 100px;
+    }
+    .indvidual{
+        margin-top: 150px;
+    }
 }

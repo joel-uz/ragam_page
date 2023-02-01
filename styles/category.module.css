@@ -1,34 +1,56 @@
-.main_layout{
-    padding: 5% 5%;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+.card_layout{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.titlePage{
+    text-align: center;
+    margin-top: 150px;
+    font-size: 2.5rem;
+    letter-spacing: 6px;
+}
+.page_layout{
+    margin-top: 20px;
+    margin-inline: 150px;
     display: flex;
     justify-content: center;
-    align-content: space-between;
-    max-width: 100%;
-    flex-direction: column;
-    background-color: rgba(97, 80, 80, 0.507);
+
   }
 
-  .Body_page{
+
+.Body_page{
     padding: 3% 10%;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+}
 .title{
-    font-size: 180%;
-    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: #eeeeee;
 }
 
 .internallink{
-    color: rgb(15, 135, 247);
+    color: #FF7E5F;
     text-decoration: none;
     transition: font-size,color 1s ease-in-out;
-}
-.internallink:hover{
-    color: rgb(16, 93, 182);
-    font-size: 3.3vh;
+    font-size: 28px;
+	/* font-family: 'Mori Gothic', sans-serif; */
+	font-weight: 400;
+	margin-top: 18px;
+	margin-bottom: 12px;
+	line-height: 130%;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .site_card_catergorypage{
@@ -37,8 +59,18 @@
 }
 
 .site_card_eventpage{
+    border: 3px solid orange;
+    width: fit-content;
+    padding: 1% 2%;
+    margin: 5% 5px;
+    transition: all 0.3s ease-in;
+}
+.site_card_eventpage:hover{
     width: fit-content;
     padding: 1% 3%;
+    margin: 2%;
+    margin-bottom: 5%;
+    margin-top: 3%;
 }
 
 .event_page{
@@ -47,5 +79,85 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
+}
+
+.date{
+    color: #eeeeee;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    letter-spacing: 3px;
+}
+.bottom{
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+}
+.card{
+    width: 450px;
+    height: 300px;
+    position: relative;
+    margin: 10px;
+    transition: all 300ms;
+    top: 0;
+    border-radius: 20px;
+    padding: 20px;
+}
+.card:hover{
+    box-shadow: 0px 5px 8px #454545;
+    top: -5px;
+    
+}
+.cardImage{
+    border-radius: 20px;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    filter: brightness(0.5) contrast(1);
+    object-fit: cover;
+}
+.title, .date{
+    color: #fdfce1;
+}
+.read{
+    color: #fdc498;
+    font-size: 1.2rem;
+    text-align: end;
+    position: absolute;
+    bottom: 10px;
+    right:20px ;
+    rotate: 45deg;
+
+}
+
+@media (max-width: 800px){
+    .card_layout{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .titlePage{
+        margin-top: 120px;
+    }   
+    .card{
+        height: 200px;
+        width: 300px;
+        border-radius: 10px;
+    }
+    .cardImage{
+        border-radius: 10px;
+    }
+    .title{
+        font-size: 1.3rem;
+        letter-spacing:2px ;
+    }
+    .date{
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
 }
