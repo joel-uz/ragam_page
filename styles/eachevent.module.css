@@ -85,6 +85,13 @@
     color: rgb(237, 198, 101);
 }
 
+.verified{
+    color: rgb(47, 255, 54);
+  }
+
+.notVerified{
+    color: gold;
+}
 
 .buttons{
     display: flex;

@@ -60,3 +60,7 @@ input::placeholder{
 .ant-modal-title{
   font-size: 2rem !important;
 }
+.ant-collapse,.ant-collapse-content,.ant-collapse-header{
+  color: #eeeeee !important;
+}
+
