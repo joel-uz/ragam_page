@@ -48,7 +48,6 @@ function Footer() {
                         FAQs
                     </Link>
                 </div>
-
             </div>
         </div>
         <div    className={`${styles['copyright']}  ${styles.font300}`}>
