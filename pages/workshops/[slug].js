@@ -83,7 +83,15 @@ function IndEventPage({data=null}){
         checkReg();
     }, [token])
 
-    const SubmitData = async() =>{
+    useEffect(()    =>{
+        if(router.query.refCode    !=null)
+        {
+            // console.log('Saved in local storage');
+            localStorage.setItem('refCode',router.query.refCode)
+        }
+    },[router.query])
+
+    const SubmitData = async(refCode="") =>{
         const response = await fetch("https://api.ragam.co.in/api/user-workshop-details",{
             method:'POST',
             headers: {
@@ -93,7 +101,8 @@ function IndEventPage({data=null}){
             body: JSON.stringify({
                 "data":{
                     "user": {"id":id},
-                    "workshop":workid
+                    "workshop":workid,
+                    "refCode":  refCode
                 } 
             })
         })
@@ -145,7 +154,7 @@ function IndEventPage({data=null}){
         </div>
         {!alreadyReg?
         <>
-            <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accecpt the guidelines </Checkbox>
+            <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accept the guidelines </Checkbox>
             <span
             onClick={()=>check()}
             className={`${Individual_style.submit} ${disable?Individual_style.submitnotok:Individual_style.submitok}`}>

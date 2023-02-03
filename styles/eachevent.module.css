@@ -123,6 +123,14 @@
 .highlight{
     color: goldenrod;
 }
+
+.mobileInput{
+    max-width: 120px !important;
+    background-color: #2c2c2c;
+    border: none;
+    color: #eee;
+  }
+
 .qrimg{
     width: 250px;
     height: 250px;

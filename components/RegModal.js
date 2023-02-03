@@ -1,28 +1,35 @@
-import { Modal } from "antd"
+import { Modal,Input } from "antd"
 import styles from "../styles/eachevent.module.css"
 import qrimg from "../public/qrimg.jpg"
 import Image from "next/image"
 // import { UploadOutlined } from '@ant-design/icons';
 // import { Button, message, Upload } from 'antd';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
 const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
+    const   [refCode,setRefCode]    =   useState(null)
     // const [loading, setLoading] = useState(false)
     var loading =   false
     const upiId = '9207619833@ybl'
+
+    
 
     const fileSelect = (e) => {
         if (e.target.files && e.target.files[0]) {
             setUpload(e.target.files[0])
         }
     }
+
+    const changeRefCode    =   (e) =>{
+        setRefCode(e.target.value)
+    }
     const fileUpload = async () => {
         if (upload&&!loading) {
             loading =   true
-            const workid = await SubmitData()
+            const workid = await SubmitData(refCode)
             const reqBody = new FormData();
             reqBody.append("files", upload)
             reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
@@ -52,6 +59,10 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
         }
     }
 
+    useEffect(()=>{
+        setRefCode(localStorage.getItem('refCode'))
+    },[])
+
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isModalOpen} onOk={fileUpload} onCancel={closeModal}>
             {/* <p>Username : {name}</p> */}
@@ -68,6 +79,11 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
                 <li className={styles.listItemPadding}>Upload the screenshot of the payment below
                     <br />
                     <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} />
+                </li>
+                <li>
+                    Enter referral code: <span>
+                        <Input  className={styles.mobileInput}  type="text" placeholder="Referral Code" onChange={(e)=>changeRefCode(e)} defaultValue={refCode}></Input>
+                    </span>
                 </li>
                 <li className={styles.listItemPadding}>Click OK to complete registration</li>
             </ol>
