@@ -11,6 +11,8 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const   [refCode,setRefCode]    =   useState(null)
+    const   [utr,setUTR]    =   useState(null)
+    const   [utrError,setUtrError]  =   useState(false)
     // const [loading, setLoading] = useState(false)
     var loading =   false
     const upiId = '9207619833@ybl'
@@ -26,10 +28,26 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
     const changeRefCode    =   (e) =>{
         setRefCode(e.target.value)
     }
+
+    const changeUTR =   (e) =>{
+        setUTR(e.target.value)
+    }
     const fileUpload = async () => {
+        if(utr?.length!==12)
+        {
+            setUtrError(true)
+            return
+        }
+        let isnum = /^\d+$/.test(utr);
+        if(!isnum)
+        {
+            setUtrError(true)
+            return
+        }
         if (upload&&!loading) {
             loading =   true
-            const workid = await SubmitData(refCode)
+            setUtrError(false)
+            const workid = await SubmitData(refCode,utr)
             const reqBody = new FormData();
             reqBody.append("files", upload)
             reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
@@ -76,9 +94,15 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
                     <b  className={styles.highlight}>Rohit Robin Mampilly</b> <br />
                     <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
                 </li>
-                <li className={styles.listItemPadding}>Upload the screenshot of the payment below
+                <li className={styles.listItemPadding}>Upload the screenshot of the payment containing <b  className={styles.highlight}>UTR number or UPI transaction ID</b> below:
                     <br />
                     <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} />
+                </li>
+                <li className={styles.listItemPadding}>
+                    Enter UTR number (UPI transaction ID):
+                    <Input  className={styles.mobileInput}  type="text" placeholder="UTR number" onChange={(e)=>changeUTR(e)}></Input>
+                    <br />
+                    {utrError&& <span className={styles.rejected}>Invalid UTR number</span> }
                 </li>
                 <li>
                     Enter referral code: <span>

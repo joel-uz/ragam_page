@@ -91,7 +91,7 @@ function IndEventPage({data=null}){
         }
     },[router.query])
 
-    const SubmitData = async(refCode="") =>{
+    const SubmitData = async(refCode="",utr) =>{
         const response = await fetch("https://api.ragam.co.in/api/user-workshop-details",{
             method:'POST',
             headers: {
@@ -102,7 +102,9 @@ function IndEventPage({data=null}){
                 "data":{
                     "user": {"id":id},
                     "workshop":workid,
-                    "refCode":  refCode
+                    "refCode":  refCode,
+                    "utr":utr
+
                 } 
             })
         })
