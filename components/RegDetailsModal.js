@@ -99,7 +99,7 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
                     width={200} />
             </div>
             <div    className={styles.listItemPadding}>
-                Status: {user_workshop_detail?.verified === false ? "Rejected" : user_workshop_detail?.verified ? <span    className={styles.verified}>Verified</span> : <span    className={styles.notVerified}>Not yet verified</span>}
+                Status: {user_workshop_detail?.attributes?.verifed == false ? <span className={styles.rejected}>Rejected</span> : user_workshop_detail?.attributes?.verifed ? <span    className={styles.verified}>Verified</span> : <span    className={styles.notVerified}>Not yet verified</span>}
             </div>
 
         </Modal>

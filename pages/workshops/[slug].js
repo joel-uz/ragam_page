@@ -5,7 +5,7 @@ import {Modal,Checkbox,message } from 'antd'
 import Image from 'next/image'
 import { fetchData } from '../../components/fetchdata'
 import { fetchUserReg } from '../../components/fetchuserRegData'
-import coverImage from '../../public/coverimg.jpg'
+import coverImage from '../../public/posterimg.png'
 import Link from 'next/link'
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../../contexts/loginContext";
@@ -141,7 +141,7 @@ function IndEventPage({data=null}){
                 {data.attributes.description}
                 <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
-            <Image alt="example" src={data.attributes.coverImage.data?`https://api.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data?.attributes?.posterImage?.data?`https://api.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
         {!alreadyReg?
         <>

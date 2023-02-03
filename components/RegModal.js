@@ -10,6 +10,8 @@ import { LoginContext } from "../contexts/loginContext";
 const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
+    // const [loading, setLoading] = useState(false)
+    var loading =   false
     const upiId = '9207619833@ybl'
 
     const fileSelect = (e) => {
@@ -18,7 +20,8 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
         }
     }
     const fileUpload = async () => {
-        if (upload) {
+        if (upload&&!loading) {
+            loading =   true
             const workid = await SubmitData()
             const reqBody = new FormData();
             reqBody.append("files", upload)
@@ -38,10 +41,12 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
                 messageSuccess()
                 setAlreadyReg({ id: workid })
                 closeModal()
+                // loading =   false
 
             }
             else{
                 messageError()
+                loading =   false
                 closeModal()
             }
         }
