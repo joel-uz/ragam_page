@@ -7,7 +7,7 @@ import qrimg from "../public/qrimg.jpg"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
+const RegDetailsModal = ({ payeeData,isOpen, onClose, amount, refId }) => {
     // console.log(refId)
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
@@ -74,12 +74,12 @@ const RegDetailsModal = ({ isOpen, onClose, amount, refId }) => {
             <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
                 <Collapse.Panel header="Instructions" key="1">
                     <ol className={styles.modalPadding} >
-                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <span className={styles.highlight}>{`${upiId}`}</span>
+                        <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <span className={styles.highlight}>{payeeData.paymentId}</span>
                         &nbsp;or using the QR Code below
                             <br />
-                            <b className={styles.highlight}>Rohit Robin Mampilly</b>
+                            <b className={styles.highlight}>{payeeData.name}</b>
                             <br />
-                            <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
+                            <Image src={payeeData.qrcode} className={`${styles.qrimg}`} alt={payeeData.paymentId} width={250} height={250}/>
                         </li>
                         <li className={styles.listItemPadding}>Your registration will be verified in 2-3 days
                             <br />

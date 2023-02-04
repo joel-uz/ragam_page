@@ -1,4 +1,4 @@
-import { Modal,Input } from "antd"
+import { Modal,Input, Button } from "antd"
 import styles from "../styles/eachevent.module.css"
 import qrimg from "../public/qrimg.jpg"
 import Image from "next/image"
@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
+const RegModal = ({payeeData,loadingResponse,setLoadingResponse,messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const   [refCode,setRefCode]    =   useState(null)
@@ -15,7 +15,8 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
     const   [utrError,setUtrError]  =   useState(false)
     // const [loading, setLoading] = useState(false)
     var loading =   false
-    const upiId = '9207619833@ybl'
+    // const upiId = '9207619833@ybl'
+    // const   [payee,setPayee]  =   useState(1)
 
     
 
@@ -44,9 +45,12 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
             setUtrError(true)
             return
         }
-        if (upload&&!loading) {
-            loading =   true
+        else{
+            // console.log('hi bro');
             setUtrError(false)
+        }
+        if (upload&&!loadingResponse) {
+            setLoadingResponse(true)
             const workid = await SubmitData(refCode,utr)
             const reqBody = new FormData();
             reqBody.append("files", upload)
@@ -67,32 +71,41 @@ const RegModal = ({messageError,messageSuccess, isModalOpen, closeModal, amount,
                 setAlreadyReg({ id: workid })
                 closeModal()
                 // loading =   false
-
+                setLoadingResponse(false)
             }
             else{
                 messageError()
-                loading =   false
+                // loading =   false
+                setLoadingResponse(false)
                 closeModal()
             }
         }
     }
+
+    
 
     useEffect(()=>{
         setRefCode(localStorage.getItem('refCode'))
     },[])
 
     return (
-        <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isModalOpen} onOk={fileUpload} onCancel={closeModal}>
+        <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isModalOpen} onOk={fileUpload} onCancel={closeModal}
+        footer={<>
+            <Button onClick={()=>closeModal()}>Close</Button>
+            <Button onClick={()=>fileUpload()}  type="primary" loading={loadingResponse}>OK</Button>
+            </>
+        }
+        >
             {/* <p>Username : {name}</p> */}
             <h2>
                 Instructions:
             </h2>
             <ol className={styles.modalPadding}>
-                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID: <span className={styles.highlight}>{`${upiId}`}</span>
+                <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID: <span className={styles.highlight}>{payeeData.paymentId}</span>
                     &nbsp;or using the QR Code below:
                     <br />
-                    <b  className={styles.highlight}>Rohit Robin Mampilly</b> <br />
-                    <Image src={qrimg} className={`${styles.qrimg}`} alt={`${upiId}`} />
+                    <b  className={styles.highlight}>{payeeData.name}</b> <br />
+                    <Image src={payeeData.qrcode} className={`${styles.qrimg}`} alt={payeeData.paymentId}   height={250} width={250} />
                 </li>
                 <li className={styles.listItemPadding}>Upload the screenshot of the payment containing <b  className={styles.highlight}>UTR number or UPI transaction ID</b> below:
                     <br />

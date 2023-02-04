@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import styles from '../../styles/category.module.css'
 import Individual_style from '../../styles/eachevent.module.css'
+import qrimg from "../../public/qrimg.jpg"
 import {Modal,Checkbox,message } from 'antd'
 import Image from 'next/image'
 import { fetchData } from '../../components/fetchdata'
@@ -25,6 +26,26 @@ function IndEventPage({data=null}){
     const [disable, setDisable] = useState(true)
     const [guidelinesModalOpen,setguidelinesModalOpen]  =   useState(false)
     const [messageApi,contextHolder]    =   message.useMessage()
+    const [loadingResponse,setLoadingResponse]  =   useState(false)
+    const   [payeeData,setPayeeData]    =   useState({
+        name:"Rohit Robin Mampilly",
+        paymentId:"9207619833@ybl",
+        qrcode:qrimg,
+    })
+
+    const loadPaymentId =   async   ()  =>  {
+        const payeeIdRes   =   await   fetch('https://api.ragam.co.in/api/current-payee')
+        const payeeIdObj   =   await   payeeIdRes?.json()
+        const payeeId      =   payeeIdObj?.data?.attributes?.payeeId
+        const payeeDataRes =   await   fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)        
+        const   payeeData2  =   await   payeeDataRes.json()
+        console.log('payment set');
+        setPayeeData(x=>payeeData2?.data?.attributes&&payeeData2?.data?.attributes?.qrcode?.data?{
+            name:payeeData2.data.attributes.name,
+            qrcode:`https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
+            paymentId:  payeeData2.data.attributes.paymentId
+        }:x)
+    }
 
     const   workid  =   data.id
 
@@ -90,6 +111,10 @@ function IndEventPage({data=null}){
             localStorage.setItem('refCode',router.query.refCode)
         }
     },[router.query])
+
+    useEffect(() => {
+        loadPaymentId()
+    },[])
 
     const SubmitData = async(refCode="",utr) =>{
         const response = await fetch("https://api.ragam.co.in/api/user-workshop-details",{
@@ -171,9 +196,9 @@ function IndEventPage({data=null}){
     </span>
     </>
         }
-        <RegModal   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
+        <RegModal   payeeData={payeeData}   loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
         <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
-        <RegDetailsModal isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.attributes.regPrice} />
+        <RegDetailsModal    payeeData={payeeData} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.attributes.regPrice} />
 
       </div>
     </div>
