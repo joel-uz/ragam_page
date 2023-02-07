@@ -1,4 +1,4 @@
-import { Collapse, Modal, Image as AntImg, Button } from "antd"
+import { Collapse, Modal, Image as AntImg, Button, Input } from "antd"
 import Image from "next/image";
 import styles from "../styles/eachevent.module.css"
 import qrimg from "../public/qrimg.jpg"
@@ -7,9 +7,11 @@ import qrimg from "../public/qrimg.jpg"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegDetailsModal = ({ payeeData,isOpen, onClose, amount, refId }) => {
+const RegDetailsModal = ({ payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError }) => {
     // console.log(refId)
     const { token } = useContext(LoginContext)
+    const   [utr,setUTR]    =   useState(null)
+    const   [utrError,setUtrError]  =   useState(false)
     const [upload, setUpload] = useState(null)
     const upiId = '9207619833@ybl'
     const [user_workshop_detail, set_user_workshop_detail] = useState({})
@@ -36,19 +38,40 @@ const RegDetailsModal = ({ payeeData,isOpen, onClose, amount, refId }) => {
         setData()
 
     }, [token, refId, isOpen])
+
+    const changeUTR =   (e) =>{
+        setUTR(e.target.value)
+    }
+
     const fileSelect = (e) => {
         if (e.target.files && e.target.files[0]) {
             setUpload(e.target.files[0])
         }
     }
-    const fileUpload = async () => {
-        if (upload) {
+    const editFileUpload = async () => {
+        if(utr?.length!==12)
+        {
+            setUtrError(true)
+            return
+        }
+        let isnum = /^\d+$/.test(utr);
+        if(!isnum)
+        {
+            setUtrError(true)
+            return
+        }
+        else{
+            // console.log('hi bro');
+            setUtrError(false)
+        }
+        if (upload&&!loadingResponse) {
+            setLoadingResponse(true)
             const workid = refId
             const reqBody = new FormData();
             reqBody.append("files", upload)
-            reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
-            reqBody.append("refId", `${workid}`)
-            reqBody.append("field", "receipt")
+            // reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
+            // reqBody.append("refId", `${workid}`)
+            // reqBody.append("field", "receipt")
             const response = await fetch(`https://api.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -58,17 +81,49 @@ const RegDetailsModal = ({ payeeData,isOpen, onClose, amount, refId }) => {
             })
             const value = await response.json()
             console.log(value);
+            const   receiptId   =   value[0].id
             if (workid && response.status === 200) {
+
+                const   response2    =   await   fetch(`https://api.ragam.co.in/api/user-workshop-details/${workid}`,
+                {
+
+                    method:'PUT',
+                    headers:{
+                    'Content-Type':"application/json",
+                    'Authorization': `Bearer ${token}`,
+                    },
+                    body:   JSON.stringify({
+                        "data":{
+                            "receipt":{
+                                "id":receiptId
+                            },
+                            "utr":utr
+                        }
+                    })
+                })
                 // setAlreadyReg({id: workid})
-                onClose()
+                const   value2  =   await   response2.json()
+                console.log(value2);
+                if (response2.status=== 200) {
+                    messageSuccess()
+                    onClose()
+                    setLoadingResponse(false)
+                    return
+                }
 
             }
+            messageError()
+            onClose()
+            setLoadingResponse(false)
         }
     }
 
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isOpen} onOk={onClose}   footer={
-            <Button onClick={()=>onClose()}>Close</Button>
+            <>
+                <Button onClick={()=>onClose()}>Close</Button>
+                {user_workshop_detail?.attributes?.verifed == false ?<Button type="primary" onClick={()=>{editFileUpload()}} loading={loadingResponse}>OK</Button>:""}
+            </>
         } onCancel={onClose} style={{ overflow: "scroll" }}>
 
             <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
@@ -81,21 +136,37 @@ const RegDetailsModal = ({ payeeData,isOpen, onClose, amount, refId }) => {
                             <br />
                             <Image src={payeeData.qrcode} className={`${styles.qrimg}`} alt={payeeData.paymentId} width={250} height={250}/>
                         </li>
-                        <li className={styles.listItemPadding}>Your registration will be verified in 2-3 days
+                        {user_workshop_detail?.attributes?.verifed == false ?
+                        <li>
+                            Reupload your receipt.
                             <br />
-                            {/* <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} /> */}
+                        <input type="file" name="file" id="file" onChange={(e) => fileSelect(e)} />
+                        </li>:''}
+                        {user_workshop_detail?.attributes?.verifed == false ?
+                        <li className={styles.listItemPadding}>
+                        Enter UTR number (UPI transaction ID):
+                        <Input  className={styles.mobileInput}  type="text" placeholder="UTR number" onChange={(e)=>changeUTR(e)}></Input>
+                        <br />
+                        {utrError&& <span className={styles.rejected}>Invalid UTR number</span> }
+                        </li>:""}
+                        <li className={styles.listItemPadding}>Your registration will be verified in 2-3 days
                         </li>
                         <li className={styles.listItemPadding}>In case you face any issues, contact: </li>
                         <ul>
                             <li className={styles.listItemPadding}>Zidan:  9400841439</li>
                             <li className={styles.listItemPadding}>Rohit:  9207619833</li>
                         </ul>
+                        {user_workshop_detail?.attributes?.verifed == false ?
+                        <li className={styles.listItemPadding}>
+                            Click OK to resubmit
+                        </li>
+                        :""}
                     </ol>
                 </Collapse.Panel>
             </Collapse>
             {/* <p>Username : {name}</p> */}
             <div>
-                Reciept : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
+                Receipt : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
             </div>
             <div    className={styles.listItemPadding}>

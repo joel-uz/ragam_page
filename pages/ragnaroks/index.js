@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories?populate=*`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/ragnaroks?populate=*`, fetchData)
   const router  = useRouter()
   useEffect(()    =>{
     if(router.query.refCode    !=null)
@@ -27,12 +27,12 @@ function EventPage(){
   else{
     const ref = data.data
     return <div >
-      <h1 className={styles.titlePage}>EVENT CATEGORIES</h1>
+      <h1 className={styles.titlePage}>RAGNAROK</h1>
     {data && <div className={styles.page_layout}>
       <div className={styles.card_layout}>
       {ref?.map((each) =>{
         return(
-          <EventListItem  type={'categories'}  key={each.id} each={each}/>
+          <EventListItem  type={'ragnaroks'}  key={each.id} each={each}/>
         )
       })}
       </div>

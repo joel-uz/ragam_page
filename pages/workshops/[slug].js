@@ -93,6 +93,13 @@ function IndEventPage({data=null}){
         })
     }
 
+    const messageSuccessRe  =  ()  =>  {
+        messageApi.open({
+            type:'success',
+             content:`Registration resubmitted`
+        })
+    }
+
     const messageError  =   ()  =>  {
         messageApi.open({
             type:'error',
@@ -165,19 +172,19 @@ function IndEventPage({data=null}){
       <div className={Individual_style.indvidual}>
         <AiFillLeftCircle className={Individual_style.go_back_button}  onClick={back_to}/>
         <div className={Individual_style.eventTitle}>
-            {data.attributes.name}
+            {data.name}
         </div>
         <div className={Individual_style.eventDate}>
-            {data.attributes.currRegCount<=120?data.attributes['eventDate1']:data.attributes['eventDate2']}
+            {data.currRegCount<=120?data['eventDate1']:data['eventDate2']}
             <br/>
-            {data.attributes.regPrice?`₹${data.attributes.regPrice}`:`₹999`}
+            {data.regPrice?`₹${data.regPrice}`:`₹999`}
         </div>
         <div    className={Individual_style.eventBody}>
             <div    className={Individual_style.eventDescription}>
-                {data.attributes.description}
+                {data.description}
                 <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
             </div>
-            <Image alt="example" src={data?.attributes?.posterImage?.data?`https://api.ragam.co.in${data.attributes.posterImage.data.attributes.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
+            <Image alt="example" src={data?.posterImage?.url?`https://api.ragam.co.in${data.posterImage.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
         {!alreadyReg?
         <>
@@ -196,9 +203,9 @@ function IndEventPage({data=null}){
     </span>
     </>
         }
-        <RegModal   payeeData={payeeData}   loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.attributes.regPrice}/>
+        <RegModal   payeeData={payeeData}   loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice}/>
         <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
-        <RegDetailsModal    payeeData={payeeData} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.attributes.regPrice} />
+        <RegDetailsModal    payeeData={payeeData} loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}  isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe}   messageError={messageError}/>
 
       </div>
     </div>
@@ -222,14 +229,14 @@ export default IndEventPage
 // }
 
 export async function getServerSideProps(context){
-    const {params} = context
-    const {slug} = params
+    const {params} = context;
+    const {slug} = params;
     
-    const {data} = await fetchData(`https://api.ragam.co.in/api/workshops/${slug}?populate=*`)
+    const {result} = await fetchData(`https://api.ragam.co.in/api/workshops/${slug}?populate=*`);
 
     return {
         props:{
-            data:data,
+            data:result?result:null,
         }
     }
 
