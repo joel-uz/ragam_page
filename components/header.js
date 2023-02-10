@@ -28,7 +28,7 @@ function Header() {
   }
 
   const check = async () => {
-    router.push(`https://api.ragam.co.in/api/connect/google`)
+    router.push(`https://api.staging.ragam.co.in/api/connect/google`)
   }
 
   const take = () => {
@@ -50,12 +50,15 @@ function Header() {
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          {/* <Link href="/events">
-              <span className={styles["nav-link"]}>Events</span>
-              </Link>
-              <Link href="/faqs">
-              <span className={styles["nav-link"]}>FAQs</span>
-            </Link> */}
+          <Link href="/events">
+            <span className={styles["nav-link"]}>Events</span>
+          </Link>
+          <Link href="/ragnaroks">
+            <span className={styles["nav-link"]}>Ragnarok</span>
+          </Link>
+          <Link href="/sports">
+            <span className={styles["nav-link"]}>Sports</span>
+          </Link>
           {signInclicked&&<Link href="/loginpage">
               <span className={styles["nav-link"]}>Profile</span>
           </Link>}
@@ -64,7 +67,7 @@ function Header() {
             </Link>}
           
         </div>
-          {!signInclicked? (<Link href="https://api.ragam.co.in/api/connect/google"
+          {!signInclicked? (<Link href="https://api.staging.ragam.co.in/api/connect/google"
           style={{marginRight:'10px',cursor:'pointer'}}>Log In
           </Link>) : (<div>
             <div className={`${styles.above800}`} style={{marginRight:'10px',cursor:'pointer'}} onClick={()=>logOutClick()}>
@@ -113,30 +116,30 @@ function Header() {
               toggleButton()
               }}>Workshops</span>
             </Link>
+            <Link href="/events" className={styles['nav-link-mobile-links']} >
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              toggleButton()
+              }}>Events</span>
+            </Link>
+            <Link href="/ragnaroks" className={styles['nav-link-mobile-links']} >
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              toggleButton()
+              }}>Ragnarok</span>
+            </Link>
+            <Link href="/sports" className={styles['nav-link-mobile-links']} >
+              <span className={styles["nav-link-mobile"]}
+              onClick={()=>{
+              toggleButton()
+              }}>Sports</span>
+            </Link>
             {signInclicked&&<div className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               logOutClick()
               }}>Log Out</span>
             </div>}
-            {/* <Link href="/competitions" className={styles['nav-link-mobile-links']} >
-              <span className={styles["nav-link-mobile"]}
-              onClick={()=>{
-              toggleButton()
-              }}>Competitions</span>
-            </Link>
-            <Link href="/faqs" className={styles['nav-link-mobile-links']} >
-              <span className={styles["nav-link-mobile"]}
-              onClick={()=>{
-              toggleButton()
-              }}>FAQs</span>
-            </Link>
-            <Link href="/contacts" className={styles['nav-link-mobile-links']} >
-              <span className={styles["nav-link-mobile"]}
-              onClick={()=>{
-              toggleButton()
-              }}>Contact Us</span>
-            </Link> */}
           </div>
         </div>
       )}

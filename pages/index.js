@@ -9,7 +9,7 @@ function Home() {
   const [faqs, setFaqs] = useState([]);
 
   const get_faqs = async () => {
-    const response = await fetch(`https://api.ragam.co.in/api/faqs`, {
+    const response = await fetch(`https://api.staging.ragam.co.in/api/faqs`, {
       method: "GET"
     })
     return response;

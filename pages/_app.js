@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }) {
   const [college, setCollege] = useState("");
   const [year, setYear] = useState("");
   const [ref, setRef] = useState("");
+  const [rId,setRId]  = useState("");
 
   const [usercode, setUsercode] = useState("");
   const [token, setToken] = useState("");
@@ -50,7 +51,7 @@ export default function App({ Component, pageProps }) {
 
   const [ready, setReady] = useState(false);
   const fetchUser = async (_token) => {
-    const res = await fetch(`https://api.ragam.co.in/api/user/getme`, {
+    const res = await fetch(`https://api.staging.ragam.co.in/api/user/getme`, {
       headers: {
         'Authorization': `Bearer ${_token}`
       }
@@ -83,6 +84,7 @@ export default function App({ Component, pageProps }) {
         setRef(user_details.user.refcode)
         setYear(user_details.user.year)
         setState(user_details.user.state)
+        setRId(user_details.user.ragamId)
         setSignin(true)
         setSignInclicked(true)
 
@@ -97,7 +99,7 @@ export default function App({ Component, pageProps }) {
       name, setUsername,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
       setGender, college, setCollege, year, setYear, usercode, setUsercode, signin, setSignin, token, setToken, ref, setRef, signInclicked,
-      setSignInclicked, id, setId, ready, setReady, logOut, profileComplete
+      setSignInclicked, id, setId, ready, setReady, logOut, profileComplete,  rId
     }}>
       <Head>
         <title>RAGAM&apos;23</title>

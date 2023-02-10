@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegModal = ({payeeData,loadingResponse,setLoadingResponse,messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
+const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const   [refCode,setRefCode]    =   useState(null)
@@ -54,10 +54,10 @@ const RegModal = ({payeeData,loadingResponse,setLoadingResponse,messageError,mes
             const workid = await SubmitData(refCode,utr)
             const reqBody = new FormData();
             reqBody.append("files", upload)
-            reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
+            reqBody.append("ref", `api::user-${type}-detail.user-${type}-detail`)
             reqBody.append("refId", `${workid}`)
             reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },

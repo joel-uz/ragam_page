@@ -14,7 +14,7 @@ const tailLayout = {
 const ShowProfile = () => {
   const { name, setUsername, profileComplete,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
-    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady } = useContext(LoginContext);
+    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady, rId } = useContext(LoginContext);
 
   const [messageApi,  contextHolder]  = message.useMessage()
 
@@ -24,7 +24,7 @@ const ShowProfile = () => {
     if (!profileComplete()) {
       return
     }
-    const response = await fetch(`https://api.ragam.co.in/api/user/me`,
+    const response = await fetch(`https://api.staging.ragam.co.in/api/user/me`,
       {
         method: 'PUT',
         headers: {
@@ -130,6 +130,23 @@ const ShowProfile = () => {
             onChange={(event) => {
               setMail(event.target.value)
             }} />
+        </Form.Item>
+
+        <Form.Item
+          name="RagamId"
+          label={<label className={`${styles.label}`}>Ragam Id </label>}
+          initialValue={rId}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type={'text'}
+            className={`${styles.mobileInput}`}
+            placeholder="RagamId"
+            disabled
+           />
         </Form.Item>
 
         <Form.Item

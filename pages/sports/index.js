@@ -10,7 +10,7 @@ import  {useEffect} from  'react'
 import EventListItem from '../../components/EventListItem'
 const SportsPage = () => {
 
-    const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/sports?populate=*`, fetchData)
+    const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/categories/6?populate[events][populate][0]=coverImage`, fetchData)
     const router  = useRouter()
     useEffect(()    =>{
       console.log(router.pathname);
@@ -26,7 +26,7 @@ const SportsPage = () => {
       </>)
     }
     else{
-      const ref = data.data
+      const ref = data.data.attributes.events.data
       return <div >
         <h1 className={styles.titlePage}>SPORTS</h1>
       {data && <div className={styles.page_layout}>

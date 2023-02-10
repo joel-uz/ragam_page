@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/ragnaroks?populate=*`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/categories/7?populate[events][populate][0]=coverImage`, fetchData)
   const router  = useRouter()
   useEffect(()    =>{
     if(router.query.refCode    !=null)
@@ -25,7 +25,7 @@ function EventPage(){
     // </>)
   }
   else{
-    const ref = data.data
+    const ref = data.data.attributes.events.data
     return <div >
       <h1 className={styles.titlePage}>RAGNAROK</h1>
     {data && <div className={styles.page_layout}>
