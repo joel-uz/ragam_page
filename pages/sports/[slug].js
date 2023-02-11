@@ -210,7 +210,7 @@ const EachSports = ({data=null}) => {
         }
         <RegModal  type='event' payeeData={payeeData}   loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}   messageError={messageError}   messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice}/>
         <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal}/>
-        <RegDetailsModal   type='event' payeeData={payeeData} loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}  isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe}   messageError={messageError}/>
+        <RegDetailsModal event={data}  type='event' payeeData={payeeData} loadingResponse={loadingResponse}   setLoadingResponse={setLoadingResponse}  isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe}   messageError={messageError}/>
   
       </div>
     </div>

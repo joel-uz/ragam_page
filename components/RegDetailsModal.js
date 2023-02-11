@@ -7,8 +7,9 @@ import qrimg from "../public/qrimg.jpg"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 import Team from "./Team";
+import Questions from "./Questions";
 
-const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError }) => {
+const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError, event }) => {
     // console.log(refId)
     const { token } = useContext(LoginContext)
     const   [utr,setUTR]    =   useState(null)
@@ -33,7 +34,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
         }
         let res_data = await get_user_workshop_detail();
         res_data = await res_data.json();
-        console.log(res_data)
+        // console.log(res_data)
         set_user_workshop_detail(res_data.data);
     }
     useEffect(() => { 
@@ -118,7 +119,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             setLoadingResponse(false)
         }
     }
-
+    console.log(event)
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isOpen} onOk={onClose}   footer={
             <>
@@ -175,6 +176,9 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             </div>
             {type=="event" && user_workshop_detail?.attributes?.event?.data?.attributes?.isTeamEvent &&
             <Team user_event_detail={user_workshop_detail} event={user_workshop_detail?.attributes?.event?.data?.attributes} refetchDetails={setData}/>
+            }
+            {type=="event" && event?.questionInfo?.length>0 &&
+            <Questions user_event_detail={user_workshop_detail} event={event} refetchDetails={setData}/>
             }
 
         </Modal>
