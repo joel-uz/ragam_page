@@ -19,7 +19,7 @@ function Home() {
     async function setData() {
       let res_data = await get_faqs();
       res_data = await res_data.json();
-      console.log(res_data)
+      // console.log(res_data)
       setFaqs(res_data.data);
     }
     setData()

@@ -31,7 +31,7 @@ const Questions = ({ event,
             ...userResponsesObj,
             [qId]: val
         }
-        console.log(newObj)
+        // console.log(newObj)
         setuserResponsesObj(newObj);
 
     }

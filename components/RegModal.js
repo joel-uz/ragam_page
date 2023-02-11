@@ -65,7 +65,7 @@ const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,
                 method: "POST"
             })
             const value = await response.json()
-            console.log(value);
+            // console.log(value);
             if (workid && response.status === 200) {
                 messageSuccess()
                 setAlreadyReg({ id: workid })

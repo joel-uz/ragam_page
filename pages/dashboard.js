@@ -14,7 +14,7 @@ const Dashboard = () => {
           }})
           const value = await res.json()
           setRegData([
-            // {Events:value.registeredEvents},
+            {Events:value.registeredEvents},
             {Workshops:value.registeredWorkshops},
             // {Competitions:value.registeredCompetitions},
             // {Lectures:value.registeredLectures},

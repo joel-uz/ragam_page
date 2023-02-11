@@ -28,7 +28,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
     };
     
     async function setData() {
-        console.log(token, refId)
+        // console.log(token, refId)
         if (!token || !refId) {
             return;
         }
@@ -82,7 +82,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
                 method: "POST"
             })
             const value = await response.json()
-            console.log(value);
+            // console.log(value);
             const   receiptId   =   value[0].id
             if (workid && response.status === 200) {
 
@@ -119,7 +119,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             setLoadingResponse(false)
         }
     }
-    console.log(event)
+    // console.log(event)
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isOpen} onOk={onClose}   footer={
             <>
