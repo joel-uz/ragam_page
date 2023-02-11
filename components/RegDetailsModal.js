@@ -6,6 +6,7 @@ import qrimg from "../public/qrimg.jpg"
 // import { Button, message, Upload } from 'antd';
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
+import Team from "./Team";
 
 const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError }) => {
     // console.log(refId)
@@ -24,19 +25,19 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
         })
         return response;
     };
-    useEffect(() => {
-        async function setData() {
-            console.log(token, refId)
-            if (!token || !refId) {
-                return;
-            }
-            let res_data = await get_user_workshop_detail();
-            res_data = await res_data.json();
-            console.log(res_data)
-            set_user_workshop_detail(res_data.data);
+    
+    async function setData() {
+        console.log(token, refId)
+        if (!token || !refId) {
+            return;
         }
+        let res_data = await get_user_workshop_detail();
+        res_data = await res_data.json();
+        console.log(res_data)
+        set_user_workshop_detail(res_data.data);
+    }
+    useEffect(() => { 
         setData()
-
     }, [token, refId, isOpen])
 
     const changeUTR =   (e) =>{
@@ -172,6 +173,9 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             <div    className={styles.listItemPadding}>
                 Status: {user_workshop_detail?.attributes?.verifed == false ? <span className={styles.rejected}>Rejected</span> : user_workshop_detail?.attributes?.verifed ? <span    className={styles.verified}>Verified</span> : <span    className={styles.notVerified}>Not yet verified</span>}
             </div>
+            {type=="event" && user_workshop_detail?.attributes?.event?.data?.attributes?.isTeamEvent &&
+            <Team user_event_detail={user_workshop_detail} event={user_workshop_detail?.attributes?.event?.data?.attributes} refetchDetails={setData}/>
+            }
 
         </Modal>
     )

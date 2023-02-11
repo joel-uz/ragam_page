@@ -99,7 +99,7 @@ export default function App({ Component, pageProps }) {
       name, setUsername,
       mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
       setGender, college, setCollege, year, setYear, usercode, setUsercode, signin, setSignin, token, setToken, ref, setRef, signInclicked,
-      setSignInclicked, id, setId, ready, setReady, logOut, profileComplete,  rId
+      setSignInclicked, id, setId, ready, setReady, logOut, profileComplete,  rId, setRId
     }}>
       <Head>
         <title>RAGAM&apos;23</title>

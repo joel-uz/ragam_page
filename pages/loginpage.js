@@ -18,7 +18,7 @@ function Login() {
   //usrecode is never used
   // const [loading, setLoading] = useState(true);
   const { setUsercode, usercode, token, signin, profileComplete,
-    signInclicked, setToken, setState, setGender, setDistrict, setPhone, setCollege, setYear, setRef, setSignin, setUsername, setMail, setSignInclicked, setId } = useContext(LoginContext)
+    signInclicked, setToken, setState, setGender, setDistrict, setPhone, setCollege, setYear, setRef, setSignin, setUsername, setMail, setSignInclicked, setId, setRId } = useContext(LoginContext)
   const [regData, setRegData] = useState([])
   const authdetails = async (usercode) => {
     if (usercode != '') {
@@ -39,6 +39,7 @@ function Login() {
           setGender(user_details.user.gender)
           setPhone(user_details.user.phone)
           setRef(user_details.user.refcode)
+          setRId(user_details.user.ragamId);
           setYear(user_details.user.year)
           setState(user_details.user.state)
           setSignin(true)

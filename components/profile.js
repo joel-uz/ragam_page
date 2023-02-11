@@ -14,10 +14,20 @@ const tailLayout = {
 const ShowProfile = () => {
   const { name, setUsername, profileComplete,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
-    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady, rId } = useContext(LoginContext);
+    setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady, rId, setRId } = useContext(LoginContext);
 
   const [messageApi,  contextHolder]  = message.useMessage()
-
+  const fetchUser = async (_token) => {
+    const res = await fetch(`https://api.staging.ragam.co.in/api/user/getme`, {
+      headers: {
+        'Authorization': `Bearer ${_token}`
+      }
+    });
+    const value = await res.json()
+    setRId(value.ragamId);
+    // console.log("valueee", value)
+    return value;
+  }
   const [form] = Form.useForm();
   const router = useRouter();
   const submitValues = async (name, mail, phone, district, state, gender, college, year, ref) => {
@@ -46,6 +56,7 @@ const ShowProfile = () => {
       })
     if (response.status === 200) {
       setOk(1);
+      fetchUser(token);
       messageApi.open({
         type:'success',
         content:'Profile updated'
@@ -138,7 +149,7 @@ const ShowProfile = () => {
           initialValue={rId}
           rules={[
             {
-              required: true,
+              required: false,
             },
           ]}
         >
