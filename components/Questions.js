@@ -80,7 +80,7 @@ const Questions = ({ event,
             <div className={questionStyles.questions}>
                 {questionInfo?.map((question) => {
                     return (
-                        <div className={questionStyles.question}>
+                        <div className={questionStyles.question} key={question.id}>
                         <div>
                             {question.question}
                         </div>

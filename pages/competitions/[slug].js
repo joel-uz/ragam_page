@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
-import styles from '../../../styles/category.module.css'
-import Individual_style from '../../../styles/eachevent.module.css'
-import qrimg from "../../../public/qrimg.jpg"
+import styles from '../../styles/category.module.css'
+import Individual_style from '../../styles/eachevent.module.css'
+import qrimg from "../../public/qrimg.jpg"
 import {Modal,Checkbox,message } from 'antd'
 import Image from 'next/image'
-import { fetchData } from '../../../components/fetchdata'
-import { fetchUserReg } from '../../../components/fetchuserRegData'
-import coverImage from '../../../public/posterimg.png'
+import { fetchData } from '../../components/fetchdata'
+import { fetchUserReg } from '../../components/fetchuserRegData'
+import coverImage from '../../public/posterimg.png'
 import Link from 'next/link'
 import { useContext, useState, useEffect } from "react";
-import { LoginContext } from "../../../contexts/loginContext";
-import RegModal from '../../../components/RegModal'
+import { LoginContext } from "../../contexts/loginContext";
+import RegModal from '../../components/RegModal'
 import {AiFillLeftCircle, AiOutlineRight,AiOutlineDoubleRight} from "react-icons/ai"
-import GuidelinesModal from '../../../components/GuidelinesModal'
-import RegDetailsModal from '../../../components/RegDetailsModal'
+import GuidelinesModal from '../../components/GuidelinesModal'
+import RegDetailsModal from '../../components/RegDetailsModal'
 
 const EachEvent = ({data=null}) => {
   const router = useRouter();
