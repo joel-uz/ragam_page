@@ -20,7 +20,7 @@ const Questions = ({ event,
         if(!userResponsesString)
         setuserResponsesObj({})
         else
-        setuserResponsesObj(JSON.parse(userResponsesString))
+        setuserResponsesObj(userResponsesString)
     }, [userResponsesString, user_event_detail])
     // console.log(event, user_event_detail)
     const [submitLoading, setSubmitLoading] = useState(false);
@@ -51,7 +51,7 @@ const Questions = ({ event,
                 'Content-Type': "application/json"
             },
             method: "PUT",
-            body: JSON.stringify({ "data": { userResponses: JSON.stringify(userResponsesObj) } })
+            body: JSON.stringify({ "data": { userResponses: userResponsesObj } })
         })
         //error / success handling 
         // show messsage?
