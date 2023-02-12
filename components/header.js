@@ -50,15 +50,15 @@ function Header() {
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          <Link href="/events">
+          {/* <Link href="/events">
             <span className={styles["nav-link"]}>Events</span>
-          </Link>
+          </Link> */}
           <Link href="/ragnaroks">
             <span className={styles["nav-link"]}>Ragnarok</span>
           </Link>
-          <Link href="/sports">
+          {/* <Link href="/sports">
             <span className={styles["nav-link"]}>Sports</span>
-          </Link>
+          </Link> */}
           {signInclicked&&<Link href="/loginpage">
               <span className={styles["nav-link"]}>Profile</span>
           </Link>}
@@ -116,24 +116,24 @@ function Header() {
               toggleButton()
               }}>Workshops</span>
             </Link>
-            <Link href="/events" className={styles['nav-link-mobile-links']} >
+            {/* <Link href="/events" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Events</span>
-            </Link>
+            </Link> */}
             <Link href="/ragnaroks" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Ragnarok</span>
             </Link>
-            <Link href="/sports" className={styles['nav-link-mobile-links']} >
+            {/* <Link href="/sports" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Sports</span>
-            </Link>
+            </Link> */}
             {signInclicked&&<div className={styles['nav-link-mobile-links']}>
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
