@@ -58,7 +58,7 @@ const Team = ({ event = {
     }
     const fetchUserToAdd = async (ragamId) => {
         setUserFetching(true)
-        const response = await fetch(`https://api.staging.ragam.co.in/api/user/findUser?ragamId=R23-${ragamId}`, {
+        const response = await fetch(`https://api.ragam.co.in/api/user/findUser?ragamId=R23-${ragamId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -105,7 +105,7 @@ const Team = ({ event = {
     }
 
     const updateTeam = async (team) => {
-        const response = await fetch(`https://api.staging.ragam.co.in/api/user-event-details/${user_event_detail.id}`, {
+        const response = await fetch(`https://api.ragam.co.in/api/user-event-details/${user_event_detail.id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': "application/json"

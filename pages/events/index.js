@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 function EventPage(){
 
-  const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/categories?populate=*`, fetchData)
+  const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories?populate=*`, fetchData)
   const router  = useRouter()
   useEffect(()    =>{
     if(router.query.refCode    !=null)

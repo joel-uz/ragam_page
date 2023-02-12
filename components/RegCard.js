@@ -15,7 +15,7 @@ const RegCard = ({data,category}) => {
     <Link href={getLink(data,category)}>
     <div    className={styles.regCardContainer}>
         <h2 className={styles.regCardTitle}>{data.name}</h2>
-        <Image className={styles.regCardImg} src={data.coverImage?`https://api.staging.ragam.co.in${data.coverImage.url?data.coverImage.url:data.coverImage}`:coverImage} width={300} height={200}/>
+        <Image className={styles.regCardImg} src={data.coverImage?`https://api.ragam.co.in${data.coverImage.url?data.coverImage.url:data.coverImage}`:coverImage} width={300} height={200}/>
         <AiOutlineDoubleRight className={styles.regCardIcon}/>
     </div>
     </Link>
