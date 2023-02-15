@@ -32,7 +32,7 @@ function EventPage(){
       <div className={styles.card_layout}>
       {ref?.map((each) =>{
         return(
-          <EventListItem  type={'ragnaroks'}  key={each.id} each={each}/>
+          <EventListItem  type={'events/7/'}  key={each.id} each={each}/>
         )
       })}
       </div>

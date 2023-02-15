@@ -7,7 +7,7 @@ function getLink(data, category){
   if(category=="Workshops"){
     return `/${category.toLowerCase()}/${data.id}`
   }
-  return `/${"ragnaroks"}/${data.id}`
+  return `/${"ragnarok"}/${data.id}`
 
 }
 const RegCard = ({data,category}) => {

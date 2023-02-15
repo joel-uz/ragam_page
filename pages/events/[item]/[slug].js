@@ -17,12 +17,25 @@ import RegDetailsModal from '../../../components/RegDetailsModal'
 
 const EachEvent = ({data=null}) => {
   const router = useRouter();
-  var routePath = router.asPath.split('/')
-  routePath.pop()
-  routePath = routePath.join('/')
+
+  const getBackRoute    =   ()  =>  {
+    var routePath = router.asPath.split('/')
+    routePath.pop()
+    routePath = routePath.join('/')
+    if(routePath==="/events/7")
+    {
+        routePath   =   '/ragnarok'
+    }
+    else if(routePath==="/events/6")
+    {
+        routePath   =   '/sports'
+    }
+    return routePath
+  }
+
   // var regId   =   0
   const back_to = () =>{
-      router.replace(routePath)
+      router.replace(getBackRoute())
   }
 
   const [alreadyReg, setAlreadyReg] = useState(false)

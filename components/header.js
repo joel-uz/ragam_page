@@ -53,7 +53,7 @@ function Header() {
           {/* <Link href="/events">
             <span className={styles["nav-link"]}>Events</span>
           </Link> */}
-          <Link href="/ragnaroks">
+          <Link href="/ragnarok">
             <span className={styles["nav-link"]}>Ragnarok</span>
           </Link>
           {/* <Link href="/sports">
@@ -122,7 +122,7 @@ function Header() {
               toggleButton()
               }}>Events</span>
             </Link> */}
-            <Link href="/ragnaroks" className={styles['nav-link-mobile-links']} >
+            <Link href="/ragnarok" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
