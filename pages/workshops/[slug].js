@@ -186,13 +186,20 @@ function IndEventPage({data=null}){
             </div>
             <Image alt="example" src={data?.posterImage?.url?`https://api.ragam.co.in${data.posterImage.url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
         </div>
-        {!alreadyReg?
+        {!alreadyReg?!data?.regClosed?
         <>
             <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accept the guidelines </Checkbox>
             <span
             onClick={()=>check()}
             className={`${Individual_style.submit} ${disable?Individual_style.submitnotok:Individual_style.submitok}`}>
                 Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
+        </span>
+        </>
+        :
+        <>
+        <span
+            className={`${Individual_style.submit} ${Individual_style.submitnotok}`}>
+                Registrations Closed
         </span>
         </>:
         <>
