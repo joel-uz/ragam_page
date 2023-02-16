@@ -202,7 +202,7 @@ const EachEvent = ({data=null}) => {
           </div>
           <Image alt="example" src={data?.posterImages?`https://api.ragam.co.in${data.posterImages[0].url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
       </div>
-      {!alreadyReg?
+      {!alreadyReg?!data?.regClosed?
       <>
           <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accept the guidelines </Checkbox>
           <span
@@ -210,7 +210,12 @@ const EachEvent = ({data=null}) => {
           className={`${Individual_style.submit} ${disable?Individual_style.submitnotok:Individual_style.submitok}`}>
               Register <AiOutlineDoubleRight  className={Individual_style.gicon}/>
       </span>
-      </>:
+      </>:<>
+        <span
+            className={`${Individual_style.submit} ${Individual_style.submitnotok}`}>
+                Registrations Closed
+        </span>
+        </>:
       <>
       <span
       onClick={openRegDetailsModal}

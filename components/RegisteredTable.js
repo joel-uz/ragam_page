@@ -10,7 +10,7 @@ const RegisteredTable = ({data}) => {
         <h2 className={`${styles.regHead}`}>{`Registered ${category}`}</h2>
         <div   className={styles.cardsLayout}>
             {data[category].length>0    &&   data[category].map(element => 
-                        <RegCard key={element.id} data={element} category={category}/>
+                        <RegCard key={element.id} data={element} category={category=='Workshops'?'workshops':`events/${element.category.id}`}/>
                         )
                     }
         </div>

@@ -4,10 +4,10 @@ import coverImage from "../public/coverimg.jpg"
 import  styles from "../styles/profile.module.css"
 import Link from 'next/link'
 function getLink(data, category){
-  if(category=="Workshops"){
-    return `/${category.toLowerCase()}/${data.id}`
-  }
-  return `/${"ragnarok"}/${data.id}`
+  // if(category=="workshops"){
+  //   return `/${category.toLowerCase()}/${data.id}`
+  // }
+  return `/${category}/${data.id}`
 
 }
 const RegCard = ({data,category}) => {
