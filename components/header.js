@@ -116,12 +116,12 @@ function Header() {
               toggleButton()
               }}>Workshops</span>
             </Link>
-            {/* <Link href="/events" className={styles['nav-link-mobile-links']} >
+            <Link href="/events" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
               toggleButton()
               }}>Events</span>
-            </Link> */}
+            </Link>
             <Link href="/ragnarok" className={styles['nav-link-mobile-links']} >
               <span className={styles["nav-link-mobile"]}
               onClick={()=>{
