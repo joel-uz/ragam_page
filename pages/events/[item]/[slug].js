@@ -196,10 +196,10 @@ const EachEvent = ({data=null}) => {
           {data.regPrice?`₹${data.regPrice}`:`₹999`}
       </div>
       <div    className={Individual_style.eventBody}>
-          <div    className={Individual_style.eventDescription}>
-              {data.description}
-              <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div>
-          </div>
+          <pre    className={Individual_style.eventDescription}>
+                    {data.description}
+              {/* <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div> */}
+          </pre>
           <Image alt="example" src={data?.posterImages?`https://api.ragam.co.in${data.posterImages[0].url}`:coverImage}    width={500} height={500} className={Individual_style.eventPoster}/>
       </div>
       {!alreadyReg?!data?.regClosed?

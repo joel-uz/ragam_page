@@ -50,9 +50,9 @@ function Header() {
           <Link href="/workshops">
               <span className={styles["nav-link"]}>Workshops</span>
           </Link>
-          {/* <Link href="/events">
+          <Link href="/events">
             <span className={styles["nav-link"]}>Events</span>
-          </Link> */}
+          </Link>
           <Link href="/ragnarok">
             <span className={styles["nav-link"]}>Ragnarok</span>
           </Link>

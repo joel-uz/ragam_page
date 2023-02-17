@@ -30,6 +30,8 @@
     margin-top: 0px;
 }
 .eventDescription{
+
+    white-space: pre-wrap;
     width: 50ch;
     margin: 20px;
 }
