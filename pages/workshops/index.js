@@ -27,8 +27,7 @@ function EventPage(){
   else{
     const ref = data.data
     return <div >
-      <h1 className={styles.titlePage}>Site under maintenance. Please try later</h1>
-      {/* <h1 className={styles.titlePage}>WORKSHOPS</h1>
+      <h1 className={styles.titlePage}>WORKSHOPS</h1>
     {data && <div className={styles.page_layout}>
       <div className={styles.card_layout}>
       {ref?.map((each) =>{
@@ -37,7 +36,7 @@ function EventPage(){
         )
       })}
       </div>
-    </div>} */}
+    </div>}
 
     </div>
   }
