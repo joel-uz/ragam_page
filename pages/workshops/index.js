@@ -25,7 +25,15 @@ function EventPage(){
     // </>)
   }
   else{
-    const ref = data.data
+    const ref = data.data;
+    
+    ref.sort(function(a, b){
+      if(a.attributes.regClosed != b.attributes.regClosed)
+        return (a.attributes.regClosed?1:-1);
+      return b.id - a.id;
+    });
+
+  
     return <div >
       <h1 className={styles.titlePage}>WORKSHOPS</h1>
     {data && <div className={styles.page_layout}>

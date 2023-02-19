@@ -27,7 +27,8 @@ function EventPage(){
   else{
     const ref = data.data.attributes.events.data
     return <div >
-      <h1 className={styles.titlePage}>RAGNAROK</h1>
+      <h1 className={styles.titlePage}>RAGNAROK (ONLINE)</h1>
+      <h4 className={styles.subtitlePage}>(Open to all. Not only for college students)</h4>
     {data && <div className={styles.page_layout}>
       <div className={styles.card_layout}>
       {ref?.map((each) =>{

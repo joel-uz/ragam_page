@@ -94,6 +94,10 @@ const Ragnarok = ({data=null}) => {
           type:'success',
            content:`Registration submitted`
       })
+      messageApi.open({
+        type: 'info',
+        content: `Checkout dashboard to view all registrations`
+    })
   }
 
   const messageSuccessRe  =  ()  =>  {
@@ -101,6 +105,10 @@ const Ragnarok = ({data=null}) => {
           type:'success',
            content:`Registration resubmitted`
       })
+      messageApi.open({
+        type: 'info',
+        content: `Checkout dashboard to view all registrations`
+    })
   }
 
   const messageError  =   ()  =>  {

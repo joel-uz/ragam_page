@@ -106,12 +106,20 @@ const EachEvent = ({ data = null }) => {
             type: 'success',
             content: `Registration submitted`
         })
+        messageApi.open({
+            type: 'info',
+            content: `Checkout dashboard to view all registrations`
+        })
     }
 
     const messageSuccessRe = () => {
         messageApi.open({
             type: 'success',
             content: `Registration resubmitted`
+        })
+        messageApi.open({
+            type: 'info',
+            content: `Checkout dashboard to view all registrations`
         })
     }
 
