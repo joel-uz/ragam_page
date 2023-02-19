@@ -34,15 +34,15 @@ function IndEventPage({ data = null }) {
     })
 
     const loadPaymentId = async () => {
-        const payeeIdRes = await fetch('https://api.staging.ragam.co.in/api/current-payee')
+        const payeeIdRes = await fetch('https://api.ragam.co.in/api/current-payee')
         const payeeIdObj = await payeeIdRes?.json()
         const payeeId = payeeIdObj?.data?.attributes?.payeeId
-        const payeeDataRes = await fetch(`https://api.staging.ragam.co.in/api/payees/${payeeId}?populate=*`)
+        const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
         const payeeData2 = await payeeDataRes.json()
         console.log('payment set');
         setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
             name: payeeData2.data.attributes.name,
-            qrcode: `https://api.staging.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
+            qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
             paymentId: payeeData2.data.attributes.paymentId
         } : x)
     }
@@ -77,7 +77,7 @@ function IndEventPage({ data = null }) {
 
     const checkReg = async () => {
         if (token != '') {
-            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
             let user_workshop_detail = reg_data.registeredWorkshops.find(x => x.id === workid);
             if (user_workshop_detail) {
                 console.log(user_workshop_detail)
@@ -132,7 +132,7 @@ function IndEventPage({ data = null }) {
     }, [])
 
     const SubmitData = async (refCode = "", utr) => {
-        const response = await fetch("https://api.staging.ragam.co.in/api/user-workshop-details", {
+        const response = await fetch("https://api.ragam.co.in/api/user-workshop-details", {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json",
@@ -159,7 +159,7 @@ function IndEventPage({ data = null }) {
         }
         if (!signin) {
             localStorage.setItem("loginRedirect", true);
-            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+            router.push(`https://api.ragam.co.in/api/connect/google`)
             return
         }
 
@@ -191,7 +191,7 @@ function IndEventPage({ data = null }) {
                     {data.description}
                     <div className={Individual_style.guidelines} onClick={() => openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon} /></div>
                 </div>
-                <Image alt="example" src={data?.posterImage?.url ? `https://api.staging.ragam.co.in${data.posterImage.url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
+                <Image alt="example" src={data?.posterImage?.url ? `https://api.ragam.co.in${data.posterImage.url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
             {!alreadyReg ? !data?.regClosed ?
                 <>
@@ -234,7 +234,7 @@ function IndEventPage({ data = null }) {
 export default IndEventPage
 
 // export async function getStaticPaths(){
-//     const { data = [] } = await fetchData('https://api.staging.ragam.co.in/api/workshops')
+//     const { data = [] } = await fetchData('https://api.ragam.co.in/api/workshops')
 
 //     var path = []
 
@@ -252,7 +252,7 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
 
-    const data = await fetchData(`https://api.staging.ragam.co.in/api/workshops/${slug}?populate=*`);
+    const data = await fetchData(`https://api.ragam.co.in/api/workshops/${slug}?populate=*`);
 
     return {
         props: {

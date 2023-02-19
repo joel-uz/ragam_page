@@ -18,7 +18,7 @@ const ShowProfile = () => {
 
   const [messageApi,  contextHolder]  = message.useMessage()
   const fetchUser = async (_token) => {
-    const res = await fetch(`https://api.staging.ragam.co.in/api/user/getme`, {
+    const res = await fetch(`https://api.ragam.co.in/api/user/getme`, {
       headers: {
         'Authorization': `Bearer ${_token}`
       }
@@ -34,7 +34,7 @@ const ShowProfile = () => {
     if (!profileComplete()) {
       return
     }
-    const response = await fetch(`https://api.staging.ragam.co.in/api/user/me`,
+    const response = await fetch(`https://api.ragam.co.in/api/user/me`,
       {
         method: 'PUT',
         headers: {
