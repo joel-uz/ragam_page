@@ -41,6 +41,9 @@ const EachEvent = ({ data = null }) => {
     const [guidelinesModalOpen, setguidelinesModalOpen] = useState(false)
     const [messageApi, contextHolder] = message.useMessage()
     const [loadingResponse, setLoadingResponse] = useState(false)
+    const [commonPayment, setCommonPayment] = useState(false)
+    const [passName, setPassName] = useState("")
+    const [commonPaymentVerified, setCommonPaymentVerified] = useState(false)
     const [payeeData, setPayeeData] = useState({
         name: "Rohit Robin Mampilly",
         paymentId: "9207619833@ybl",
@@ -48,17 +51,21 @@ const EachEvent = ({ data = null }) => {
     })
 
     const loadPaymentId = async () => {
-        const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data.category_id}?populate=payee`)
+        const payeeIdRes = await fetch(`https://api.staging.ragam.co.in/api/categories/${data.category_id}?populate=payee`)
         const payeeIdObj = await payeeIdRes?.json()
         const payeeId = payeeIdObj?.data?.attributes?.payee?.data?.id
-        const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
-        const payeeData2 = await payeeDataRes.json()
-        // console.log('payment set');
-        setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
-            name: payeeData2.data.attributes.name,
-            qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
-            paymentId: payeeData2.data.attributes.paymentId
-        } : x)
+
+        if(payeeId){
+            const payeeDataRes = await fetch(`https://api.staging.ragam.co.in/api/payees/${payeeId}?populate=*`)
+            const payeeData2 = await payeeDataRes.json()
+            // console.log('payment set');
+            setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
+                name: payeeData2.data.attributes.name,
+                qrcode: `https://api.staging.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
+                paymentId: payeeData2.data.attributes.paymentId
+            } : x)
+        }
+        
 
     }
 
@@ -92,12 +99,55 @@ const EachEvent = ({ data = null }) => {
 
     const checkReg = async () => {
         if (token != '') {
-            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
+            console.log(reg_data);
             let user_workshop_detail = reg_data.registeredEvents.find(x => x.id === workid);
             if (user_workshop_detail) {
                 console.log(user_workshop_detail)
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
             }
+        }
+    }
+
+    const checkCommonPaymentType = async () => {
+        if (token != '') {
+
+            const { result } = await fetchData(`https://api.staging.ragam.co.in/api/events/${workid}`);
+            let payment_type_id = result.payment_type?.id; 
+
+            if(payment_type_id){
+
+                console.log(result);
+                setPassName(result.payment_type?.name)
+
+                let common_payment_events = await fetchData(`https://api.staging.ragam.co.in/api/events?populate=*&filters[payment_type][id][$eq]=${payment_type_id}&filters[id][$ne]=${workid}`);
+                common_payment_events = common_payment_events.data;
+
+                if(common_payment_events.length>0){
+
+                    console.log("hii");
+                    console.log(common_payment_events);
+
+                    let reg_event_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token);
+
+                    let common_event_found = await reg_event_data.registeredEvents.find((x)=>{
+                        if(x.id!=workid && common_payment_events.find(e=> e.id === x.id))
+                            return true;
+
+                        return false;
+                    });
+
+                    if(common_event_found){
+                        setCommonPayment(true);
+                        if(common_event_found.verified)
+                            setCommonPaymentVerified(true);
+                    }
+
+                }
+
+                
+            }
+            
         }
     }
 
@@ -135,6 +185,10 @@ const EachEvent = ({ data = null }) => {
     }, [token])
 
     useEffect(() => {
+        checkCommonPaymentType();
+    }, [token])
+
+    useEffect(() => {
         if (router.query.refCode != null) {
             // console.log('Saved in local storage');
             localStorage.setItem('refCode', router.query.refCode)
@@ -145,8 +199,30 @@ const EachEvent = ({ data = null }) => {
         loadPaymentId()
     }, [])
 
-    const SubmitData = async (refCode = "", utr) => {
-        const response = await fetch("https://api.ragam.co.in/api/user-event-details", {
+    const SubmitData = async(refCode="",utr) =>{
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-event-details",{
+            method:'POST',
+            headers: {
+                'Content-Type':"application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                "data":{
+                    "event":{
+                      "id":workid
+                    },
+                    "refCode":  refCode,
+                    "utr":utr
+                } 
+            })
+        })
+        const   value   =   await response.json()
+        return  value.data.id
+        
+    }
+
+    const SubmitCommonEventData = async (refCode = "") => {
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-event-details", {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json",
@@ -158,10 +234,11 @@ const EachEvent = ({ data = null }) => {
                         "id": workid
                     },
                     "refCode": refCode,
-                    "utr": utr
+                    "verified": true
                 }
             })
         })
+        console.log(response);
         const value = await response.json()
         return value.data.id
 
@@ -173,7 +250,7 @@ const EachEvent = ({ data = null }) => {
         }
         if (!signin) {
             localStorage.setItem("loginRedirect", true);
-            router.push(`https://api.ragam.co.in/api/connect/google`)
+            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
             return
         }
 
@@ -205,7 +282,7 @@ const EachEvent = ({ data = null }) => {
                     {data.description}
                     {/* <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div> */}
                 </pre>
-                <Image alt="example" src={data?.posterImages ? `https://api.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
+                <Image alt="example" src={data?.posterImages ? `https://api.staging.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
             {!alreadyReg ? !data?.regClosed ?
                 <>
@@ -229,7 +306,7 @@ const EachEvent = ({ data = null }) => {
                     </span>
                 </>
             }
-            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} />
+            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitCommonEventData={SubmitCommonEventData} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} commonPayment={commonPayment} commonPaymentVerified={commonPaymentVerified} passName={passName} />
             <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal} />
             <RegDetailsModal type='event' event={data} payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} />
 
@@ -243,8 +320,7 @@ export default EachEvent
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug, item } = params;
-    console.log(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
-    const { result } = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
+    const { result } = await fetchData(`https://api.staging.ragam.co.in/api/events/${slug}?populate=*`);
     result.category_id = item;
     return {
         props: {

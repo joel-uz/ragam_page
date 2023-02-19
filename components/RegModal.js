@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,messageError,messageSuccess, isModalOpen, closeModal, amount, SubmitData, setAlreadyReg }) => {
+const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,messageError,messageSuccess, isModalOpen, closeModal, amount,SubmitCommonEventData, SubmitData, setAlreadyReg,commonPayment, commonPaymentVerified, passName }) => {
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const   [refCode,setRefCode]    =   useState(null)
@@ -57,7 +57,7 @@ const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,
             reqBody.append("ref", `api::user-${type}-detail.user-${type}-detail`)
             reqBody.append("refId", `${workid}`)
             reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -82,6 +82,28 @@ const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,
         }
     }
 
+    const registerCommonEvent = async () => {
+
+        if (!loadingResponse) {
+            setLoadingResponse(true)
+            const workid = await SubmitCommonEventData(refCode)
+
+            if (workid) {
+                messageSuccess()
+                setAlreadyReg({ id: workid })
+                closeModal()
+                // loading =   false
+                setLoadingResponse(false)
+            }
+            else{
+                messageError()
+                // loading =   false
+                setLoadingResponse(false)
+                closeModal()
+            }
+        }
+    }
+
     
 
     useEffect(()=>{
@@ -90,13 +112,38 @@ const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,
 
     return (
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isModalOpen} onOk={fileUpload} onCancel={closeModal}
-        footer={<>
+        footer={
+            commonPayment?commonPaymentVerified?
+            <>
+            <Button onClick={()=>closeModal()}>Close</Button>
+            <Button onClick={()=>registerCommonEvent()}  type="primary" loading={loadingResponse}>Register</Button>
+            </>:
+            <>
+            <Button onClick={()=>closeModal()}>Close</Button>
+            </>:
+            <>
             <Button onClick={()=>closeModal()}>Close</Button>
             <Button onClick={()=>fileUpload()}  type="primary" loading={loadingResponse}>OK</Button>
             </>
+            
         }
         >
             {/* <p>Username : {name}</p> */}
+            {commonPayment?commonPaymentVerified?
+            <>
+                <p>
+                    You have already registered for an event under {passName}. Therefore no additional fee is applicable to register for this event. Click the register button below to complete your registration.
+                    
+                </p>
+                <br/>
+                <p>Enter referral code: <span>
+                    <Input  className={styles.mobileInput}  type="text" placeholder="Referral Code" onChange={(e)=>changeRefCode(e)} defaultValue={refCode}></Input>
+                </span></p>
+            </>:
+            <p>
+            You have already registered for an event under {passName}. Please wait till that event gets verified.
+            </p>:
+            <>
             <h2>
                 Instructions:
             </h2>
@@ -124,6 +171,8 @@ const RegModal = ({type='workshop',payeeData,loadingResponse,setLoadingResponse,
                 </li>
                 <li className={styles.listItemPadding}>Click OK to complete registration</li>
             </ol>
+            </>
+            }
         </Modal>
     )
 }
