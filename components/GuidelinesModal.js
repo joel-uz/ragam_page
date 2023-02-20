@@ -23,7 +23,11 @@ const GuidelinesModal = ({guidelinesModalOpen,closeGuidelinesModal}) => {
 {   data:
             'If you have any queries, please feel free to contact one of our workshop coordinators.'
             ,id:4
- }           
+ },
+ {   data:
+    'No refund will be allowed after the completion of registration'
+    ,id:5
+}           
             ,
         ]
     }
