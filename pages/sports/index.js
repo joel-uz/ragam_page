@@ -33,7 +33,7 @@ const SportsPage = () => {
         <div className={styles.card_layout}>
         {ref?.map((each) =>{
           return(
-            <EventListItem  type={'sports'}  key={each.id} each={each}/>
+            <EventListItem  type={'events/6/'}  key={each.id} each={each}/>
           )
         })}
         </div>
