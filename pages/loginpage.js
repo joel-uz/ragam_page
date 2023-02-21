@@ -25,7 +25,7 @@ function Login() {
       const res = await fetch(`https://api.ragam.co.in/api/auth/google/callback?access_token=${usercode}`)
       const value = await res.json()
       const user_details = await value
-      console.log(user_details);
+
       if (user_details != null) {
         if (user_details.jwt != null) {
           localStorage.setItem("token", user_details.jwt);

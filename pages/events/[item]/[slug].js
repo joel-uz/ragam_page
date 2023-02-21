@@ -100,7 +100,7 @@ const EachEvent = ({ data = null }) => {
     const checkReg = async () => {
         if (token != '') {
             const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
-            console.log(reg_data);
+
             let user_workshop_detail = reg_data.registeredEvents.find(x => x.id === workid);
             if (user_workshop_detail) {
                 console.log(user_workshop_detail)
@@ -117,7 +117,6 @@ const EachEvent = ({ data = null }) => {
 
             if(payment_type_id){
 
-                console.log(result);
                 setPassName(result.payment_type?.name)
 
                 let common_payment_events = await fetchData(`https://api.ragam.co.in/api/events?populate=*&filters[payment_type][id][$eq]=${payment_type_id}&filters[id][$ne]=${workid}`);
@@ -125,8 +124,6 @@ const EachEvent = ({ data = null }) => {
 
                 if(common_payment_events.length>0){
 
-                    console.log("hii");
-                    console.log(common_payment_events);
 
                     let reg_event_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token);
 
@@ -221,7 +218,8 @@ const EachEvent = ({ data = null }) => {
         
     }
 
-    const SubmitCommonEventData = async (refCode = "") => {
+
+    const SubmitVerifiedData = async (refCode = "") => {
         const response = await fetch("https://api.ragam.co.in/api/user-event-details", {
             method: 'POST',
             headers: {
@@ -233,12 +231,10 @@ const EachEvent = ({ data = null }) => {
                     "event": {
                         "id": workid
                     },
-                    "refCode": refCode,
-                    "verified": true
+                    "refCode": refCode
                 }
             })
         })
-        console.log(response);
         const value = await response.json()
         return value.data.id
 
@@ -275,7 +271,7 @@ const EachEvent = ({ data = null }) => {
             <div className={Individual_style.eventDate}>
                 {data.currRegCount <= 120 ? data['eventDate1'] : data['eventDate2']}
                 <br />
-                {data.regPrice ? `₹${data.regPrice}` : `₹999`}
+                {data.regPrice }
             </div>
             <div className={Individual_style.eventBody}>
                 <pre className={Individual_style.eventDescription}>
@@ -284,7 +280,8 @@ const EachEvent = ({ data = null }) => {
                 </pre>
                 <Image alt="example" src={data?.posterImages ? `https://api.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
-            {!alreadyReg ? !data?.regClosed ?
+            {!alreadyReg ? !data?.regClosed ? data?.mailReg?
+                <></>:
                 <>
                     <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accept the guidelines </Checkbox>
                     <span
@@ -306,9 +303,9 @@ const EachEvent = ({ data = null }) => {
                     </span>
                 </>
             }
-            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitCommonEventData={SubmitCommonEventData} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} commonPayment={commonPayment} commonPaymentVerified={commonPaymentVerified} passName={passName} />
+            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitVerifiedData={SubmitVerifiedData} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} commonPayment={commonPayment} commonPaymentVerified={commonPaymentVerified} passName={passName} />
             <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal} />
-            <RegDetailsModal type='event' event={data} payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} />
+            <RegDetailsModal type='event' event={data} payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} passName={passName}/>
 
         </div>
     </div>

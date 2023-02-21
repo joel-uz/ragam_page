@@ -7,6 +7,7 @@ import qrimg from "../public/qrimg.jpg"
 // import { Button, message, Upload } from 'antd';
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
+import { fetchUserReg } from './fetchuserRegData'
 
 const Team = ({ event = {
     minTeamSize: 1,
@@ -22,7 +23,7 @@ const Team = ({ event = {
             }
         }
     },
-    refetchDetails }
+    refetchDetails, passName }
 ) => {
     const { token, rId } = useContext(LoginContext)
     const { minTeamSize, maxTeamSize } = event;
@@ -65,7 +66,7 @@ const Team = ({ event = {
             method: "GET"
         })
         let user = await response.json();
-        // console.log(user)
+
         if (user?.error?.status === 404) {
             setErr("User with ragamId R23-" + ragamId + " was not found. Please try again.")
             setUserToAdd(null);
@@ -183,7 +184,7 @@ const Team = ({ event = {
                             User found with ragamId R23-{ragamIdToAdd}
                             <div> Name: {userToAdd.name} </div>
                             <div> College: {userToAdd.college} </div>
-
+                            {passName!="" && <b>Note: The added member should have {passName}</b>}
                             {!err && <button className={teamStyles.addBtn} onClick={addTeamMate}> Add to team</button>}
                         </div>
                         }

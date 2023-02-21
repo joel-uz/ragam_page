@@ -9,7 +9,7 @@ import { LoginContext } from "../contexts/loginContext";
 import Team from "./Team";
 import Questions from "./Questions";
 
-const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError, event }) => {
+const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingResponse,isOpen, onClose, amount, refId, messageSuccess, messageError, event, passName }) => {
     // console.log(refId)
     const { token } = useContext(LoginContext)
     const   [utr,setUTR]    =   useState(null)
@@ -105,7 +105,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
                 })
                 // setAlreadyReg({id: workid})
                 const   value2  =   await   response2.json()
-                console.log(value2);
+
                 if (response2.status=== 200) {
                     messageSuccess()
                     onClose()
@@ -167,15 +167,19 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
                 </Collapse.Panel>
             </Collapse>
             {/* <p>Username : {name}</p> */}
-            <div>
+            {user_workshop_detail?.attributes?.receipt?.data?.attributes?.url?
+                <div>
                 Receipt : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
-            </div>
+                </div>:
+                <></>
+            }
+            
             <div    className={styles.listItemPadding}>
                 Status: {user_workshop_detail?.attributes?.verifed == false ? <span className={styles.rejected}>Rejected</span> : user_workshop_detail?.attributes?.verifed ? <span    className={styles.verified}>Verified</span> : <span    className={styles.notVerified}>Not yet verified</span>}
             </div>
             {type=="event" && user_workshop_detail?.attributes?.event?.data?.attributes?.isTeamEvent &&
-            <Team user_event_detail={user_workshop_detail} event={user_workshop_detail?.attributes?.event?.data?.attributes} refetchDetails={setData}/>
+            <Team user_event_detail={user_workshop_detail} event={user_workshop_detail?.attributes?.event?.data?.attributes} refetchDetails={setData} passName={passName}/>
             }
             {type=="event" && event?.questionInfo?.length>0 &&
             <Questions user_event_detail={user_workshop_detail} event={event} refetchDetails={setData}/>

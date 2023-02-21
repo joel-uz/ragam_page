@@ -80,7 +80,6 @@ function IndEventPage({ data = null }) {
             const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
             let user_workshop_detail = reg_data.registeredWorkshops.find(x => x.id === workid);
             if (user_workshop_detail) {
-                console.log(user_workshop_detail)
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
             }
         }
