@@ -14,6 +14,7 @@ import RegModal from '../../../components/RegModal'
 import { AiFillLeftCircle, AiOutlineRight, AiOutlineDoubleRight } from "react-icons/ai"
 import GuidelinesModal from '../../../components/GuidelinesModal'
 import RegDetailsModal from '../../../components/RegDetailsModal'
+import { marked } from 'marked';
 
 const EachEvent = ({ data = null }) => {
     const router = useRouter();
@@ -271,16 +272,15 @@ const EachEvent = ({ data = null }) => {
             <div className={Individual_style.eventDate}>
                 {data.currRegCount <= 120 ? data['eventDate1'] : data['eventDate2']}
                 <br />
-                {data.regPrice }
+                {data.regPrice}
             </div>
             <div className={Individual_style.eventBody}>
-                <pre className={Individual_style.eventDescription}>
-                    {data.description}
+                <span className={Individual_style.eventDescription} dangerouslySetInnerHTML={{__html:data.description?marked.parse(data.description):null}}>
                     {/* <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div> */}
-                </pre>
+                </span>
                 <Image alt="example" src={data?.posterImages ? `https://api.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
-            {!alreadyReg ? !data?.regClosed ? data?.mailReg?
+            {!alreadyReg ? !data?.regClosed ? data?.externalReg?
                 <></>:
                 <>
                     <Checkbox onChange={onChange} className={Individual_style.checkbox}>I accept the guidelines </Checkbox>

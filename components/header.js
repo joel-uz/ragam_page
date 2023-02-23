@@ -56,9 +56,9 @@ function Header() {
           <Link href="/ragnarok">
             <span className={styles["nav-link"]}>Ragnarok</span>
           </Link>
-          {/* <Link href="/sports">
+          <Link href="/sports">
             <span className={styles["nav-link"]}>Sports</span>
-          </Link> */}
+          </Link> 
           {signInclicked&&<Link href="/loginpage">
               <span className={styles["nav-link"]}>Profile</span>
           </Link>}
