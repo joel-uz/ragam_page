@@ -155,8 +155,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
                         </li>
                         <li className={styles.listItemPadding}>In case you face any issues, contact: </li>
                         <ul>
-                            <li className={styles.listItemPadding}>Giri:  7306077366</li>
-                            <li className={styles.listItemPadding}>Diya:  8281258311</li>
+                            <li className={styles.listItemPadding}>Zidan:  9400841439</li>
                         </ul>
                         {user_workshop_detail?.attributes?.verifed == false ?
                         <li className={styles.listItemPadding}>
