@@ -135,7 +135,7 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
             {commonPayment ? commonPaymentVerified ?
                 <>
                     <p>
-                        You have already registered for an event under {passName}. Therefore no additional fee is applicable to register for this event. Click the register button below to complete your registration.
+                        You have already registered for {passName} or an event under {passName}. Therefore no additional fee is applicable to register for this event. Click the register button below to complete your registration.
 
                     </p>
                     <br />
@@ -144,7 +144,7 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
                     </span></p>
                 </> :
                 <p>
-                    You have already registered for an event under {passName}. Please wait till that event gets verified so that you could register for this event free of cost.
+                    You have already registered for {passName} or an event under {passName}. Please wait till we verify that, so that you could register for this event free of cost.
                 </p> :
                 amount!=0?
                 <>
