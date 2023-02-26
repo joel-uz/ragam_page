@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 
+.eventDescription ol,.eventDescription ul{
+    list-style-position: inside;
+}
 .indvidual{
     display: flex;
     margin: 50px;

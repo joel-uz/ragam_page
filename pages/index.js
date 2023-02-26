@@ -4,12 +4,10 @@ import ragamFlame from  "../public/ragamflame.svg"
 import { Collapse } from "antd";
 import Image from "next/image";
 import jonita from "../public/jonita.jpg"
-import { Button, Divider, notification, Space } from 'antd';
 
 function Home() {
   const [faqs, setFaqs] = useState([]);
 
-  const [api, contextHolder] = notification.useNotification();
   
   const get_faqs = async () => {
     const response = await fetch(`https://api.ragam.co.in/api/faqs`, {
@@ -18,23 +16,6 @@ function Home() {
     return response;
   };
 
-  let notificationOpened = false;
-
-  const openNotification = () => {
-    if(!notificationOpened){
-      api.info({
-        message: `Hospitality`,
-        description:
-        <>
-          <p>Hospitality registration has started. Fill out the google form for booking</p>
-          <Button href="https://forms.gle/YjK4Ujqev4Hs5eEK6" className="reg-button">Book Now</Button>
-        </>,
-        placement:'top',
-        duration: 4
-      });
-    }
-    notificationOpened = true;
-  }
 
   useEffect(() => {
     async function setData() {
@@ -48,15 +29,10 @@ function Home() {
 
   }, [])
 
-  useEffect(() => {
-    openNotification();
-
-  }, [])
 
   
 
   return (<>
-    {contextHolder}
     <Image className={styles.background} src={jonita} fill/>
     <div className={styles.heroContainer}>
       <div  className={styles.hero}>

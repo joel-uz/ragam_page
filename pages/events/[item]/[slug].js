@@ -265,7 +265,10 @@ const EachEvent = ({ data = null }) => {
     return <div className={styles.page_layout}>
         {contextHolder}
         <div className={Individual_style.indvidual}>
-            <AiFillLeftCircle className={Individual_style.go_back_button} onClick={back_to} />
+            {data.name=="Hospitality"?
+                <></>:
+                <AiFillLeftCircle className={Individual_style.go_back_button} onClick={back_to} />
+            }
             <div className={Individual_style.eventTitle}>
                 {data.name}
             </div>
@@ -275,9 +278,9 @@ const EachEvent = ({ data = null }) => {
                 {data.regPrice}
             </div>
             <div className={Individual_style.eventBody}>
-                <span className={Individual_style.eventDescription} dangerouslySetInnerHTML={{__html:data.description?marked.parse(data.description):null}}>
+                <pre className={Individual_style.eventDescription} style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{__html:data.description?marked.parse(data.description):null}}>
                     {/* <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div> */}
-                </span>
+                </pre>
                 <Image alt="example" src={data?.posterImages ? `https://api.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
             {!alreadyReg ? !data?.regClosed ? data?.externalReg?
