@@ -2,12 +2,15 @@ import { Modal, Input, Button } from "antd"
 import styles from "../styles/eachevent.module.css"
 import qrimg from "../public/qrimg.jpg"
 import Image from "next/image"
+import { useRouter } from 'next/router'
 // import { UploadOutlined } from '@ant-design/icons';
 // import { Button, message, Upload } from 'antd';
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 
-const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingResponse, messageError, messageSuccess, isModalOpen, closeModal, amount, SubmitVerifiedData, SubmitData, setAlreadyReg, commonPayment, commonPaymentVerified, passName }) => {
+const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingResponse, messageError, messageSuccess, isModalOpen, closeModal, amount, SubmitVerifiedData, SubmitData, setAlreadyReg, commonPayment, commonPaymentVerified, passName, passPage }) => {
+    
+    const router = useRouter();
     const { token } = useContext(LoginContext)
     const [upload, setUpload] = useState(null)
     const [refCode, setRefCode] = useState(null)
@@ -102,6 +105,20 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
         }
     }
 
+    const goToPassPage = () =>{
+
+        let slug;
+
+        if(passName=="Ragam Pass")
+            slug=27;
+
+        else if(passName=="Kalolsavam Pass")
+            slug=28;
+
+        router.push({pathname:"/events/18/[slug]",query:{slug:slug}})
+    }
+
+
 
 
     useEffect(() => {
@@ -118,15 +135,15 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
                     </> :
                     <>
                         <Button onClick={() => closeModal()}>Close</Button>
-                    </> :
-                    amount!=0?
+                    </>
+                    : (passName!="" && !passPage)?
+                    <>
+                        <Button onClick={() => closeModal()}>Close</Button>
+                        <Button onClick={() => goToPassPage()} type="primary" loading={loadingResponse}>Get {passName}</Button>
+                    </>:
                     <>
                         <Button onClick={() => closeModal()}>Close</Button>
                         <Button onClick={() => fileUpload()} type="primary" loading={loadingResponse}>OK</Button>
-                    </>:
-                    <>
-                    <Button onClick={() => closeModal()}>Close</Button>
-                    <Button onClick={() => registerVerifiedEvent()} type="primary" loading={loadingResponse}>Register</Button>
                     </>
 
             }
@@ -145,8 +162,11 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
                 </> :
                 <p>
                     You have already registered for {passName} or an event under {passName}. Please wait till we verify that, so that you could register for this event free of cost.
+                </p>
+                : (passName!="" && !passPage)?
+                <p>
+                    This event comes under {passName}. Please register for {passName} first and then you could register for this event free of cost.
                 </p> :
-                amount!=0?
                 <>
                     <h2>
                         Instructions:
@@ -175,17 +195,7 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
                         </li>
                         <li className={styles.listItemPadding}>Click OK to complete registration</li>
                     </ol>
-                </>:
-                <>
-                <p>
-                    No fee is applicable to register for this event. Click the register button below to complete your registration.
-
-                </p>
-                <br />
-                <p>Enter referral code: <span>
-                    <Input className={styles.mobileInput} type="text" placeholder="Referral Code" onChange={(e) => changeRefCode(e)} defaultValue={refCode}></Input>
-                </span></p>
-            </>
+                </>
             }
         </Modal>
     )
