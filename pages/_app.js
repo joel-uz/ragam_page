@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }) {
 
   const [ready, setReady] = useState(false);
   const fetchUser = async (_token) => {
-    const res = await fetch(`https://api.staging.ragam.co.in/api/user/getme`, {
+    const res = await fetch(`https://api.ragam.co.in/api/user/getme`, {
       headers: {
         'Authorization': `Bearer ${_token}`
       }

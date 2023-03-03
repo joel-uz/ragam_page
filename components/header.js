@@ -28,7 +28,7 @@ function Header() {
   }
 
   const check = async () => {
-    router.push(`https://api.staging.ragam.co.in/api/connect/google`)
+    router.push(`https://api.ragam.co.in/api/connect/google`)
   }
 
   const take = () => {
@@ -70,7 +70,7 @@ function Header() {
             </Link>}
 
           </div>
-          {!signInclicked ? (<Link href="https://api.staging.ragam.co.in/api/connect/google"
+          {!signInclicked ? (<Link href="https://api.ragam.co.in/api/connect/google"
             style={{ marginRight: '10px', cursor: 'pointer' }}>Log In
           </Link>) : (<div>
             <div className={`${styles.above800}`} style={{ marginRight: '10px', cursor: 'pointer' }} onClick={() => logOutClick()}>
