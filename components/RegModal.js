@@ -129,7 +129,7 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
 
     useEffect(() => {
 
-        if(isModalOpen && commonPayment==false && passName==""){
+        if(isModalOpen && commonPayment==false && (passName=="" || passPage==true)){
             insiderEmbed.init({
                 "mountId": "insider-embed",
                 "eventSlug": insiderSlug,
