@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css"
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext"
+import Script from 'next/script'
 
 export default function App({ Component, pageProps }) {
 
@@ -112,8 +113,8 @@ export default function App({ Component, pageProps }) {
             type="font/otf"
             crossOrigin="anonymous"
           />
-        <script src="https://insider.in/scripts/insider-embed/dist/scripts/insider_embed.min.js"></script>
       </Head>
+      <Script src="https://insider.in/scripts/insider-embed/dist/scripts/insider_embed.min.js"></Script>
       <Header />
       <br />
       <br />
