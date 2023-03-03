@@ -18,7 +18,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
     const upiId = '9207619833@ybl'
     const [user_workshop_detail, set_user_workshop_detail] = useState({})
     const get_user_workshop_detail = async () => {
-        const response = await fetch(`https://api.ragam.co.in/api/user-${type}-details/${refId}?populate=*`, {
+        const response = await fetch(`https://api.staging.ragam.co.in/api/user-${type}-details/${refId}?populate=*`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -74,7 +74,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             // reqBody.append("ref", 'api::user-workshop-detail.user-workshop-detail')
             // reqBody.append("refId", `${workid}`)
             // reqBody.append("field", "receipt")
-            const response = await fetch(`https://api.ragam.co.in/api/upload`, {
+            const response = await fetch(`https://api.staging.ragam.co.in/api/upload`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -86,7 +86,7 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
             const   receiptId   =   value[0].id
             if (workid && response.status === 200) {
 
-                const   response2    =   await   fetch(`https://api.ragam.co.in/api/user-${type}-details/${workid}`,
+                const   response2    =   await   fetch(`https://api.staging.ragam.co.in/api/user-${type}-details/${workid}`,
                 {
 
                     method:'PUT',
@@ -124,11 +124,11 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
         <Modal className={`${styles.modalContainer}`} title={`Registration`} open={isOpen} onOk={onClose}   footer={
             <>
                 <Button onClick={()=>onClose()}>Close</Button>
-                {user_workshop_detail?.attributes?.verifed == false ?<Button type="primary" onClick={()=>{editFileUpload()}} loading={loadingResponse}>OK</Button>:""}
+                {/* {user_workshop_detail?.attributes?.verifed == false ?<Button type="primary" onClick={()=>{editFileUpload()}} loading={loadingResponse}>OK</Button>:""} */}
             </>
-        } onCancel={onClose} style={{ overflow: "scroll" }}>
+        } onCancel={onClose}>
 
-            <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
+            {/* <Collapse defaultActiveKey={['1']} bordered={false} onChange={() => { }}>
                 <Collapse.Panel header="Instructions" key="1">
                     <ol className={styles.modalPadding} >
                         <li className={styles.listItemPadding}>Pay an amount of ₹{amount ? amount : `999`} to the UPI ID:                 <span className={styles.highlight}>{payeeData.paymentId}</span>
@@ -164,11 +164,12 @@ const RegDetailsModal = ({ type='workshop',payeeData,loadingResponse,setLoadingR
                         :""}
                     </ol>
                 </Collapse.Panel>
-            </Collapse>
+            </Collapse> */}
             {/* <p>Username : {name}</p> */}
+            <br/>
             {user_workshop_detail?.attributes?.receipt?.data?.attributes?.url?
                 <div>
-                Receipt : <AntImg src={"https://api.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
+                Receipt : <AntImg src={"https://api.staging.ragam.co.in" + user_workshop_detail?.attributes?.receipt?.data?.attributes?.url}
                     width={200} />
                 </div>:
                 <></>

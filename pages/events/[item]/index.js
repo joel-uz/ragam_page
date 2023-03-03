@@ -13,7 +13,7 @@ const EventsList = () => {
     routePath.shift()
     routePath.shift()
     routePath=routePath.join()
-    const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories/${routePath}?populate[events][populate][0]=coverImage`, fetchData)
+    const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/categories/${routePath}?populate[events][populate][0]=coverImage`, fetchData)
     useEffect(()    =>{
       if(router.query.refCode    !=null)
       {

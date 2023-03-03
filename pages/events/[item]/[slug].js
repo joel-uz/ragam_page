@@ -54,17 +54,17 @@ const EachEvent = ({ data = null }) => {
     })
 
     const loadPaymentId = async () => {
-        const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data.category_id}?populate=payee`)
+        const payeeIdRes = await fetch(`https://api.staging.ragam.co.in/api/categories/${data.category_id}?populate=payee`)
         const payeeIdObj = await payeeIdRes?.json()
         const payeeId = payeeIdObj?.data?.attributes?.payee?.data?.id
 
         if (payeeId) {
-            const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
+            const payeeDataRes = await fetch(`https://api.staging.ragam.co.in/api/payees/${payeeId}?populate=*`)
             const payeeData2 = await payeeDataRes.json()
             // console.log('payment set');
             setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
                 name: payeeData2.data.attributes.name,
-                qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
+                qrcode: `https://api.staging.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
                 paymentId: payeeData2.data.attributes.paymentId
             } : x)
         }
@@ -102,7 +102,7 @@ const EachEvent = ({ data = null }) => {
 
     const checkReg = async () => {
         if (token != '') {
-            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token)
             setRagamId(reg_data.ragamId);
             let user_workshop_detail = reg_data.registeredEvents.find(x => x.id === workid);
             if (user_workshop_detail) {
@@ -112,7 +112,7 @@ const EachEvent = ({ data = null }) => {
     }
 
     const checkCommonPaymentType = async () => {
-        const { result } = await fetchData(`https://api.ragam.co.in/api/events/${workid}`);
+        const { result } = await fetchData(`https://api.staging.ragam.co.in/api/events/${workid}`);
         let payment_type_id = result.payment_type?.id;
 
         if (payment_type_id) {
@@ -120,13 +120,13 @@ const EachEvent = ({ data = null }) => {
             setPassName(result.payment_type?.name);
 
             if (token != '') {
-                let common_payment_events = await fetchData(`https://api.ragam.co.in/api/events?populate=*&filters[payment_type][id][$eq]=${payment_type_id}&filters[id][$ne]=${workid}`);
+                let common_payment_events = await fetchData(`https://api.staging.ragam.co.in/api/events?populate=*&filters[payment_type][id][$eq]=${payment_type_id}&filters[id][$ne]=${workid}`);
                 common_payment_events = common_payment_events.data;
 
                 if (common_payment_events.length > 0) {
 
 
-                    let reg_event_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token);
+                    let reg_event_data = await fetchUserReg(`https://api.staging.ragam.co.in/api/user/getme`, token);
 
                     let common_event_found = await reg_event_data.registeredEvents.find((x) => {
                         if (x.id != workid && common_payment_events.find(e => e.id === x.id))
@@ -201,7 +201,7 @@ const EachEvent = ({ data = null }) => {
     }, [])
 
     const SubmitData = async (refCode = "", utr) => {
-        const response = await fetch("https://api.ragam.co.in/api/user-event-details", {
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-event-details", {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json",
@@ -224,7 +224,7 @@ const EachEvent = ({ data = null }) => {
 
 
     const SubmitVerifiedData = async (refCode = "") => {
-        const response = await fetch("https://api.ragam.co.in/api/user-event-details", {
+        const response = await fetch("https://api.staging.ragam.co.in/api/user-event-details", {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json",
@@ -250,7 +250,7 @@ const EachEvent = ({ data = null }) => {
         }
         if (!signin) {
             localStorage.setItem("loginRedirect", true);
-            router.push(`https://api.ragam.co.in/api/connect/google`)
+            router.push(`https://api.staging.ragam.co.in/api/connect/google`)
             return
         }
 
@@ -284,7 +284,7 @@ const EachEvent = ({ data = null }) => {
                 <pre className={Individual_style.eventDescription} style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.description ? marked.parse(data.description) : null }}>
                     {/* <div className={Individual_style.guidelines}    onClick={()=>openGuidelinesModal()}>Guidelines for Workshops <AiOutlineRight className={Individual_style.gicon}/></div> */}
                 </pre>
-                <Image alt="example" src={data?.posterImages ? `https://api.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
+                <Image alt="example" src={data?.posterImages ? `https://api.staging.ragam.co.in${data.posterImages[0].url}` : coverImage} width={500} height={500} className={Individual_style.eventPoster} />
             </div>
             {alreadyReg ?
                 <span
@@ -329,7 +329,7 @@ export default EachEvent
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug, item } = params;
-    const { result } = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
+    const { result } = await fetchData(`https://api.staging.ragam.co.in/api/events/${slug}?populate=*`);
     result.category_id = item;
     return {
         props: {

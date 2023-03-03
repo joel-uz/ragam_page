@@ -22,7 +22,7 @@ function Login() {
   const [regData, setRegData] = useState([])
   const authdetails = async (usercode) => {
     if (usercode != '') {
-      const res = await fetch(`https://api.ragam.co.in/api/auth/google/callback?access_token=${usercode}`)
+      const res = await fetch(`https://api.staging.ragam.co.in/api/auth/google/callback?access_token=${usercode}`)
       const value = await res.json()
       const user_details = await value
 

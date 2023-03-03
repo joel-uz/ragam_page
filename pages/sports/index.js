@@ -10,7 +10,7 @@ import  {useEffect} from  'react'
 import EventListItem from '../../components/EventListItem'
 const SportsPage = () => {
 
-    const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories/6?populate[events][populate][0]=coverImage`, fetchData)
+    const { data, isLoading, error } = useSWR(`https://api.staging.ragam.co.in/api/categories/6?populate[events][populate][0]=coverImage`, fetchData)
     const router  = useRouter()
     useEffect(()    =>{
       if(router.query.refCode    !=null)
