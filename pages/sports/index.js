@@ -13,7 +13,6 @@ const SportsPage = () => {
     const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories/6?populate[events][populate][0]=coverImage`, fetchData)
     const router  = useRouter()
     useEffect(()    =>{
-      console.log(router.pathname);
       if(router.query.refCode    !=null)
       {
           localStorage.setItem('refCode',router.query.refCode)

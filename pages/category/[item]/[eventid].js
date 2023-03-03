@@ -47,7 +47,6 @@ export async function getStaticPaths(){
 export async function getStaticProps(context){
     const {params} = context
     const event_num = params.eventid
-    console.log(params)
     const name = params.item
     const ref_data = data[`${name}`]
     const val = ref_data.find((specific) => specific.id.toString() === event_num.toString())

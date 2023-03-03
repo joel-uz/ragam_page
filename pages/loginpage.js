@@ -62,7 +62,6 @@ function Login() {
 
   useEffect(() => {
     if (router.query.access_token != null && !signInclicked) {
-      console.log('called');
       setUsercode(router.query.access_token)
       authdetails(router.query.access_token)
     }

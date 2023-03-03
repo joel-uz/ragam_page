@@ -15,7 +15,6 @@ const EventsList = () => {
     routePath=routePath.join()
     const { data, isLoading, error } = useSWR(`https://api.ragam.co.in/api/categories/${routePath}?populate[events][populate][0]=coverImage`, fetchData)
     useEffect(()    =>{
-        console.log(routePath);
       if(router.query.refCode    !=null)
       {
           localStorage.setItem('refCode',router.query.refCode)

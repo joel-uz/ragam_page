@@ -83,7 +83,7 @@ const Ragnarok = ({data=null}) => {
           const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
           let user_workshop_detail = reg_data.registeredEvents.find(x=>x.id    === workid);
           if(user_workshop_detail)
-          {   console.log(user_workshop_detail)
+          { 
               setAlreadyReg({id: user_workshop_detail.ref_id})
           }  
       }
@@ -227,7 +227,6 @@ export default Ragnarok
 export async function getServerSideProps(context){
   const {params} = context;
   const {slug} = params;
-  console.log(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
   const {result} = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
 
   return {

@@ -27,6 +27,7 @@ function IndEventPage({ data = null }) {
     const [guidelinesModalOpen, setguidelinesModalOpen] = useState(false)
     const [messageApi, contextHolder] = message.useMessage()
     const [loadingResponse, setLoadingResponse] = useState(false)
+    const [ragamId, setRagamId] = useState("")
     const [payeeData, setPayeeData] = useState({
         name: "Rohit Robin Mampilly",
         paymentId: "9207619833@ybl",
@@ -39,7 +40,6 @@ function IndEventPage({ data = null }) {
         const payeeId = payeeIdObj?.data?.attributes?.payeeId
         const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
         const payeeData2 = await payeeDataRes.json()
-        console.log('payment set');
         setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
             name: payeeData2.data.attributes.name,
             qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
@@ -77,7 +77,8 @@ function IndEventPage({ data = null }) {
 
     const checkReg = async () => {
         if (token != '') {
-            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
+            const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token);
+            setRagamId(reg_data.ragamId);
             let user_workshop_detail = reg_data.registeredWorkshops.find(x => x.id === workid);
             if (user_workshop_detail) {
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
@@ -222,7 +223,7 @@ function IndEventPage({ data = null }) {
                     </span>
                 </>
             }
-            <RegModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} />
+            <RegModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} insiderSlug={data.insiderSlug} insiderMerchantId={data.insiderMerchantId}  ragamId={ragamId}/>
             <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal} />
             <RegDetailsModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} />
 

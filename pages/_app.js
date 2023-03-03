@@ -112,6 +112,7 @@ export default function App({ Component, pageProps }) {
             type="font/otf"
             crossOrigin="anonymous"
           />
+        <script src="https://insider.in/scripts/insider-embed/dist/scripts/insider_embed.min.js"></script>
       </Head>
       <Header />
       <br />

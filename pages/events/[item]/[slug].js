@@ -46,6 +46,7 @@ const EachEvent = ({ data = null }) => {
     const [passName, setPassName] = useState("")
     const [passPage, setPassPage] = useState(false)
     const [commonPaymentVerified, setCommonPaymentVerified] = useState(false)
+    const [ragamId, setRagamId] = useState("")
     const [payeeData, setPayeeData] = useState({
         name: "Rohit Robin Mampilly",
         paymentId: "9207619833@ybl",
@@ -102,10 +103,9 @@ const EachEvent = ({ data = null }) => {
     const checkReg = async () => {
         if (token != '') {
             const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
-
+            setRagamId(reg_data.ragamId);
             let user_workshop_detail = reg_data.registeredEvents.find(x => x.id === workid);
             if (user_workshop_detail) {
-                console.log(user_workshop_detail)
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
             }
         }
@@ -315,7 +315,7 @@ const EachEvent = ({ data = null }) => {
                         </>
 
             }
-            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitVerifiedData={SubmitVerifiedData} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} commonPayment={commonPayment} commonPaymentVerified={commonPaymentVerified} passName={passName} passPage={passPage} />
+            <RegModal type='event' payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitVerifiedData={SubmitVerifiedData} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} insiderSlug={data.insiderSlug} insiderMerchantId={data.insiderMerchantId} commonPayment={commonPayment} commonPaymentVerified={commonPaymentVerified} passName={passName} passPage={passPage} ragamId={ragamId}/>
             <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal} />
             <RegDetailsModal type='event' event={data} payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} passName={passName} />
 
