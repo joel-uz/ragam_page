@@ -54,7 +54,7 @@ const EachEvent = ({ data = null }) => {
     })
 
     const loadPaymentId = async () => {
-        const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data.category_id}?populate=payee`)
+        const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data?.category_id}?populate=payee`)
         const payeeIdObj = await payeeIdRes?.json()
         const payeeId = payeeIdObj?.data?.attributes?.payee?.data?.id
 
@@ -330,7 +330,7 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { slug, item } = params;
     const { result } = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
-    result.category_id = item;
+    result?.category_id = item;
     return {
         props: {
             data: result ? result : null,
