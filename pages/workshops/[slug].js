@@ -47,7 +47,7 @@ function IndEventPage({ data = null }) {
         } : x)
     }
 
-    const workid = data.id
+    const workid = data?.id
 
     const { profileComplete, name, signin, token, id } = useContext(LoginContext);
 
@@ -79,7 +79,7 @@ function IndEventPage({ data = null }) {
         if (token != '') {
             const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token);
             setRagamId(reg_data.ragamId);
-            let user_workshop_detail = reg_data.registeredWorkshops.find(x => x.id === workid);
+            let user_workshop_detail = reg_data.registeredWorkshops.find(x => x?.id === workid);
             if (user_workshop_detail) {
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
             }
@@ -149,7 +149,7 @@ function IndEventPage({ data = null }) {
             })
         })
         const value = await response.json()
-        return value.data.id
+        return value.data?.id
 
     }
 
@@ -225,7 +225,7 @@ function IndEventPage({ data = null }) {
             }
             <RegModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} messageError={messageError} messageSuccess={messageSuccess} isModalOpen={isModalOpen} setAlreadyReg={setAlreadyReg} SubmitData={SubmitData} closeModal={closeModal} amount={data.regPrice} insiderSlug={data.insiderSlug} insiderMerchantId={data.insiderMerchantId}  ragamId={ragamId}/>
             <GuidelinesModal guidelinesModalOpen={guidelinesModalOpen} closeGuidelinesModal={closeGuidelinesModal} />
-            <RegDetailsModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} />
+            <RegDetailsModal payeeData={payeeData} loadingResponse={loadingResponse} setLoadingResponse={setLoadingResponse} isOpen={isRegDetailsOpen} onClose={closeRegDetailsModal} refId={alreadyReg?.id} amount={data.regPrice} messageSuccess={messageSuccessRe} messageError={messageError} />
 
         </div>
     </div>
