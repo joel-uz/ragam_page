@@ -330,7 +330,10 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { slug, item } = params;
     const { result } = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
-    result?.category_id = item;
+    if(result)
+    {
+        result.category_id  =   item
+    }
     return {
         props: {
             data: result ? result : null,
