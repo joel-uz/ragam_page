@@ -53,26 +53,26 @@ const EachEvent = ({ data = null }) => {
         qrcode: qrimg,
     })
 
-    const loadPaymentId = async () => {
-        const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data?.category_id}?populate=payee`)
-        const payeeIdObj = await payeeIdRes?.json()
-        const payeeId = payeeIdObj?.data?.attributes?.payee?.data?.id
+    // const loadPaymentId = async () => {
+    //     const payeeIdRes = await fetch(`https://api.ragam.co.in/api/categories/${data?.category_id}?populate=payee`)
+    //     const payeeIdObj = await payeeIdRes?.json()
+    //     const payeeId = payeeIdObj?.data?.attributes?.payee?.data?.id
 
-        if (payeeId) {
-            const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
-            const payeeData2 = await payeeDataRes.json()
-            // console.log('payment set');
-            setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
-                name: payeeData2.data.attributes.name,
-                qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
-                paymentId: payeeData2.data.attributes.paymentId
-            } : x)
-        }
+    //     if (payeeId) {
+    //         const payeeDataRes = await fetch(`https://api.ragam.co.in/api/payees/${payeeId}?populate=*`)
+    //         const payeeData2 = await payeeDataRes.json()
+    //         // console.log('payment set');
+    //         setPayeeData(x => payeeData2?.data?.attributes && payeeData2?.data?.attributes?.qrcode?.data ? {
+    //             name: payeeData2.data.attributes.name,
+    //             qrcode: `https://api.ragam.co.in${payeeData2.data.attributes.qrcode.data[0].attributes.url}`,
+    //             paymentId: payeeData2.data.attributes.paymentId
+    //         } : x)
+    //     }
 
 
-    }
+    // }
 
-    const workid = data.id
+    const workid = data?.id
 
     const { profileComplete, name, signin, token, id } = useContext(LoginContext);
 
@@ -103,7 +103,7 @@ const EachEvent = ({ data = null }) => {
     const checkReg = async () => {
         if (token != '') {
             const reg_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token)
-            setRagamId(reg_data.ragamId);
+            setRagamId(reg_data?.ragamId);
             let user_workshop_detail = reg_data.registeredEvents.find(x => x.id === workid);
             if (user_workshop_detail) {
                 setAlreadyReg({ id: user_workshop_detail.ref_id })
@@ -128,8 +128,8 @@ const EachEvent = ({ data = null }) => {
 
                     let reg_event_data = await fetchUserReg(`https://api.ragam.co.in/api/user/getme`, token);
 
-                    let common_event_found = await reg_event_data.registeredEvents.find((x) => {
-                        if (x.id != workid && common_payment_events.find(e => e.id === x.id))
+                    let common_event_found = await reg_event_data.registeredEvents?.find((x) => {
+                        if (x.id != workid && common_payment_events?.find(e => e.id === x.id))
                             return true;
 
                         return false;
@@ -189,9 +189,9 @@ const EachEvent = ({ data = null }) => {
         checkCommonPaymentType();
     }, [])
 
-    useEffect(() => {
-        loadPaymentId()
-    }, [])
+    // useEffect(() => {
+    //     loadPaymentId()
+    // }, [])
 
     useEffect(() => {
         var routePath = router.asPath.split('/');
@@ -218,7 +218,7 @@ const EachEvent = ({ data = null }) => {
             })
         })
         const value = await response.json()
-        return value.data.id
+        return value.data?.id
 
     }
 
@@ -240,7 +240,7 @@ const EachEvent = ({ data = null }) => {
             })
         })
         const value = await response.json()
-        return value.data.id
+        return value.data?.id
 
     }
 
@@ -330,10 +330,10 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { slug, item } = params;
     const { result } = await fetchData(`https://api.ragam.co.in/api/events/${slug}?populate=*`);
-    if(result)
-    {
-        result.category_id  =   item
-    }
+    // if(result)
+    // {
+    //     result.category_id  =   item
+    // }
     return {
         props: {
             data: result ? result : null,

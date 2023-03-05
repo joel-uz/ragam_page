@@ -110,7 +110,7 @@ const RegModal = ({ type = 'workshop', payeeData, loadingResponse, setLoadingRes
 
         let slug;
 
-        if (passName == "Ragam Pass")
+        if (passName == "Event Pass")
             slug = 27;
 
         else if (passName == "Kalolsavam Pass")
