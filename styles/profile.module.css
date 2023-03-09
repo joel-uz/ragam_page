@@ -84,7 +84,7 @@
   }
   @media (max-width:800px) {
     .column{
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
     .minWidth{
       min-width: 250px !important;
@@ -99,4 +99,7 @@
     .label{
       font-size: 1rem !important;
     }
+  }
+  .column img{
+    padding: 1rem;
   }

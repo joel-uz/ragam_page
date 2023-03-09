@@ -3,15 +3,25 @@ import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/loginContext";
 import styles from "../styles/profile.module.css"
+import Image from 'next/image';
+import qrcode from 'yaqrcode';
 const { Option } = Select;
-
 const layout = {
 };
 const tailLayout = {
 
 };
 
+
+
 const ShowProfile = () => {
+  useEffect(() => {
+    if (rId) {
+      setQr(qrcode(rId))
+    }
+  
+  
+  }, [])
   const { name, setUsername, profileComplete,
     mail, setMail, phone, setPhone, district, setDistrict, state, setState, gender,
     setGender, college, setCollege, year, setYear, ref, setRef, signin, token, id, ready, setReady, rId, setRId } = useContext(LoginContext);
@@ -85,6 +95,7 @@ const ShowProfile = () => {
   }
 
   const [ok, setOk] = useState(profileComplete())
+  const [qr, setQr] = useState(null)
 
   const onFinish = (values) => {
     console.log(values);
@@ -97,6 +108,7 @@ const ShowProfile = () => {
 
   return (
     <div className={`${styles.column}`}>
+      {qr&&<Image alt='qr' src={qr} width={300} height={300}/>}
       {contextHolder}
       <Form className={`${styles.minWidth}`}
         {...layout}
